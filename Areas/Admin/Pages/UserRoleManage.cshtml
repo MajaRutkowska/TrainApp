@@ -7,49 +7,45 @@
 
 <h2>Manage Users Roles</h2>
 
-<form method="post">
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Current Role</th>
+            <th>New Role</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
             <tr>
-                <th>User Name</th>
-                <th>Email</th>
-                <th>Current Role</th>
-                <th>New Role</th>
-                <th>Action</th>
+                <td>@user.Name @user.Surname</td>
+                <td>@user.Email</td>
+                <td>
+                    @foreach (var roleName in Model.UserRoles[user.Id])
+                    {
+                        <span>@roleName</span>
+                    }
+                </td>
+                <td>
+                    <form method="post">
+                        @Html.AntiForgeryToken()
+                        <select name="selectedRole" class="form-control">
+                            <option value="">Select Role</option>
+                            @foreach (var role in Model.Roles)
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
+                        </select>
+
+                        <input type="hidden" name="userId" value="@user.Id" />
+
+                        <button type="submit" class="btn btn-primary">Change Role</button>
+                    </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Users)
-            {
-                <tr>
-                    <td>@user.Name @user.Surname</td>
-                    <td>@user.Email</td>
-                    <td>
-                        @foreach (var roleName in Model.UserRoles[user.Id])
-                        {
-                            <span>@roleName</span>
-                        }
-                    </td>
-                    <td>
-
-                        <form method="post">
-                           
-                            <select name="selectedRole" class="form-control">
-                                <option value="">Select Role</option>
-                                @foreach (var role in Model.Roles)
-                                {
-                                    <option value="@role.Id">@role.Name</option>
-                                }
-                            </select>
-
-                            
-                            <input type="hidden" name="userId" value="@user.Id" />
-                           
-                          
-                            <button type="submit" class="btn btn-primary">Change Role</button>
-                        </form>
-                </tr>
-            }
-        </tbody>
-    </table>
-</form>
+        }
+    </tbody>
+</table>

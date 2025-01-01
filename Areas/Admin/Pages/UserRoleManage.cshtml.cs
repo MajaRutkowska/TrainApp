@@ -29,10 +29,10 @@ namespace TrainApp.Areas.Admin.Pages
 
         public async Task OnGetAsync()
         {
-            // Pobieranie u¿ytkowników
+            
             Users = await _userManager.Users.ToListAsync();
 
-            // Pobieranie ról
+            
             Roles = await _roleManager.Roles.ToListAsync();
 
             UserRoles = new Dictionary<string, List<string>>();
@@ -54,15 +54,15 @@ namespace TrainApp.Areas.Admin.Pages
             var user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                // Pobieramy aktualne role u¿ytkownika
+                
                 var currentRoles = await _userManager.GetRolesAsync(user);
 
-                // Usuwamy wszystkie przypisane role
+                
                 var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
 
                 if (removeResult.Succeeded)
                 {
-                    // Dodajemy now¹ rolê
+                    
                     var addResult = await _userManager.AddToRoleAsync(user, selectedRole);
                     if (addResult.Succeeded)
                     {
@@ -70,7 +70,7 @@ namespace TrainApp.Areas.Admin.Pages
                     }
                     else
                     {
-                        // Obs³uguje b³êdy dodawania roli
+                        
                         foreach (var error in addResult.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
@@ -79,7 +79,7 @@ namespace TrainApp.Areas.Admin.Pages
                 }
                 else
                 {
-                    // Obs³uguje b³êdy usuwania ról
+                    
                     foreach (var error in removeResult.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);

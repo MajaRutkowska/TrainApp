@@ -60,7 +60,7 @@ namespace TrainingApp
                     if (!await roleManager.RoleExistsAsync(role))
                         await roleManager.CreateAsync(new IdentityRole(role));
                 }
-                var user = await userManage.FindByEmailAsync("maja@gmail.com");
+                var user = await userManage.FindByEmailAsync("joao@jagiellonia.com");
                 if(user != null)
                 {
                     await userManage.AddToRoleAsync(user, "Admin");

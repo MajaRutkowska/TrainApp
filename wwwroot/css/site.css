@@ -248,15 +248,26 @@ footer{
     margin-top: 50px;
 }
 
+.start-page {
+    background: radial-gradient(#0f643f,#112C25 80%);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100%
+    
+}
 .main {
     position: relative;
-    min-height: 100vh;
-    background: radial-gradient(#586D60,#112C25);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 30px 100px;
+    width: 100%;
+
 }
 
 .content {
@@ -273,13 +284,13 @@ footer{
     }
 
         .content .text h2 {
-            color: #fff;
+            color: #E1EAE9;
             font-size: 5em;
             font-weight: 300;
         }
 
         .content .text p {
-            color: #fff;
+            color: #b1d7c0;
             font-weight: 400;
             font-size: 1.1em;
             line-height: 1.5em;
@@ -290,7 +301,7 @@ footer{
     position: relative;
     display: inline-block;
     padding: 20px 50px;
-    background: #fff;
+    background: #b1d7c0;
     color: #333;
     font-size: 1.1em;
     font-weight: 500;
