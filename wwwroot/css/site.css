@@ -241,9 +241,9 @@ a {
         padding: 7.5em 1.5em 4em 1.5em;
     }
 }
-footer{
+/*footer{
     margin-top: 50px;
-}
+}*/
 .container-m{
     margin-top: 50px;
 }
@@ -266,7 +266,7 @@ footer{
     align-items: center;
     flex-direction: column;
     padding: 30px 100px;
-    width: 100%;
+    width: 100rem;
 
 }
 
