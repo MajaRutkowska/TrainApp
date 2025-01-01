@@ -1,0 +1,68 @@
+﻿@page
+@model RegisterModel
+
+<body class="login-page">
+    <div class="wrapper-register">
+        <div class="register-box">
+            <div class="login-header">
+                <span>Zarejestruj się</span>
+            </div>
+
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="input-box">
+                    <input asp-for="Input.Name" id="user" class="input-field" autocomplete="username" aria-required="true" placeholder="" required />
+                    <label asp-for="Input.Name" class="label">Imię</label>
+                    <span asp-validation-for="Input.Name" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Input.Surname" id="user" class="input-field" autocomplete="username" aria-required="true" placeholder="" required />
+                    <label asp-for="Input.Surname" class="label">Nazwisko</label>
+                    <span asp-validation-for="Input.Surname" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Input.BirthDate" id="user" type="date" class="input-field" autocomplete="username" aria-required="true" placeholder="" required />
+                    <label asp-for="Input.BirthDate" class="label">Data Urodzenia</label>
+                    <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input asp-for="Input.Email" id="user" class="input-field" autocomplete="username" aria-required="true" placeholder="" required />
+                    <label asp-for="Input.Email" class="label">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Input.Password" id="pass" class="input-field" autocomplete="new-password" aria-required="true" placeholder="" required />
+                    <label asp-for="Input.Password" class="label">Hasło</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Input.ConfirmPassword" id="pass" class="input-field" autocomplete="new-password" aria-required="true" placeholder="" required />
+                    <label asp-for="Input.ConfirmPassword" class="label">Powtórz hasło</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input id="login-submit" type="submit" class="input-submit" value="Zarejestruj się" />
+                </div>
+
+                <div class="register">
+                    <span>Masz już konto?<a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl"> Zaloguj się</a></span>
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+    <div>
+    </div>
+
+</body>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
