@@ -267,7 +267,7 @@ a {
     flex-direction: column;
     padding: 30px 100px;
     width: 100rem;
-
+    margin: 6rem;
 }
 
 .content {
@@ -297,7 +297,7 @@ a {
             margin: 20px 0;
         }
 
-.btn {
+.buttonR {
     position: relative;
     display: inline-block;
     padding: 20px 50px;
@@ -310,6 +310,112 @@ a {
     transition: 0.25s;
 }
 
-    .btn:hover {
+    .buttonR:hover {
         letter-spacing: 2px;
     }
+
+.picture{
+    height: 450px;
+}
+
+.picture-div{
+    margin-left: 2rem;
+}
+
+.ur-body {
+    margin: 0;
+    background: linear-gradient(45deg, #0f643f, #112C25 80%);
+    font-weight: 100;
+}
+
+.table-container {
+    position: relative;
+    margin: 20px auto;
+    width: fit-content;   
+   }
+
+.table {
+    width: 90rem;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #E1EAE9;
+}
+
+th {
+    text-align: left;
+    width:fit-content;
+}
+
+thead th {
+    background-color: #a78b24;
+}
+
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+td {
+    position: relative;
+}
+
+    td:hover::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -9999px;
+        bottom: -9999px;
+        background-color: rgba(255, 255, 255, 0.2);
+        z-index: -1;
+    }
+
+.table th:last-child,
+.table td:last-child {
+    width: 18rem; 
+
+}
+
+.buttonR-small {
+    position: relative;
+    display: inline-block;
+    background: #b1d7c0;
+    color: #333;
+    font-weight: 500;
+    border-radius: 40px;
+    text-decoration: none;
+    padding: 10px 25px;
+    font-size: 0.9rem;
+}
+
+select {
+    width: 8rem; 
+    padding: 4px 6px; 
+    background-color: #E1EAE9; 
+    border: 1px solid #112C25; 
+    border-radius: 5px; 
+    font-size: 14px; 
+    color: #0A1A16; 
+   
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+    width: 13rem; 
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #b69e44;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}

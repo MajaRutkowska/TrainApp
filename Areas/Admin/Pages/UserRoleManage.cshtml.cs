@@ -7,10 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace TrainApp.Areas.Admin.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class UserRoleManageModel : PageModel
     {
         public readonly UserManager<ApplicationUser> _userManager;
