@@ -1,0 +1,56 @@
+﻿@page
+@using TrainApp.Areas.Admin.Pages
+@model AddTeamModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="login-page">
+<div class="wrapper">
+    <div class="login-box">
+        <div class="login-header">
+            <span>Dodaj nową drużynę</span>
+        </div>
+
+        <form method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="input-box">
+                <input name="NewTeam.TeamName" id="TeamName" class="input-field"/>
+                <label asp-for="NewTeam.TeamName" class="label">Nazwa drużyny</label>
+                <span asp-validation-for="NewTeam.TeamName" class="text-danger"></span>
+            </div>
+        @*     <div class="input-box">
+                <input name="NewTeam.Address" id="Address" class="input-field" />
+                <label asp-for="NewTeam.Address" class="label">Adres</label>
+                <span asp-validation-for="NewTeam.Address" class="text-danger"></span>
+            </div> *@
+                <div class="input-box">
+                    <input type="text" id="Street" name="Street" class="input-field" />
+                    <label for="Street" class="label">Ulica</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="City" name="City" class="input-field" />
+                    <label for="City" class="label">Miasto</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="PostalCode" name="PostalCode" class="input-field" />
+                    <label for="PostalCode" class="label">Kod pocztowy</label>
+                </div>
+            <div class="input-box">
+                <input name="NewTeam.CreationYear" id="CreationYear" class="input-field" />
+                <label asp-for="NewTeam.CreationYear" class="label">Data powstania</label>
+                <span asp-validation-for="NewTeam.CreationYear" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                    <input type="submit" class="input-submit" value="Dodaj drużynę" />
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+
+

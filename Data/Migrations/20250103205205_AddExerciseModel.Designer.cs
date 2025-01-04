@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainApp.Data;
 
@@ -11,9 +12,11 @@ using TrainApp.Data;
 namespace TrainApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250103205205_AddExerciseModel")]
+    partial class AddExerciseModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace TrainApp.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ApplicationUserExercise", b =>
-                {
-                    b.Property<string>("ExerciseId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ExerciseId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ApplicationUserExercise");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -259,20 +247,11 @@ namespace TrainApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("TeamId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ExerciseId");
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("Exercise");
                 });
@@ -306,7 +285,6 @@ namespace TrainApp.Data.Migrations
             modelBuilder.Entity("TrainApp.Data.Models.Team", b =>
                 {
                     b.Property<string>("TeamId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
@@ -363,21 +341,6 @@ namespace TrainApp.Data.Migrations
                     b.ToTable("Training");
                 });
 
-            modelBuilder.Entity("ApplicationUserExercise", b =>
-                {
-                    b.HasOne("TrainApp.Data.Models.Exercise", null)
-                        .WithMany()
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainApp.Data.Models.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -427,17 +390,6 @@ namespace TrainApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TrainApp.Data.Models.Exercise", b =>
-                {
-                    b.HasOne("TrainApp.Data.Models.Team", "Team")
-                        .WithMany("Exercise")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("TrainApp.Data.Models.Parameters", b =>
@@ -491,8 +443,6 @@ namespace TrainApp.Data.Migrations
 
             modelBuilder.Entity("TrainApp.Data.Models.Team", b =>
                 {
-                    b.Navigation("Exercise");
-
                     b.Navigation("TeamUser");
 
                     b.Navigation("Training");

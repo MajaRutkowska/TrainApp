@@ -17,6 +17,7 @@ namespace TrainApp.Data
         public DbSet<Team> Team { get; set; }
         public DbSet<TeamUser>  TeamUsers { get; set; }
         public DbSet<Training> Training { get; set; }
+        public DbSet<Exercise> Exercise { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -39,6 +40,19 @@ namespace TrainApp.Data
                .HasOne(t => t.Team)  
                .WithMany(t => t.Training)  
                .HasForeignKey(t => t.TeamId);
+
+            builder.Entity<Exercise>()
+                .HasOne(e => e.Team)
+                .WithMany(t => t.Exercise)
+                .HasForeignKey(e => e.TeamId);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(au => au.Exercise)
+                .WithMany(e => e.User);
+
+            builder.Entity<Team>()
+                .Property(e => e.TeamId)
+                .ValueGeneratedOnAdd();
         }
     }
 }
