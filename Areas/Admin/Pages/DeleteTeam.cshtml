@@ -1,0 +1,35 @@
+﻿@page
+@using TrainApp.Areas.Admin.Pages
+@model DeleteTeamModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="login-page">
+
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <span>Usuń drużynę</span>
+            </div>
+            <p>Czy jesteś pewnien, że chcesz usunąć tą drużynę?</p>
+            <div>
+                <p><strong>Nazwa:</strong>@Model.Team.TeamName</p>
+                <p><strong>Adres:</strong> @Model.Team.Address</p>
+                <p><strong>Rok powstania:</strong> @Model.Team.CreationYear</p>
+            </div>
+
+            <form method="post">
+                <input type="hidden" name="Team.TeamId" value="@Model.Team.TeamId" />
+                <input type="submit" value="Usuń drużynę" class="input-submit" />
+            </form>
+
+        <div>
+                <a href="/Admin/ManageTeam?teamid=@Model.Team.TeamId" class="btn btn-warning">Powrót</a>
+        </div>
+        </div>
+</body>
+
+
+

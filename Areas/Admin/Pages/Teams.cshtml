@@ -1,0 +1,45 @@
+﻿@page
+@using TrainApp.Areas.Admin.Pages
+@model TeamsModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Drużyny</h2>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Adres</th>
+                    <th>Rok powstania</th>
+                    <th>Trener</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var team in Model.Teams)
+                {
+                    <tr>
+                        <td>@team.Team.TeamName</td>
+                        <td>@team.Team.Address</td>
+                        <td>@team.Team.CreationYear</td>
+                        <td>@team.CoachName</td>
+                        <td>
+                            <form method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="teamId" value="@team.Team.TeamId" /> 
+                                <button type="submit" class="buttonR-small btn-primary">Zarządzaj drużyną</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+

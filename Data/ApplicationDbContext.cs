@@ -30,21 +30,25 @@ namespace TrainApp.Data
                 .HasOne(tu => tu.ApplicationUser)
                 .WithMany(au => au.TeamUser)
                 .HasForeignKey(tu => tu.UserId);
+                
 
             builder.Entity<TeamUser>()
                 .HasOne(tu => tu.Team)  
                 .WithMany(t => t.TeamUser)  
-                .HasForeignKey(tu => tu.TeamId);
+                .HasForeignKey(tu => tu.TeamId)
+                .OnDelete(DeleteBehavior.Cascade); 
 
             builder.Entity<Training>()
                .HasOne(t => t.Team)  
                .WithMany(t => t.Training)  
-               .HasForeignKey(t => t.TeamId);
+               .HasForeignKey(t => t.TeamId)
+               .OnDelete(DeleteBehavior.Cascade); 
 
             builder.Entity<Exercise>()
                 .HasOne(e => e.Team)
                 .WithMany(t => t.Exercise)
-                .HasForeignKey(e => e.TeamId);
+                .HasForeignKey(e => e.TeamId)
+                .OnDelete(DeleteBehavior.Cascade); 
 
             builder.Entity<ApplicationUser>()
                 .HasMany(au => au.Exercise)

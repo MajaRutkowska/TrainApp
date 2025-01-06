@@ -20,44 +20,33 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 namespace TrainApp.Areas.Admin.Pages
 {
     [Authorize(Roles ="Admin")]
-    public class AddTeamModel : PageModel
+    public class DeleteTeamModel : PageModel
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<AddTeamModel> _logger;
-        public AddTeamModel(ApplicationDbContext context, ILogger<AddTeamModel> logger )
+        public DeleteTeamModel(ApplicationDbContext context, ILogger<AddTeamModel> logger )
         {
             _context = context;
             _logger = logger;
         }
 
         [BindProperty]
-        public string Street { get; set; }
+        public Team Team { get; set; }
 
-        [BindProperty]
-        public string City { get; set; }
-
-        [BindProperty]
-        public string PostalCode { get; set; }
-
-        [BindProperty]
-        public Team NewTeam { get; set; } = new Team();
-        public IActionResult Create()
+       
+        public async Task <IActionResult> OnGetAsync(string teamId)
         {
+          Team = _context.Team.FirstOrDefault(t => t.TeamId == teamId);
             return Page();
         }
 
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string teamId)
         {
-           
-            if (ModelState.IsValid || _context.Team == null || NewTeam == null)
-            {
-                return Page();
-            }
-
-            NewTeam.Address = $"{Street}, {City}, {PostalCode}";
-            _context.Team.Add(NewTeam);
+           var teamToDelete = _context.Team.FirstOrDefault(t => t.TeamId == teamId);
+           _context.Team.Remove(teamToDelete);
             await _context.SaveChangesAsync();
+            
             return RedirectToPage("/Teams");
         }
 

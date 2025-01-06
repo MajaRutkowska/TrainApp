@@ -1,0 +1,51 @@
+﻿@page
+@using TrainApp.Areas.Admin.Pages
+@model EditTeamModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="login-page">
+<div class="wrapper">
+    <div class="login-box">
+        <div class="login-header">
+            <span>Edytuj drużynę</span>
+        </div>
+
+        <form method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="Team.TeamId" value="@Model.Team.TeamId"/>
+            <div class="input-box">
+                <input name="TeamToEdit.TeamName" id="TeamName" class="input-field" value="@Model.Team.TeamName"/>
+                <label asp-for="Team.TeamName" class="label">Nazwa drużyny</label>
+                <span asp-validation-for="Team.TeamName" class="text-danger"></span>
+            </div>
+                <div class="input-box">
+                    <input type="text" id="Street" name="Street" class="input-field" value="@Model.Street" />
+                    <label for="Street" class="label">Ulica</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="City" name="City" class="input-field" value="@Model.City" />
+                    <label for="City" class="label">Miasto</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="PostalCode" name="PostalCode" class="input-field" value="@Model.PostalCode" />
+                    <label for="PostalCode" class="label">Kod pocztowy</label>
+                </div>
+            <div class="input-box">
+                <input name="TeamToEdit.CreationYear" id="CreationYear" class="input-field" value="@Model.Team.CreationYear" />
+                <label asp-for="Team.CreationYear" class="label">Rok powstania</label>
+                <span asp-validation-for="Team.CreationYear" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                    <input type="submit" class="input-submit" value="Zapisz zmiany" />
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+
+

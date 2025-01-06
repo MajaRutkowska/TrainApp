@@ -1,0 +1,56 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model AddPlayerModel
+@{
+    ViewData["Title"] = "Assign Coach";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8" />
+</head>
+
+<body class="ur-body">
+
+
+    <h2 class="title">Dodaj zawodnika</h2>
+    <div class="table-container">
+        <form method="get">
+            <input type="hidden" name="TeamId" value="@Model.TeamId" />
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    Imię Nazwisko</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.Players)
+                {
+                    <tr>
+                        <td>@player.Name @player.Surname</td>
+                        <td>
+                            <form method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
+                                <input type="hidden" name="PlayerId" value="@player.Id" />
+                                <button type="submit" class="btn btn-primary">Dodaj</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</body>
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>
+        var errorMessage = '@Html.Raw(TempData["ErrorMessage"]?.ToString())';
+        alert(errorMessage);
+    </script>
+}

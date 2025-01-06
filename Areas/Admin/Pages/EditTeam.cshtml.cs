@@ -20,15 +20,17 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 namespace TrainApp.Areas.Admin.Pages
 {
     [Authorize(Roles ="Admin")]
-    public class AddTeamModel : PageModel
+    public class EditTeamModel : PageModel
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<AddTeamModel> _logger;
-        public AddTeamModel(ApplicationDbContext context, ILogger<AddTeamModel> logger )
+        public EditTeamModel(ApplicationDbContext context, ILogger<AddTeamModel> logger )
         {
             _context = context;
             _logger = logger;
         }
+
+        public Team Team { get; set; }
 
         [BindProperty]
         public string Street { get; set; }
@@ -40,25 +42,34 @@ namespace TrainApp.Areas.Admin.Pages
         public string PostalCode { get; set; }
 
         [BindProperty]
-        public Team NewTeam { get; set; } = new Team();
-        public IActionResult Create()
+        public Team TeamToEdit { get; set; } = new Team();
+        public IActionResult OnGet(string teamId)
         {
+            Team = _context.Team.FirstOrDefault(t => t.TeamId == teamId);
+            var addressParts = Team.Address?.Split(',') ?? new string[3];
+            Street = addressParts.ElementAtOrDefault(0)?.Trim();
+            City = addressParts.ElementAtOrDefault(1)?.Trim();
+            PostalCode = addressParts.ElementAtOrDefault<string>(2)?.Trim();
             return Page();
         }
 
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string teamId)
         {
            
-            if (ModelState.IsValid || _context.Team == null || NewTeam == null)
+            if (ModelState.IsValid)
             {
                 return Page();
             }
+            Team =_context.Team.FirstOrDefault(t => t.TeamId==teamId);
 
-            NewTeam.Address = $"{Street}, {City}, {PostalCode}";
-            _context.Team.Add(NewTeam);
+            Team.TeamName = TeamToEdit.TeamName;
+            Team.Address = $"{Street}, {City}, {PostalCode}";
+            Team.CreationYear = TeamToEdit.CreationYear;
+
+            _context.Attach(Team).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
-            return RedirectToPage("/Teams");
+            return RedirectToPage("/ManageTeam", new {teamId});
         }
 
         }

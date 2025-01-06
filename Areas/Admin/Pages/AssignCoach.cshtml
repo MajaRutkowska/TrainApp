@@ -1,0 +1,55 @@
+﻿@page
+@using TrainApp.Areas.Admin.Pages
+@model AssignChoachModel
+@{
+    ViewData["Title"] = "Assign Coach";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8"/>
+</head>
+
+<body class="ur-body">
+  
+
+    <h2 class="title">Przypisz trenera drużynie</h2>
+    <div class="table-container">
+            <form method="get">
+                <input type="hidden" name="TeamId" value="@Model.TeamId" />
+            </form>
+
+        <table class="table">
+            <thead>
+                <tr>Imię Nazwisko</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var coach in Model.Coaches)
+                {
+                    <tr>
+                        <td>@coach.Name @coach.Surname</td>
+                        <td>
+                            <form method="post">
+                                @Html.AntiForgeryToken()
+                                    <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
+                                    <input type="hidden" name="CoachId" value="@coach.Id" />
+                                    <button type="submit" class="btn btn-primary">Przypisz</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+       
+    </div>
+</body>
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>
+        var errorMessage = '@Html.Raw(TempData["ErrorMessage"]?.ToString())';
+        alert(errorMessage);
+    </script>
+}

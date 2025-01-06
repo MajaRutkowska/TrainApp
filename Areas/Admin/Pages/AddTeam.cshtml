@@ -22,11 +22,6 @@
                 <label asp-for="NewTeam.TeamName" class="label">Nazwa drużyny</label>
                 <span asp-validation-for="NewTeam.TeamName" class="text-danger"></span>
             </div>
-        @*     <div class="input-box">
-                <input name="NewTeam.Address" id="Address" class="input-field" />
-                <label asp-for="NewTeam.Address" class="label">Adres</label>
-                <span asp-validation-for="NewTeam.Address" class="text-danger"></span>
-            </div> *@
                 <div class="input-box">
                     <input type="text" id="Street" name="Street" class="input-field" />
                     <label for="Street" class="label">Ulica</label>
@@ -41,7 +36,7 @@
                 </div>
             <div class="input-box">
                 <input name="NewTeam.CreationYear" id="CreationYear" class="input-field" />
-                <label asp-for="NewTeam.CreationYear" class="label">Data powstania</label>
+                <label asp-for="NewTeam.CreationYear" class="label">Rok powstania</label>
                 <span asp-validation-for="NewTeam.CreationYear" class="text-danger"></span>
             </div>
             <div class="input-box">
