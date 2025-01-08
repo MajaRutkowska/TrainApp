@@ -28,14 +28,16 @@ namespace TrainApp.Areas.Admin.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             Teams = await (from team in _context.Team
-                           join teamUser in _context.TeamUsers on team.TeamId equals teamUser.TeamId into teamUsersGroup
-                           from teamUser in teamUsersGroup.DefaultIfEmpty() 
-                           join coach in _context.Users on teamUser.UserId equals coach.Id into coachGroup
-                           from coach in coachGroup.DefaultIfEmpty() 
+                           join teamUser in _context.TeamUsers on team.TeamId equals teamUser.TeamId
+                           join userRole in _context.UserRoles on teamUser.UserId equals userRole.UserId
+                           join role in _context.Roles on userRole.RoleId equals role.Id
+                           join coach in _context.Users on teamUser.UserId equals coach.Id
+                           where role.Name == "Coach" 
+                           group coach by team into teamGroup
                            select new
                            {
-                               Team = team,
-                               CoachName = coach != null ? coach.Name + " " + coach.Surname : "Brak" // Jeśli brak trenera, wyświetl "Brak"
+                               Team = teamGroup.Key,
+                               CoachName = string.Join(", ", teamGroup.Select(c => c.Name + " " + c.Surname)) // Łączenie trenerów w jeden string
                            }).ToListAsync();
             return Page();
             

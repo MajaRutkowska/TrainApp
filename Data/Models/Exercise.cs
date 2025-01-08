@@ -11,13 +11,14 @@ namespace TrainApp.Data.Models
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
-        public bool IsCompleted { get; set; }
-        [Required]
-        [ForeignKey("Team")]
-        public string TeamId { get; set; }
+        public string CreatedBy { get; set; }
+       
+        public string? TeamId { get; set; }
 
-        public virtual Team Team { get; set; }
+        public virtual Team? Team { get; set; }
        
         public ICollection<ApplicationUser> User { get; set; } = new List<ApplicationUser>();
+
+        public virtual ICollection<UserExercise> UserExercise { get; set; } = new List<UserExercise>();
     }
 }

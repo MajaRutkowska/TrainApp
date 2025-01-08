@@ -6,17 +6,74 @@
 
 <body class="start-page">
     <div class="main">
-        <div class="content">
-            <div class="text">
-                <h2>Zarządzaj swoją szłókłą  łatwo i<br /> efektywnie</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, adipisci obcaecati! 
-                    Accusamus fugiat obcaecati nesciunt maiores rerum placeat amet voluptatibus cumque 
-                    soluta similique saepe, assumenda eos dolorum autem.</p>
+        <div class="content @((User.Identity.IsAuthenticated) ? "authenticated" : "unauthenticated")">
+            
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="dashboard-tiles">
+                    <div class="tile">
+                        <a href="/Admin/UserRoleManage" class="tile-link">
+                            <h3>Role</h3>
+                        </a>
+                    </div>
+                    <div class="tile">
+                        <a href="/Admin/AddTeam" class="tile-link">
+                            <h3>Nowa Drużyna</h3>
+                        </a>
+                    </div>
+                    <div class="tile">
+                        <a href="/Admin/Teams" class="tile-link">
+                            <h3>Drużyny</h3>
+                        </a>
+                    </div>
+                </div>
+            }
+            else if (User.IsInRole("Coach"))
+            {
+                <div class="dashboard-tiles">
+                    <div class="tile">
+                        <a href="/Coach/MyTeams" class="tile-link">
+                            <h3>Moje Drużyny</h3>
+                        </a>
+                    </div>
+                    <div class="tile">
+                        <a href="/Coach/AddTask" class="tile-link">
+                            <h3>Dodaj Zadanie</h3>
+                        </a>
+                    </div>
+                    <div class="tile">
+                        <a href="/Coach/TaskList" class="tile-link">
+                            <h3>Lista Zadań</h3>
+                        </a>
+                    </div>
+                </div>
+            }
+            else if (User.IsInRole("Player"))
+            {
+                <div class="dashboard-tiles">
+                    <div class="tile">
+                        <a href="/Player/MyTasks" class="tile-link">
+                            <h3>Moje Zadania</h3>
+                        </a>
+                    </div>
+                   
+                </div>
+            }
+            else
+            {
+                <div class="text">
+                    <h2>Zarządzaj swoją szkółką  łatwo i<br /> efektywnie</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, adipisci obcaecati!
+                        Accusamus fugiat obcaecati nesciunt maiores rerum placeat amet voluptatibus cumque
+                        soluta similique saepe, assumenda eos dolorum autem.
+                    </p>
                     <a href="Identity/Account/Register" class="buttonR">Zarejestruj się teraz</a>
-            </div>
-            <div class="picture-div">
-                <img class="picture" src="~/images/index_logo2.png" />
-            </div>
+                </div>
+                <div class="picture-div">
+                    <img class="picture" src="~/images/index_logo2.png" />
+                </div>
+            }
         </div>
     </div>
 </body>

@@ -1,0 +1,32 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model UndonePlayersModel
+@{
+    ViewData["Title"] = "Lista Zadań";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Nie wykonali zadania</h2>
+
+    @if (Model.Players.Any())
+    {
+        <ul class="pending-players-list">
+            @foreach (var player in Model.Players)
+            {
+                <li>@player.Name @player.Surname</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>Wszyscy zawodnicy wykonali to zadanie.</p>
+    }
+
+    <div class="buttons">
+        <a href="/Coach/TaskList" class="buttonR btn-warning">Powrót do listy zadań</a>
+    </div>
+</body>

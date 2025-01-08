@@ -1,0 +1,55 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model TeamDetailsModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Zarządzaj Drużyną</h2>
+
+    <div class="team-details">
+        <p><strong>Nazwa:</strong> @Model.Team.TeamName</p>
+        <p><strong>Adres:</strong> @Model.Team.Address</p>
+        <p><strong>Rok powstania:</strong> @Model.Team.CreationYear</p>
+    </div>
+
+    <h3 class="subtitle">Zawodnicy</h3>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Data urodzenia</th>
+                    <th>   </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.Players)
+                {
+                    <tr>
+                        <td>@player.Name</td>
+                        <td>@player.Surname</td>
+                        <td>@player.BirthDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                        <form method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="playerId" value="@player.Id" />
+                            <input type="hidden" name="teamId" value="@Model.Team.TeamId" />
+                            <a href="/Coach/RemovePlayer?playerId=@player.Id&teamId=@Model.Team.TeamId" class="buttonR-small btn-danger">Usuń zawodnika</a>
+                        </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="buttons">
+        <a href="/Coach/MyTeams" class="buttonR btn-warning">Powrót</a>
+        <a href="/Coach/AddTask" class="buttonR btn-danger">Dodaj Zadanie</a>
+        <a href="/Coach/AddPlayer?teamid=@Model.Team.TeamId" class="buttonR btn-success">Dodaj Zawodnika</a>
+    </div>
+</body>

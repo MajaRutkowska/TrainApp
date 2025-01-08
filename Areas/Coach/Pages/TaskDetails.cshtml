@@ -1,0 +1,31 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model TaskDetailsModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Szczegóły zadania</h2>
+
+    <div class="team-details">
+        <p><strong>Tytuł:</strong> @Model.Exercise.Title</p>
+        <p><strong>Opis:</strong> @Model.Exercise.Description</p>
+        <p><strong>Przypisane do:</strong> @Model.AssignedEntityName</p>
+    
+
+    @if (Model.AssignedEntity == "Player")
+    {
+        <p><strong>Status:</strong> @Model.CompletionStatus</p>
+    }
+    else
+    {
+        <p>@Model.CompletionStatus</p>
+    }
+    </div>
+    <div class="buttons">
+        <a href="/Coach/UndonePlayers?exerciseId=@Model.Exercise.ExerciseId" class="buttonR-small btn-primary">Zobacz którzy zawodnicy nie wykonali zadania</a>
+        <a href="/Coach/TaskList" class="buttonR btn-warning">Powrót</a>
+    </div>
+</body>

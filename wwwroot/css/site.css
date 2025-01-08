@@ -274,9 +274,15 @@ a {
     position: relative;
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
+    .content.authenticated {
+        justify-content: center; /* Jeœli u¿ytkownik jest zalogowany, wyœrodkuj zawartoœæ */
+    }
+
+    .content.unauthenticated {
+        justify-content: space-between; /* Jeœli u¿ytkownik nie jest zalogowany, ustaw na pocz¹tek */
+    }
 
     .content .text {
         width: 100%;
@@ -419,3 +425,61 @@ select {
     border-radius: 8px;
     margin-top: 20px;
 }
+
+.team-details {
+    color: #ffffff; 
+    font-size: 1.5em; 
+    padding: 15px; 
+    border-radius: 5px; 
+    margin-bottom: 20px; 
+}
+.subtitle{
+    color:#fff;
+}
+.ur-body label {
+    color: #f1f1f1; /* Jasny kolor */
+    font-size: 16px; /* Wiêkszy rozmiar */
+ 
+}
+.dashboard-tiles {
+    display: flex; /* U¿ywamy flexbox do uk³adania kafelków obok siebie */
+    flex-wrap: wrap; /* Pozwalamy na ³amanie kafelków do nowego wiersza */
+    gap: 20px; /* Odstêp pomiêdzy kafelkami */
+
+    justify-content: center; /* Wyrównanie kafelków do œrodka */
+    margin-top: 30px;
+     box-sizing: border-box;
+}
+
+.tile {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 40px; /* Wiêksze kafelki */
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 350px; /* Ograniczenie szerokoœci kafelka */
+    min-width: 300px; /* Minimalna szerokoœæ */
+}
+
+
+.tile-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.tile h3 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.pending-players-list {
+    font-size: 20px; /* Zwiêkszenie rozmiaru czcionki */
+    color: #f0f0f0; /* Jasny tekst */
+    padding: 10px;
+}
+
+    .pending-players-list li {
+        margin: 5px 0; /* Odstêpy miêdzy elementami listy */
+    }

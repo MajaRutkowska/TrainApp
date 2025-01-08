@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainApp.Data;
 
@@ -11,9 +12,11 @@ using TrainApp.Data;
 namespace TrainApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250107020414_aktualizacjaModelu")]
+    partial class aktualizacjaModelu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,7 +256,6 @@ namespace TrainApp.Data.Migrations
             modelBuilder.Entity("TrainApp.Data.Models.Exercise", b =>
                 {
                     b.Property<string>("ExerciseId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedBy")
@@ -264,7 +266,11 @@ namespace TrainApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("TeamId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
@@ -364,24 +370,6 @@ namespace TrainApp.Data.Migrations
                     b.ToTable("Training");
                 });
 
-            modelBuilder.Entity("TrainApp.Data.Models.UserExercise", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ExerciseId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("UserId", "ExerciseId");
-
-                    b.HasIndex("ExerciseId");
-
-                    b.ToTable("UserExercise");
-                });
-
             modelBuilder.Entity("ApplicationUserExercise", b =>
                 {
                     b.HasOne("TrainApp.Data.Models.Exercise", null)
@@ -453,7 +441,8 @@ namespace TrainApp.Data.Migrations
                     b.HasOne("TrainApp.Data.Models.Team", "Team")
                         .WithMany("Exercise")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Team");
                 });
@@ -499,38 +488,12 @@ namespace TrainApp.Data.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("TrainApp.Data.Models.UserExercise", b =>
-                {
-                    b.HasOne("TrainApp.Data.Models.Exercise", "Exercise")
-                        .WithMany("UserExercise")
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainApp.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("UserExercise")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Exercise");
-                });
-
             modelBuilder.Entity("TrainApp.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Parameters")
                         .IsRequired();
 
                     b.Navigation("TeamUser");
-
-                    b.Navigation("UserExercise");
-                });
-
-            modelBuilder.Entity("TrainApp.Data.Models.Exercise", b =>
-                {
-                    b.Navigation("UserExercise");
                 });
 
             modelBuilder.Entity("TrainApp.Data.Models.Team", b =>

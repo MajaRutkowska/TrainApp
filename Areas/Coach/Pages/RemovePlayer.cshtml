@@ -1,0 +1,36 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model RemovePlayerModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="login-page">
+
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <span>Usuń Zawodnika</span>
+            </div>
+            <p>Czy jesteś pewnien, że chcesz usunąć tego zawodnika z drużyny?</p>
+            <div>
+                <p><strong>Imię:</strong> @Model.Player.Name</p>
+                <p><strong>Nazwisko:</strong> @Model.Player.Surname</p>
+                <p><strong>Data urodzenia:</strong> @Model.Player.BirthDate.ToString("yyyy-MM-dd")</p>
+            </div>
+
+            <form method="post">
+                <input type="hidden" name="Player.Id" value="@Model.Player.Id" />
+                <input type="hidden" name="Team.TeamId" value="@Model.Team.TeamId" />
+                <input type="submit" value="Usuń zawodnika" class="input-submit" />
+            </form>
+
+        <div>
+                <a href="/Coach/TeamDetails?teamid=@Model.Team.TeamId" class="btn btn-warning">Powrót</a>
+        </div>
+        </div>
+</body>
+
+
+

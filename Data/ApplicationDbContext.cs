@@ -18,6 +18,7 @@ namespace TrainApp.Data
         public DbSet<TeamUser>  TeamUsers { get; set; }
         public DbSet<Training> Training { get; set; }
         public DbSet<Exercise> Exercise { get; set; }
+        public DbSet<UserExercise> UserExercise { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -48,14 +49,31 @@ namespace TrainApp.Data
                 .HasOne(e => e.Team)
                 .WithMany(t => t.Exercise)
                 .HasForeignKey(e => e.TeamId)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false);
 
-            builder.Entity<ApplicationUser>()
-                .HasMany(au => au.Exercise)
-                .WithMany(e => e.User);
+
+            builder.Entity<UserExercise>()
+                .HasKey(tu => new { tu.UserId, tu.ExerciseId });
+
+            builder.Entity<UserExercise>()
+                .HasOne(tu => tu.ApplicationUser)
+                .WithMany(au => au.UserExercise)
+                .HasForeignKey(tu => tu.UserId);
+
+
+            builder.Entity<UserExercise>()
+                .HasOne(tu => tu.Exercise)
+                .WithMany(t => t.UserExercise)
+                .HasForeignKey(tu => tu.ExerciseId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Team>()
                 .Property(e => e.TeamId)
+                .ValueGeneratedOnAdd();
+
+            builder.Entity<Exercise>()
+                .Property(e => e.ExerciseId)
                 .ValueGeneratedOnAdd();
         }
     }

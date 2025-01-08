@@ -26,12 +26,14 @@
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="teamId" value="@team.TeamId" /> 
                                 <button type="submit" class="buttonR-small btn-primary">Dodaj zawodnika</button>
+                                <a href="/Coach/TeamDetails?teamid=@team.TeamId" class="buttonR-small btn-primary">Zobacz szczegóły drużyny</a>
                             </form>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+        <a href="/Index" class="buttonR-small btn-primary">Powrót</a>
     </div>
 </body>
 

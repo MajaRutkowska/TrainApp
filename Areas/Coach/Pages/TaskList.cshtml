@@ -1,0 +1,66 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model TaskListModel
+@{
+    ViewData["Title"] = "Lista Zadań";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Lista Zadań</h2>
+
+    <div class="task-table">
+        <h3>Zadania dla Drużyn</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tytuł</th>
+                    <th>Drużyna</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.TeamsExercises)
+                {
+                    <tr>
+                        <td>@task.Title</td>
+                        <td>@task.TeamName</td>
+                        <td>
+                            <a href="@Url.Page("TaskDetails", new { exerciseId = task.ExerciseId })" class="btn btn-info">Zobacz szczegóły</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="task-table">
+        <h3>Zadania dla Zawodników</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tytuł</th>
+                    <th>Zawodnik</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entry in Model.PlayersExercises)
+                {
+                    <tr>
+                        <td>@entry.Exercise.Title</td>
+                        <td>@entry.Player.Name @entry.Player.Surname</td>
+                        <td>
+                            <a href="@Url.Page("TaskDetails", new { exerciseId = entry.ExerciseId })" class="btn btn-info">Zobacz szczegóły</a>
+                        </td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+        <a href="/Index" class="buttonR-small btn-primary">Powrót</a>
+    </div>
+</body>

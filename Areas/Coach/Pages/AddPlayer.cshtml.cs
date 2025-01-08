@@ -38,7 +38,9 @@ namespace TrainApp.Areas.Coach.Pages
             Players = await (from user in _context.Users
                              join userRole in _context.UserRoles on user.Id equals userRole.UserId
                              join role in _context.Roles on userRole.RoleId equals role.Id
-                             where role.Name == "Player"
+                             join teamUser in _context.TeamUsers on user.Id equals teamUser.UserId into userTeams
+                             from teamUser in userTeams.DefaultIfEmpty()
+                             where role.Name == "Player" && teamUser == null
                              select user).ToListAsync();
 
             return Page();

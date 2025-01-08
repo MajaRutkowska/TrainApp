@@ -20,23 +20,40 @@ namespace TrainApp.Areas.Admin.Pages
     public class ManageTeamModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        
+        private readonly UserManager<ApplicationUser> _userManager;
+
         public ManageTeamModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public Team Team { get; set; }
-        public ApplicationUser Coach {  get; set; }
+        public List<ApplicationUser> Coaches { get; set; } = new List<ApplicationUser>();
         private TeamUser TeamCoach { get; set; }
 
         public void OnGet(string teamId)
         {
             Team = _context.Team.FirstOrDefault(t => t.TeamId == teamId);
-            TeamCoach = _context.TeamUsers.FirstOrDefault(c => c.TeamId == teamId);
-            if (TeamCoach != null)
+
+            var coachRoleId = _context.Roles
+                   .Where(r => r.Name == "Coach")
+                   .Select(r => r.Id)
+                   .FirstOrDefault();
+
+            if (coachRoleId != null)
             {
-                Coach = _context.Users.FirstOrDefault(u => u.Id == TeamCoach.UserId);
+                var teamCoaches = _context.TeamUsers
+                    .Where(tu => tu.TeamId == teamId)
+                    .Join(_context.UserRoles,
+                          tu => tu.UserId,
+                          ur => ur.UserId,
+                          (tu, ur) => new { tu.UserId, ur.RoleId })
+                    .Where(x => x.RoleId == coachRoleId)
+                    .ToList();
+
+                Coaches = teamCoaches
+                    .Select(tc => _context.Users.FirstOrDefault(u => u.Id == tc.UserId))
+                    .ToList();
             }
         }
 

@@ -6,37 +6,52 @@
     <link rel="stylesheet" href="/css/site.css" />
 </head>
 
-<body class="login-page">
- 
-    <div class="wrapper">
-    <div class="login-box">
-        <div class="login-header">
-            <span>Zarządzaj drużyną</span>
-        </div>
+<body class="ur-body">
+    <h2 class="title">Zarządzaj Drużyną</h2>
 
-            <div>
-                <p><strong>Nazwa:</strong>@Model.Team.TeamName</p>
-                <p><strong>Adres:</strong> @Model.Team.Address</p>
-                <p><strong>Rok powstania:</strong> @Model.Team.CreationYear</p>
-                <p><strong>Trener:</strong> @if (Model.Coach != null)
-                    {
-                        @Model.Coach.Name @Model.Coach.Surname
-                    }
-                    else
-                    {
-                        <span>Brak trenera</span>
-                    }</p>
+    <div class="team-details">
+        <p><strong>Nazwa:</strong> @Model.Team.TeamName</p>
+        <p><strong>Adres:</strong> @Model.Team.Address</p>
+        <p><strong>Rok powstania:</strong> @Model.Team.CreationYear</p>
 
-            </div>
-
-            <div>
-                <a href="/Admin/EditTeam?teamid=@Model.Team.TeamId" class="btn btn-warning">Edytuj dane</a>
-                <a href="/Admin/DeleteTeam?teamid=@Model.Team.TeamId"  class="btn btn-danger">Usuń drużynę</a>
-                <a href="/Admin/AssignCoach?teamid=@Model.Team.TeamId" class="btn btn-success">Dodaj trenera</a>
+        
     </div>
-</div>
-</div>
+
+    <h3 class="subtitle">Trenerzy</h3>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Data urodzenia</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var coach in Model.Coaches)
+                {
+                    <tr>
+                        <td>@coach.Name</td>
+                        <td>@coach.Surname</td>
+                        <td>@coach.BirthDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            <form method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="coachId" value="@coach.Id" />
+                                <input type="hidden" name="teamId" value="@Model.Team.TeamId" />
+                                <a href="/Admin/RemoveCoach?coachId=@coach.Id&teamId=@Model.Team.TeamId" class="buttonR-small btn-danger">Usuń trenera</a>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="buttons">
+        <a href="/Admin/EditTeam?teamid=@Model.Team.TeamId" class="buttonR btn-warning">Edytuj dane</a>
+        <a href="/Admin/DeleteTeam?teamid=@Model.Team.TeamId" class="buttonR btn-danger">Usuń drużynę</a>
+        <a href="/Admin/AssignCoach?teamid=@Model.Team.TeamId" class="buttonR btn-success">Dodaj trenera</a>
+    </div>
 </body>
-
-
-
