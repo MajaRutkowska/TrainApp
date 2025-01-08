@@ -6,8 +6,10 @@
 }
 
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
 </head>
+
 
 <body class="ur-body">
     <h2 class="title">Zarządzaj rolami użytkowników</h2>
@@ -18,7 +20,6 @@
                     <th>Użytkownik</th>
                     <th>Email</th>
                     <th>Obecna Rola</th>
-                    <th>Nowa Rola</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,31 +29,54 @@
                         <td>@user.Name @user.Surname</td>
                         <td>@user.Email</td>
                         <td>
-                            @foreach (var roleName in Model.UserRoles[user.Id])
-                            {
-                                <span>@roleName</span>
-                            }
-                        </td>
-                        <td>
-                            <form method="post">
+                            <div class="role-container">
+                                <span class="role-text" id="role-text-@user.Id">
+                                    @string.Join(", ", Model.UserRoles[user.Id])
+                                </span>
+                                <i class="fas fa-pencil-alt edit-icon" id="edit-icon-@user.Id" data-user-id="@user.Id" title="Edit role"></i>
+                            </div>
+
+                            <form id="edit-role-form-@user.Id" class="edit-role-form" method="post" style="display: none;">
                                 @Html.AntiForgeryToken()
-                                <select name="selectedRole" class="form-control">
-                                    <option value="">Select Role</option>
-                                    @foreach (var role in Model.Roles)
-                                    {
-                                        <option value="@role.Name">@role.Name</option>
-                                    }
-                                </select>
-
+                                <div class="form-group">
+                                    <select name="selectedRole" class="form-control">
+                                        <option value="">Select Role</option>
+                                        @foreach (var role in Model.Roles)
+                                        {
+                                            <option value="@role.Name">@role.Name</option>
+                                        }
+                                    </select>
+                                    <button type="submit" class="buttonR-small btn-primary">Save</button>
+                                </div>
                                 <input type="hidden" name="userId" value="@user.Id" />
-
-
-                                <button type="submit" class="buttonR-small btn-primary">Change Role</button>
                             </form>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+        <a href="/Index" class="btn btn-warning">Powrót</a>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const editIcons = document.querySelectorAll(".edit-icon");
+
+            editIcons.forEach(icon => {
+                icon.addEventListener("click", function () {
+                    const userId = icon.getAttribute("data-user-id");
+                    const roleText = document.getElementById(`role-text-${userId}`);
+                    const editForm = document.getElementById(`edit-role-form-${userId}`);
+                    const editIcon = document.getElementById(`edit-icon-${userId}`);
+
+                    // Ukryj tekst roli i ikonę, pokaż formularz
+                    roleText.style.display = "none";
+                    editIcon.style.display = "none";
+                    editForm.style.display = "block";
+                });
+            });
+        });
+    </script>
 </body>
+
+

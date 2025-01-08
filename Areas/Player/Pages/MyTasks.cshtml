@@ -1,0 +1,83 @@
+﻿@page
+@using TrainApp.Areas.Player.Pages
+@model MyTasksModel
+@{
+    ViewData["Title"] = "Lista Zadań";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Moje Zadania</h2>
+
+
+    <div class="task-table">
+        <h3>Zadania Drużynowe</h3>
+        @if (Model.TeamExercises.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Drużyna</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model.TeamExercises)
+                    {
+                        <tr>
+                            <td>@task.Title</td>
+                            <td>@task.TeamName</td>
+                            <td>
+                                <a href="@Url.Page("TaskDetails", new { exerciseId = task.ExerciseId })" class="btn btn-info">Zobacz szczegóły</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Brak przypisanych zadań drużynowych.</p>
+        }
+    </div>
+
+  
+    <div class="task-table">
+        <h3>Zadania Indywidualne</h3>
+        @if (Model.PlayerExercises.Count > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tytuł</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entry in Model.PlayerExercises)
+                    {
+                        <tr>
+                            <td>@entry.Title</td>
+                            <td>
+                                <a href="@Url.Page("TaskDetails", new { exerciseId = entry.ExerciseId })" class="btn btn-info">Zobacz szczegóły</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Brak przypisanych zadań indywidualnych.</p>
+        }
+    </div>
+
+    <!-- Przycisk powrotu -->
+    <div class="buttons">
+        <a href="/Index" class="buttonR-small btn-primary">Powrót</a>
+    </div>
+</body>

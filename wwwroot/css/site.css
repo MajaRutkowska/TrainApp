@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 html {
-  font-size: 14px;
-  
+    font-size: 14px;
 }
+
 :root {
     --light-gray: #E1EAE9;
     --gray: #B3BCBB;
@@ -17,20 +17,21 @@ html {
 
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
     margin-bottom: 60px;
     font-family: 'Poppins';
 }
+
 .login-page {
-   background-image: url("/images/login2.jpg");
+    background-image: url("/images/login2.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -68,7 +69,7 @@ a {
     margin: 20vh auto 45vh auto;
     padding-bottom: 20px;
 }
-
+/*
 .login-box {
     position: relative;
     max-width: 550px;
@@ -80,7 +81,7 @@ a {
     padding: 7.5em 2.5em 4em 2.5em;
     color: var(--dark-green);
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
-}
+}*/
 .register-box {
     position: relative;
     max-width: 550px;
@@ -98,46 +99,74 @@ a {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* Ustawienie nag³ówka na œrodku */
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--light-gray);
-    height: 60px;
+    height: 60px; /* Sta³a wysokoœæ nag³ówka */
     border-radius: 0 0 20px 20px;
+    padding: 0 10px; /* Dodajemy trochê przestrzeni na bokach */
+    box-sizing: border-box;
+    width: auto; /* Umo¿liwia rozci¹ganie nag³ówka w poziomie */
+    min-width: 200px; /* Minimalna szerokoœæ nag³ówka, ¿eby nie by³ za ma³y */
 }
 
     .login-header span {
         font-size: 30px;
         padding: 17px;
         color: var(--dark-green);
+        white-space: nowrap; /* Zapobiega zawijaniu tekstu */
     }
 
-    .login-header::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -30px;
-        width: 30px;
-        height: 30px;
-        border-top-right-radius: 50%;
-        background: transparent;
-        box-shadow: 15px 0 0 0 var(--light-gray);
-    }
+.login-box {
+    position: relative;
+    max-width: 100%; /* Formularz teraz mo¿e siê rozci¹gaæ */
+    width: auto; /* Pozwalamy na dynamiczne rozszerzanie */
+    min-width: 80%;
+    backdrop-filter: blur(25px);
+    border: 4px solid var(--light-gray);
+    border-radius: 15px;
+    margin-bottom: 15vh;
+    padding: 7.5em 2.5em 4em 2.5em;
+    color: var(--dark-green);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    .login-header::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: -30px;
-        width: 30px;
-        height: 30px;
-        border-top-left-radius: 50%;
-        background: transparent;
-        box-shadow: -15px 0 0 0 var(--light-gray);
+    .login-box form {
+        width: 100%; /* Formularz bêdzie siê rozci¹ga³ w poziomie */
+        max-width: 600px; /* Mo¿emy ustawiæ maksymaln¹ szerokoœæ, jeœli to potrzebne */
     }
 
 .input-box {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%; /* Wysokoœæ elementów wejœciowych dostosowuje siê do szerokoœci formularza */
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.input-submit {
+    background-color: var(--dark-green);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Przyciski bêd¹ mia³y szerokoœæ formularza */
+}
+
+/*.input-box {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -154,7 +183,7 @@ a {
     border: 2px solid var(--light-gray);
     border-radius: 30px;
     outline: none;
-}
+}*/
 
 #user {
     margin-bottom: 10px;
@@ -179,6 +208,7 @@ a {
     color: var(--dark-green);
     padding: 0 10px;
 }
+
 .input-field:not(:placeholder-shown) ~ .label {
     top: -10px;
     left: 20px;
@@ -196,7 +226,7 @@ a {
     font-size: 15px;
 }
 
-.input-submit {
+/*.input-submit {
     width: 100%;
     height: 50px;
     background: #ececec;
@@ -210,7 +240,7 @@ a {
 
     .input-submit:hover {
         background: transparent;
-    }
+    }*/
 
 .register {
     color: var(--yellow);
@@ -225,16 +255,16 @@ a {
 
 @media only screen and (max-width: 1024px) {
     .wrapper {
-        margin-top: 25vh; 
-        margin-bottom: 10vh; 
+        margin-top: 25vh;
+        margin-bottom: 10vh;
     }
 }
 
 @media only screen and (max-width: 564px) {
     .wrapper {
         padding: 20px;
-        margin-top: 30vh; 
-        margin-bottom: 15vh; 
+        margin-top: 30vh;
+        margin-bottom: 15vh;
     }
 
     .login-box {
@@ -244,21 +274,22 @@ a {
 /*footer{
     margin-top: 50px;
 }*/
-.container-m{
+.container-m {
     margin-top: 50px;
 }
 
 .start-page {
     background: radial-gradient(#0f643f,#112C25 80%);
 }
-.container{
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
     width: 100%
-    
 }
+
 .main {
     position: relative;
     display: flex;
@@ -274,15 +305,9 @@ a {
     position: relative;
     width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
-    .content.authenticated {
-        justify-content: center; /* Jeœli u¿ytkownik jest zalogowany, wyœrodkuj zawartoœæ */
-    }
-
-    .content.unauthenticated {
-        justify-content: space-between; /* Jeœli u¿ytkownik nie jest zalogowany, ustaw na pocz¹tek */
-    }
 
     .content .text {
         width: 100%;
@@ -320,11 +345,11 @@ a {
         letter-spacing: 2px;
     }
 
-.picture{
+.picture {
     height: 450px;
 }
 
-.picture-div{
+.picture-div {
     margin-left: 2rem;
 }
 
@@ -337,8 +362,12 @@ a {
 .table-container {
     position: relative;
     margin: 20px auto;
-    width: fit-content;   
-   }
+    width: fit-content;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
 
 .table {
     width: 90rem;
@@ -349,14 +378,23 @@ a {
 
 th,
 td {
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #E1EAE9;
+    padding: 16px 24px !important; /* Wiêksze odstêpy w komórkach */
+    text-align: left;
+    color: black;
+    font-size: 1rem;
+}
+
+tr {
+    font-weight: 400;
 }
 
 th {
-    text-align: left;
-    width:fit-content;
+    background-color: #2a2e37;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: black;
+    border-bottom: 2px solid #3b3f49;
 }
 
 thead th {
@@ -364,11 +402,12 @@ thead th {
 }
 
 tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #B3BCBB;
 }
 
 td {
     position: relative;
+    vertical-align: middle;
 }
 
     td:hover::before {
@@ -384,37 +423,77 @@ td {
 
 .table th:last-child,
 .table td:last-child {
-    width: 18rem; 
-
+    width: 18rem;
 }
 
-.buttonR-small {
-    position: relative;
-    display: inline-block;
-    background: #b1d7c0;
-    color: #333;
-    font-weight: 500;
-    border-radius: 40px;
-    text-decoration: none;
-    padding: 10px 25px;
-    font-size: 0.9rem;
+.role-container {
+    display: flex;
+    justify-content: space-between; /* Tekst z lewej, ikona z prawej */
+    align-items: center; /* Wyrównanie pionowe */
+    width: 100%; /* Rozci¹ga kontener na ca³¹ szerokoœæ komórki */
+}
+
+.role-text {
+    font-size: 1rem;
+    color: black;
+    text-align: left; /* Tekst wyrównany do lewej */
+    flex-grow: 1; /* Pozwala tekstowi zajmowaæ ca³¹ lew¹ przestrzeñ */
+}
+
+.edit-icon {
+    cursor: pointer;
+    color: black;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    transition: color 0.2s ease-in-out;
+    text-align: right; /* Ikona wyrównana do prawej */
+}
+
+    .edit-icon:hover {
+        color: #0056b3;
+    }
+
+.edit-role-form {
+    display: none; /* Formularz ukryty domyœlnie */
+}
+
+.form-group {
+    display: flex; /* Ustawienie elementów w jednej linii */
+    align-items: center; /* Wyrównanie w pionie */
+    gap: 10px; /* Odstêp miêdzy select i przyciskiem */
 }
 
 select {
-    width: 8rem; 
-    padding: 4px 6px; 
-    background-color: #E1EAE9; 
-    border: 1px solid #112C25; 
-    border-radius: 5px; 
-    font-size: 14px; 
-    color: #0A1A16; 
-   
+    padding: 8px 12px;
+    border: 1px solid #3b3f49;
+    border-radius: 5px;
+    background-color: #2a2e37;
+    font-size: 0.9rem;
+    color: #ffffff;
+    transition: border-color 0.3s ease;
+    flex-grow: 1; /* Pozwala selectowi zajmowaæ dostêpn¹ przestrzeñ */
 }
 
-.table th:nth-child(3),
-.table td:nth-child(3) {
-    width: 13rem; 
+    select:hover, select:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+.buttonR-small {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
 }
+
+    .buttonR-small:hover {
+        background-color: #0056b3;
+    }
 
 .title {
     text-align: center;
@@ -424,7 +503,7 @@ select {
     padding: 15px;
     border-radius: 8px;
     margin-top: 20px;
-}
+}}
 
 .team-details {
     color: #ffffff; 
@@ -437,16 +516,16 @@ select {
     color:#fff;
 }
 .ur-body label {
-    color: #f1f1f1; /* Jasny kolor */
-    font-size: 16px; /* Wiêkszy rozmiar */
+    color: #f1f1f1;  Jasny kolor 
+    font-size: 16px;  Wiêkszy rozmiar 
  
 }
 .dashboard-tiles {
-    display: flex; /* U¿ywamy flexbox do uk³adania kafelków obok siebie */
-    flex-wrap: wrap; /* Pozwalamy na ³amanie kafelków do nowego wiersza */
-    gap: 20px; /* Odstêp pomiêdzy kafelkami */
+    display: flex;  U¿ywamy flexbox do uk³adania kafelków obok siebie 
+    flex-wrap: wrap;  Pozwalamy na ³amanie kafelków do nowego wiersza 
+    gap: 20px;  Odstêp pomiêdzy kafelkami 
 
-    justify-content: center; /* Wyrównanie kafelków do œrodka */
+    justify-content: center;  Wyrównanie kafelków do œrodka 
     margin-top: 30px;
      box-sizing: border-box;
 }
@@ -454,12 +533,12 @@ select {
 .tile {
     background-color: #f0f0f0;
     border-radius: 10px;
-    padding: 40px; /* Wiêksze kafelki */
+    padding: 40px;  Wiêksze kafelki 
     text-align: center;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 350px; /* Ograniczenie szerokoœci kafelka */
-    min-width: 300px; /* Minimalna szerokoœæ */
+    max-width: 350px;  Ograniczenie szerokoœci kafelka 
+    min-width: 300px;  Minimalna szerokoœæ 
 }
 
 
@@ -475,11 +554,11 @@ select {
 }
 
 .pending-players-list {
-    font-size: 20px; /* Zwiêkszenie rozmiaru czcionki */
-    color: #f0f0f0; /* Jasny tekst */
+    font-size: 20px;  Zwiêkszenie rozmiaru czcionki 
+    color: #f0f0f0;  Jasny tekst 
     padding: 10px;
 }
 
     .pending-players-list li {
-        margin: 5px 0; /* Odstêpy miêdzy elementami listy */
+        margin: 5px 0;  Odstêpy miêdzy elementami listy 
     }

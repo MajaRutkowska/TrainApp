@@ -1,0 +1,51 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model EditParametersModel;
+@{
+    ViewData["Title"] = "Assign Coach";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+
+
+    <h2 class="title">Edytuj parametry</h2>
+    <form method="post" id="addTaskForm">
+
+            @Html.AntiForgeryToken()
+        <input type="hidden" name="PlayerId" value="@Model.Player.Id" />
+
+        <div class="form-group">
+            <label for="Height">Wzrost:</label>
+            <input type="number" id="Height" name="Height" class="form-control" value="@Model.Parameters?.Height" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Weight">Waga:</label>
+            <input type="number" id="Weight" name="Weight" class="form-control" value="@Model.Parameters?.Weight" required />
+        </div>
+        <div class="form-group">
+            <label for="Speed">Prędkość na 100m:</label>
+            <input type="number" id="Speed" name="Speed" class="form-control" value="@Model.Parameters?.Speed" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            @if (Model.Parameters == null)
+            {
+                <text>Dodaj parametry</text>
+            }
+            else
+            {
+                <text>Zapisz zmiany</text>
+            }
+        </button>
+    </form>
+    <div class="buttons">
+        <a href="/Coach/PlayerProfile?playerId=@Model.Player.Id" class="buttonR btn-warning">Powrót do profilu</a>
+    </div>
+</body>
+
+}

@@ -75,6 +75,10 @@ namespace TrainApp.Data
             builder.Entity<Exercise>()
                 .Property(e => e.ExerciseId)
                 .ValueGeneratedOnAdd();
+
+            builder.Entity<Parameters>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
         }
     }
 }

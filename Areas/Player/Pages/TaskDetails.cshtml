@@ -1,0 +1,32 @@
+﻿@page
+@using TrainApp.Areas.Player.Pages
+@model TaskDetailsModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Szczegóły zadania</h2>
+
+    <div class="team-details">
+        <p><strong>Tytuł:</strong> @Model.Exercise.Title</p>
+        <p><strong>Opis:</strong> @Model.Exercise.Description</p>
+        <p><strong>Przypisane przez:</strong> @Model.CreatedBy</p>
+
+        <form method="post" >
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label>
+                    <input type="hidden" value="@Model.Exercise.ExerciseId" name="exerciseId"/>
+                    <input type="checkbox" name="isCompleted" value="true" @(Model.IsCompleted ? "checked" : "")
+                           onchange="this.form.submit()" />
+                    Oznacz jako wykonane
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="buttons">
+        <a href="/Player/MyTasks" class="buttonR btn-warning">Powrót</a>
+    </div>
+</body>

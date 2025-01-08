@@ -20,7 +20,7 @@ namespace TrainApp.Areas.Admin.Pages
     public class ManageTeamModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+
 
         public ManageTeamModel(ApplicationDbContext context)
         {

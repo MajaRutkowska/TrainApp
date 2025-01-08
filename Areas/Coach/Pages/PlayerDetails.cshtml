@@ -1,0 +1,35 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model PlayerDetailsModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Profil Zawodnika</h2>
+
+    <div class="team-details">
+        <p><strong>Nazwa:</strong> @Model.Player.Name</p>
+        <p><strong>Adres:</strong> @Model.Player.Surname</p>
+        <p><strong>Rok powstania:</strong> @Model.Player.BirthDate.ToString("yyyy-MM-dd")</p>
+
+        @if (Model.PlayerParameters == null)
+        {
+            <p>Brak zapisanych parametrów. Dodaj nowe parametry.</p>
+        }
+        else
+        {
+            <p><strong>Wzrost:</strong> @Model.PlayerParameters.Height</p>
+            <p><strong>Waga:</strong> @Model.PlayerParameters.Weight</p>
+            <p><strong>Czas na 100m:</strong> @Model.PlayerParameters.Speed</p>
+        }
+    </div>
+
+    
+
+    <div class="buttons">
+        <a href="/Coach/EditParameters?playerId=@Model.Player.Id" class="buttonR btn-warning">Edytuj Parametry</a>
+        <a href="/Coach/TeamDetails?teamId=@Model.teamUser.TeamId" class="buttonR btn-danger">Powrót</a>
+    </div>
+</body>

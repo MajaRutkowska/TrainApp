@@ -39,6 +39,7 @@
                             <input type="hidden" name="playerId" value="@player.Id" />
                             <input type="hidden" name="teamId" value="@Model.Team.TeamId" />
                             <a href="/Coach/RemovePlayer?playerId=@player.Id&teamId=@Model.Team.TeamId" class="buttonR-small btn-danger">Usuń zawodnika</a>
+                               <a href="/Coach/PlayerDetails?playerId=@player.Id&teamId=@Model.Team.TeamId" class="buttonR-small btn-danger">Profil zawodnika</a>
                         </form>
                         </td>
                     </tr>
