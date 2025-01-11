@@ -20,5 +20,7 @@ namespace TrainApp.Data.Models
         public ICollection<ApplicationUser> User { get; set; } = new List<ApplicationUser>();
 
         public virtual ICollection<UserExercise> UserExercise { get; set; } = new List<UserExercise>();
+
+        public virtual ICollection<Material> Material { get; set; } = new List<Material>();
     }
 }

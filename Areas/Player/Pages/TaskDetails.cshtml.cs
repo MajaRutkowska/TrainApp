@@ -36,6 +36,7 @@ namespace TrainApp.Areas.Player.Pages
         public string CreatedBy { get; set; }
         public bool IsCompleted { get; set; }
         public string PlayerId { get; set; }
+        public List<Material> Materials { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string exerciseId)
         {
@@ -59,6 +60,9 @@ namespace TrainApp.Areas.Player.Pages
 
             IsCompleted = userExercise.IsCompleted;
             PlayerId = currentUser.Id;
+            Materials = await _context.Material
+                .Where(m => m.ExerciseId == exerciseId).ToListAsync();
+
 
 
             return Page();
@@ -75,6 +79,19 @@ namespace TrainApp.Areas.Player.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage(new { exerciseId });
+        }
+
+        public async Task<IActionResult> OnGetDownloadAsync(string materialId)
+        {
+            var material = await _context.Material
+                .FirstOrDefaultAsync(m => m.MaterialId == materialId);
+
+            if (material == null)
+            {
+                return NotFound(); // Jeśli materiał nie istnieje, zwróć 404
+            }
+
+            return File(material.PdfFile, "application/pdf", material.FileName);
         }
 
     }

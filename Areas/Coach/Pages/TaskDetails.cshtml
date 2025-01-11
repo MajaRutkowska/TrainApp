@@ -24,8 +24,42 @@
         <p>@Model.CompletionStatus</p>
     }
     </div>
+    <div class="materials-section">
+        <h3>Materiały do zadania</h3>
+        <ul>
+            @foreach (var material in Model.Materials)
+            {
+                <li>
+                    <a href="@Url.Page("TaskDetails", "DownloadMaterial", new { materialId = material.MaterialId })" target="_blank">
+                        @material.FileName
+                    </a>
+                </li>
+            }
+        </ul>
+
+        <h4>Dodaj nowe materiały</h4>
+        <form method="post" enctype="multipart/form-data" asp-route-exerciseId="@Model.Exercise.ExerciseId">
+            @Html.AntiForgeryToken()
+            <input type="file" name="UploadedFiles" multiple />
+            <button type="submit" class="btn btn-primary">Prześlij</button>
+        </form>
+    </div>
+
     <div class="buttons">
-        <a href="/Coach/UndonePlayers?exerciseId=@Model.Exercise.ExerciseId" class="buttonR-small btn-primary">Zobacz którzy zawodnicy nie wykonali zadania</a>
-        <a href="/Coach/TaskList" class="buttonR btn-warning">Powrót</a>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#undonePlayers" aria-expanded="false" aria-controls="undonePlayers">
+            Zobacz, którzy zawodnicy nie wykonali zadania
+        </button>
+        <a href="/Coach/TaskList" class="btn btn-warning">Powrót</a>
+    </div>
+    <div class="collapse mt-3" id="undonePlayers">
+        <div class="card card-body">
+            <h4>Nie wykonali zadania</h4>
+            <ul class="pending-players-list">
+                @foreach (var player in Model.Players)
+                {
+                    <li>@player.Name @player.Surname</li>
+                }
+            </ul>
+        </div>
     </div>
 </body>

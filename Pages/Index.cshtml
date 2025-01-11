@@ -10,63 +10,46 @@
             
             @if (User.IsInRole("Admin"))
             {
-                <div class="dashboard-tiles">
-                    <div class="tile">
-                        <a href="/Admin/UserRoleManage" class="tile-link">
-                            <h3>Role</h3>
-                        </a>
-                    </div>
-                    <div class="tile">
-                        <a href="/Admin/Teams" class="tile-link">
-                            <h3>Drużyny</h3>
-                        </a>
-                    </div>
+                <div class="text">
+                    <h2>Witaj w panelu zarządzania szkółką</h2>
+                    <p>
+                        Twórz drużyny, przypisuj trenerów, zarządzaj kalendarzem i kontroluj wszystkie działania w szkółce. Zorganizuj pracę na najwyższym poziomie!
+                    </p>
+                </div>
+                <div class="picture-div">
+                    <img class="picture" src="~/images/index_logo2.png" />
                 </div>
             }
             else if (User.IsInRole("Coach"))
             {
-                <div class="dashboard-tiles">
-                    <div class="tile">
-                        <a href="/Coach/MyTeams" class="tile-link">
-                            <h3>Moje Drużyny</h3>
-                        </a>
-                    </div>
-                    <div class="tile">
-                        <a href="/Coach/AddTask" class="tile-link">
-                            <h3>Dodaj Zadanie</h3>
-                        </a>
-                    </div>
-                    <div class="tile">
-                        <a href="/Coach/TaskList" class="tile-link">
-                            <h3>Lista Zadań</h3>
-                        </a>
-                    </div>
+                <div class="text">
+                    <h2>Witaj w swoim centrum zarządzania drużyną!</h2>
+                    <p>
+                      Planowanie treningów i monitorowanie postępów zawodników w jednym miejscu. 
+                    </p>
+                </div>
+                <div class="picture-div">
+                    <img class="picture" src="~/images/index_logo2.png" />
                 </div>
             }
             else if (User.IsInRole("Player"))
             {
-                <div class="dashboard-tiles">
-                    <div class="tile">
-                        <a href="/Player/MyTasks" class="tile-link">
-                            <h3>Moje Zadania</h3>
-                        </a>
-                    </div>
-                    <div class="tile">
-                        <a href="/Player/MyProfile" class="tile-link">
-                            <h3>Mój Profil</h3>
-                        </a>
-                    </div>
-                   
+                <div class="text">
+                    <h2>Witaj w swoim centrum treningowym!</h2>
+                    <p>
+                        Sprawdzaj nadchodzące wydarzenia i realizuj przypisane zadania. Twoja droga do sukcesu zaczyna się tutaj!
+                    </p>
+                </div>
+                <div class="picture-div">
+                    <img class="picture" src="~/images/index_logo2.png" />
                 </div>
             }
             else
             {
                 <div class="text">
-                    <h2>Zarządzaj swoją szkółką  łatwo i<br /> efektywnie</h2>
+                    <h2>Zarządzaj swoją szkółką  łatwo <br /> i efektywnie</h2>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, adipisci obcaecati!
-                        Accusamus fugiat obcaecati nesciunt maiores rerum placeat amet voluptatibus cumque
-                        soluta similique saepe, assumenda eos dolorum autem.
+                        Twórz druzyny, planuj treningi, przypisuj zadania i monitoruj ich wykonanie. Trenerzy z łatwością mogą organizować treningi, a zawodnicy mają dostęp do kalendarza z nadchodzącymi wydarzeniami oraz listy zadań do wykonania. Wszysto co potrzebne do usprawnienia funkcjonowania swojej szkółki w jednym miejscu
                     </p>
                     <a href="Identity/Account/Register" class="buttonR">Zarejestruj się teraz</a>
                 </div>

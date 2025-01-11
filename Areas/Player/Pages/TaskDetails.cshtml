@@ -26,6 +26,26 @@
             </div>
         </form>
     </div>
+    <div class="materials-section">
+        <h3>Materiały do zadania</h3>
+        @if (Model.Materials != null && Model.Materials.Count > 0)
+        {
+            <ul>
+                @foreach (var material in Model.Materials)
+                {
+                    <li>
+                        <a href="@Url.Page("./TaskDetails", "Download", new { materialId = material.MaterialId })">
+                            @material.FileName
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Brak materiałów do tego zadania.</p>
+        }
+    </div>
     <div class="buttons">
         <a href="/Player/MyTasks" class="buttonR btn-warning">Powrót</a>
     </div>

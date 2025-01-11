@@ -19,6 +19,7 @@ namespace TrainApp.Data
         public DbSet<Training> Training { get; set; }
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<UserExercise> UserExercise { get; set; }
+        public DbSet<Material> Material { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -68,6 +69,12 @@ namespace TrainApp.Data
                 .HasForeignKey(tu => tu.ExerciseId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<Material>()
+                .HasOne(m => m.Exercise)
+                .WithMany(t => t.Material)
+                .HasForeignKey(t => t.ExerciseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Entity<Team>()
                 .Property(e => e.TeamId)
                 .ValueGeneratedOnAdd();
@@ -78,6 +85,10 @@ namespace TrainApp.Data
 
             builder.Entity<Parameters>()
                 .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.Entity<Material>()
+                .Property(e => e.MaterialId)
                 .ValueGeneratedOnAdd();
         }
     }
