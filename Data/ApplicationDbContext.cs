@@ -90,6 +90,10 @@ namespace TrainApp.Data
             builder.Entity<Material>()
                 .Property(e => e.MaterialId)
                 .ValueGeneratedOnAdd();
+
+            builder.Entity<Training>()
+                .Property(e => e.TrainingId)
+                .ValueGeneratedOnAdd();
         }
     }
 }

@@ -13,11 +13,12 @@ namespace TrainApp.Data.Models
 
         [Required]
         public DateTime Date { get; set; }
+        public string Color { get; set; }
 
         [Required]
         [ForeignKey("Team")]
         public string TeamId { get; set; }
-
+        
         public virtual Team Team { get; set; }  
     }
 }

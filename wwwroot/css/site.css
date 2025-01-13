@@ -13,6 +13,7 @@ html {
     --beige: #A9AA96;
     --dark-green: #0A1A16;
     --yellow: #DAC061;
+  
 }
 
 
@@ -359,7 +360,7 @@ a {
     font-weight: 100;
 }
 
-.table-container {
+/*.table-container {
     position: relative;
     margin: 20px auto;
     width: fit-content;
@@ -378,8 +379,8 @@ a {
 
 th,
 td {
-    padding: 16px 24px !important; /* Wiêksze odstêpy w komórkach */
-    text-align: left;
+    padding: 16px 24px !important;*/ /* Wiêksze odstêpy w komórkach */
+    /*text-align: left;
     color: black;
     font-size: 1rem;
 }
@@ -424,7 +425,7 @@ td {
 .table th:last-child,
 .table td:last-child {
     width: 18rem;
-}
+}*/
 
 .role-container {
     display: flex;
@@ -562,3 +563,12 @@ select {
     .pending-players-list li {
         margin: 5px 0;  Odstêpy miêdzy elementami listy 
     }
+.calendar-container {
+    max-width: 55%; /* Upewnia siê, ¿e kontener nie przekracza szerokoœci ekranu */
+    overflow-x: auto; /* Dodaje przewijanie w poziomie, jeœli jest to konieczne */
+    margin: 0 auto; /* Centruje kontener na stronie */
+}
+
+#calendar {
+    width: 100%; /* Gwarantuje, ¿e kalendarz dopasuje siê do kontenera */
+}

@@ -59,4 +59,126 @@
             }
         </div>
     </div>
+    @if (User.IsInRole("Coach"))
+    {
+        <div class="calendar-container">
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+
+                    var trainingsRaw = @Html.Raw(Json.Serialize(ViewData["Trainings"]));
+                    var trainings = trainingsRaw.$values || [];
+
+                    var calendarEl = document.getElementById('calendar')
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        locale: 'pl',
+                        firstDay: 1,
+                        initialView: 'dayGridMonth',
+                        headerToolbar: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        },
+                        events: trainings.map(training => ({
+                            title: training.title,
+                            start: training.start,
+                            end: training.end,
+                            color: training.color // Przekazujemy kolor z backendu
+                        })),
+                        eventClick: function (info) {
+
+                            if (confirm('Czy na pewno chcesz usunąć ten trening?')) {
+
+                                var trainingId = info.event.id;
+
+                                fetch('/Index?handler=DeleteTraining', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                                    },
+                                    body: JSON.stringify({ id: trainingId })
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            alert('Trening został usunięty');
+                                            info.event.remove(); 
+                                        } else {
+                                            alert('Wystąpił błąd: ' + data.message);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Błąd:', error);
+                                    });
+                            }
+                        }
+                    });
+                    calendar.render()
+                });
+            </script>
+
+            <div id="calendar"></div>
+        </div>
+        
+            <div class="main">
+            <h3>Dodaj nowe wydarzenie</h3>
+            <form method="post">
+                <div class="form-group">
+                    <label for="title">Tytuł treningu:</label>
+                    <input type="text" name="Title" id="title" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="date">Data treningu:</label>
+                    <input type="datetime-local" name="Date" id="date" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="teamId">Wybierz drużynę:</label>
+                    <select name="TeamId" id="teamId" class="form-control" required>
+                        @foreach (var team in Model.Teams)
+                        {
+                            <option value="@team.TeamId">@team.TeamName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="color">Wybierz kolor wydarzenia:</label>
+                    <input type="color" name="Color" id="color" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary">Dodaj trening</button>
+            </form>
+            </div>
+            }
+    else if (User.IsInRole("Player"))
+    {
+        <div class="calendar-container">
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+
+                    var trainingsRaw = @Html.Raw(Json.Serialize(ViewData["Trainings"]));
+                    var trainings = trainingsRaw.$values || [];
+
+                    var calendarEl = document.getElementById('calendar');
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        locale: 'pl',
+                        firstDay: 1,
+                        initialView: 'dayGridMonth',
+                        headerToolbar: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        },
+                        events: trainings.map(training => ({
+                            title: training.title,
+                            start: training.start,
+                            end: training.end,
+                            color: training.color // Przekazujemy kolor z backendu
+                        }))
+                    });
+                    calendar.render();
+                });
+            </script>
+
+            <div id="calendar"></div>
+        </div>
+    }
 </body>
