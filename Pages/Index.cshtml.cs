@@ -56,7 +56,6 @@ namespace TrainApp.Pages
                                        color = training.Color
                                    }).ToListAsync();
 
-            // Przechowywanie treningów w ViewData, aby by³y dostêpne w widoku
             ViewData["Trainings"] = trainings;
 
             return Page();

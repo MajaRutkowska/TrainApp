@@ -23,9 +23,9 @@
             else if (User.IsInRole("Coach"))
             {
                 <div class="text">
-                    <h2>Witaj w swoim centrum zarządzania drużyną!</h2>
+                    <h2>Witaj w centrum zarządzania drużyną!</h2>
                     <p>
-                      Planowanie treningów i monitorowanie postępów zawodników w jednym miejscu. 
+                      Planowanie treningów i monitorowanie postępów zawodników <br /> w jednym miejscu. 
                     </p>
                 </div>
                 <div class="picture-div">
@@ -35,7 +35,7 @@
             else if (User.IsInRole("Player"))
             {
                 <div class="text">
-                    <h2>Witaj w swoim centrum treningowym!</h2>
+                    <h2>Witaj w centrum treningowym!</h2>
                     <p>
                         Sprawdzaj nadchodzące wydarzenia i realizuj przypisane zadania. Twoja droga do sukcesu zaczyna się tutaj!
                     </p>
@@ -78,6 +78,12 @@
                             center: 'title',
                             right: 'dayGridMonth,timeGridWeek,timeGridDay'
                         },
+                        buttonText: {
+                        today: 'Dziś',
+                        month: 'Miesiąc',
+                        week: 'Tydzień',
+                        day: 'Dzień'
+                    },
                         events: trainings.map(training => ({
                             title: training.title,
                             start: training.start,
@@ -167,6 +173,12 @@
                             center: 'title',
                             right: 'dayGridMonth,timeGridWeek,timeGridDay'
                         },
+                        buttonText:{
+                        today: 'Dziś',
+                        month: 'Miesiąc',
+                        week: 'Tydzień',
+                        day: 'Dzień'
+                    },
                         events: trainings.map(training => ({
                             title: training.title,
                             start: training.start,

@@ -29,19 +29,26 @@ namespace TrainApp.Areas.Coach.Pages
         public IList<ApplicationUser> Players { get; set; } = new List<ApplicationUser>();
 
 
-        public async Task<IActionResult> OnGetAsync(string teamId)
+        public async Task<IActionResult> OnGetAsync(string teamId, string searchQuery)
         {
 
             Team = await _context.Team.FirstOrDefaultAsync(t => t.TeamId == teamId);
 
 
-            Players = await (from user in _context.Users
-                             join userRole in _context.UserRoles on user.Id equals userRole.UserId
-                             join role in _context.Roles on userRole.RoleId equals role.Id
-                             join teamUser in _context.TeamUsers on user.Id equals teamUser.UserId into userTeams
-                             from teamUser in userTeams.DefaultIfEmpty()
-                             where role.Name == "Player" && teamUser == null
-                             select user).ToListAsync();
+            var playersQuery = from user in _context.Users
+                               join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                               join role in _context.Roles on userRole.RoleId equals role.Id
+                               join teamUser in _context.TeamUsers on user.Id equals teamUser.UserId into userTeams
+                               from teamUser in userTeams.DefaultIfEmpty()
+                               where role.Name == "Player" && teamUser == null
+                               select user;
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                playersQuery = playersQuery.Where(p => p.Name.Contains(searchQuery) || p.Surname.Contains(searchQuery));
+            }
+
+            Players = await playersQuery.ToListAsync();
 
             return Page();
         }

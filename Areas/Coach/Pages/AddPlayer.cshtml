@@ -12,11 +12,17 @@
 
 <body class="ur-body">
 
+   
 
     <h2 class="title">Dodaj zawodnika</h2>
     <div class="table-container">
-        <form method="get">
-            <input type="hidden" name="TeamId" value="@Model.TeamId" />
+        <form method="get" class="mb-3">
+            <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
+            <div class="form-floating mb-3">
+                <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj zawodnika" />
+                <label for="searchQuery">Wyszukaj zawodnika (Imię lub Nazwisko)</label>
+            </div>
+            <button type="submit" class="btn btn-secondary">Filtruj</button>
         </form>
 
         <table class="table">

@@ -25,20 +25,27 @@ namespace TrainApp.Areas.Admin.Pages
             _context = context;
         }
         public IEnumerable<dynamic> Teams { get; set; }
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string searchQuery)
         {
-            Teams = await (from team in _context.Team
-                           join teamUser in _context.TeamUsers on team.TeamId equals teamUser.TeamId
-                           join userRole in _context.UserRoles on teamUser.UserId equals userRole.UserId
-                           join role in _context.Roles on userRole.RoleId equals role.Id
-                           join coach in _context.Users on teamUser.UserId equals coach.Id
-                           where role.Name == "Coach" 
-                           group coach by team into teamGroup
-                           select new
-                           {
-                               Team = teamGroup.Key,
-                               CoachName = string.Join(", ", teamGroup.Select(c => c.Name + " " + c.Surname)) // Łączenie trenerów w jeden string
-                           }).ToListAsync();
+            var query = from team in _context.Team
+                        join teamUser in _context.TeamUsers on team.TeamId equals teamUser.TeamId
+                        join userRole in _context.UserRoles on teamUser.UserId equals userRole.UserId
+                        join role in _context.Roles on userRole.RoleId equals role.Id
+                        join coach in _context.Users on teamUser.UserId equals coach.Id
+                        where role.Name == "Coach"
+                        group coach by team into teamGroup
+                        select new
+                        {
+                            Team = teamGroup.Key,
+                            CoachName = string.Join(", ", teamGroup.Select(c => c.Name + " " + c.Surname))
+                        };
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(t => t.Team.TeamName.Contains(searchQuery));
+            }
+
+            Teams = await query.ToListAsync();
             return Page();
             
         }

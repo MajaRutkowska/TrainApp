@@ -13,6 +13,37 @@
 
 <body class="ur-body">
     <h2 class="title">Zarządzaj rolami użytkowników</h2>
+
+    <form method="get" class="mb-3">
+        <div class="form-floating">
+            <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj użytkownika" />
+            <label for="searchQuery">Wyszukaj użytkownika (Imię lub Nazwisko)</label>
+        </div>
+
+         <div class="form-floating mb-3">
+        <select name="selectedRole" class="form-control">
+
+            <option value="">Wszystkie role</option>
+                @foreach (var role in Model.Roles)
+                {
+                    if (Request.Query["selectedRole"] == role.Name)
+                    {
+                        <option value="@role.Name" selected>@role.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@role.Name">@role.Name</option>
+                    }
+                }
+        </select>
+        <label for="selectedRole">Filtruj według roli</label>
+    </div>
+
+        <button type="submit" class="btn btn-secondary">Filtruj</button>
+    </form>
+
+
+
     <div class="table-container">
         <table class="table">
             <thead>

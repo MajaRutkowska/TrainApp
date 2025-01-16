@@ -29,20 +29,37 @@ namespace TrainApp.Areas.Admin.Pages
 
         public Dictionary<string, List<string>> UserRoles { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchQuery, string selectedRole)
         {
-            
-            Users = await _userManager.Users.ToListAsync();
 
-            
+            var usersQuery = _userManager.Users.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                usersQuery = usersQuery.Where(u => u.Name.Contains(searchQuery) || u.Surname.Contains(searchQuery));
+            }
+
+            Users = await usersQuery.ToListAsync();
+
             Roles = await _roleManager.Roles.ToListAsync();
 
+     
             UserRoles = new Dictionary<string, List<string>>();
 
             foreach (var user in Users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 UserRoles.Add(user.Id, roles.ToList());
+            }
+
+            if (!string.IsNullOrEmpty(selectedRole))
+            {
+                var filteredUserIds = UserRoles
+                    .Where(ur => ur.Value.Contains(selectedRole))
+                    .Select(ur => ur.Key)
+                    .ToList();
+
+                Users = Users.Where(u => filteredUserIds.Contains(u.Id)).ToList();
             }
         }
 

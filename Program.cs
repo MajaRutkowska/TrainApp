@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using TrainApp.Data;
 using TrainApp.Data.Models;
+using TrainApp.Services;
 
 
 namespace TrainingApp
@@ -24,11 +26,13 @@ namespace TrainingApp
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddRazorPages();
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
                 });
+
 
             var app = builder.Build();
 

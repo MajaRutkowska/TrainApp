@@ -29,34 +29,43 @@ namespace TrainApp.Areas.Coach.Pages
         public IEnumerable<dynamic> TeamsExercises { get; set; }
         public IEnumerable<dynamic> PlayersExercises { get; set; } 
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string searchQuery)
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
-            TeamsExercises = await (from exercise in _context.Exercise
-                                    where exercise.CreatedBy == currentUser.Id && exercise.TeamId != null
-                                    join team in _context.Team on exercise.TeamId equals team.TeamId
-                                    select new
-                                    {
-                                        ExerciseId = exercise.ExerciseId,
-                                        Title = exercise.Title,
-                                        Description = exercise.Description,
-                                        TeamId = exercise.TeamId,
-                                        TeamName = team.TeamName
-                                    }).ToListAsync();
-
-
-
-            PlayersExercises = await (from userExercise in _context.UserExercise
-                                          join exercise in _context.Exercise on userExercise.ExerciseId equals exercise.ExerciseId
-                                          join user in _context.Users on userExercise.UserId equals user.Id
-                                          where exercise.CreatedBy == currentUser.Id && exercise.TeamId == null
+            var teamsExercisesQuery = from exercise in _context.Exercise
+                                      where exercise.CreatedBy == currentUser.Id && exercise.TeamId != null
+                                      join team in _context.Team on exercise.TeamId equals team.TeamId
                                       select new
-                                          {
-                                              ExerciseId = exercise.ExerciseId,
-                                              Exercise = exercise,
-                                              Player = user
-                                          }).ToListAsync();
+                                      {
+                                          ExerciseId = exercise.ExerciseId,
+                                          Title = exercise.Title,
+                                          Description = exercise.Description,
+                                          TeamId = exercise.TeamId,
+                                          TeamName = team.TeamName
+                                      };
+
+
+            var playersExercisesQuery = from userExercise in _context.UserExercise
+                                        join exercise in _context.Exercise on userExercise.ExerciseId equals exercise.ExerciseId
+                                        join user in _context.Users on userExercise.UserId equals user.Id
+                                        where exercise.CreatedBy == currentUser.Id && exercise.TeamId == null
+                                        select new
+                                        {
+                                            ExerciseId = exercise.ExerciseId,
+                                            Exercise = exercise,
+                                            Player = user
+                                        };
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                searchQuery = searchQuery.ToLower();
+                teamsExercisesQuery = teamsExercisesQuery.Where(e => e.Title.ToLower().Contains(searchQuery));
+                playersExercisesQuery = playersExercisesQuery.Where(e => e.Exercise.Title.ToLower().Contains(searchQuery));
+            }
+
+            TeamsExercises = await teamsExercisesQuery.ToListAsync();
+            PlayersExercises = await playersExercisesQuery.ToListAsync();
 
             return Page();
 

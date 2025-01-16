@@ -8,6 +8,15 @@
 
 <body class="ur-body">
     <h2 class="title">Drużyny</h2>
+
+    <form method="get" class="mb-3">
+        <div class="form-floating">
+            <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj drużynę" />
+            <label for="searchQuery">Wyszukaj drużynę</label>
+        </div>
+        <button type="submit" class="btn btn-secondary">Filtruj</button>
+    </form>
+
     <div class="table-container">
         <table class="table">
             <thead>

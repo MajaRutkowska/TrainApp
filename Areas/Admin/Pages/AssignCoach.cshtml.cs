@@ -29,17 +29,23 @@ namespace TrainApp.Areas.Admin.Pages
         public IList<ApplicationUser> Coaches { get; set; } = new List<ApplicationUser>();
 
 
-        public async Task <IActionResult> OnGetAsync( string teamId)
+        public async Task <IActionResult> OnGetAsync( string teamId, string searchQuery)
         {
 
             Team = await _context.Team.FirstOrDefaultAsync(t => t.TeamId == teamId);
 
-            
-            Coaches = await (from user in _context.Users
-                             join userRole in _context.UserRoles on user.Id equals userRole.UserId
-                             join role in _context.Roles on userRole.RoleId equals role.Id
-                             where role.Name == "Coach"
-                             select user).ToListAsync();
+
+            var query = _context.Users
+        .Join(_context.UserRoles, user => user.Id, userRole => userRole.UserId, (user, userRole) => new { user, userRole })
+        .Join(_context.Roles, ur => ur.userRole.RoleId, role => role.Id, (ur, role) => new { ur.user, role })
+        .Where(x => x.role.Name == "Coach");
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(x => x.user.Name.Contains(searchQuery) || x.user.Surname.Contains(searchQuery));
+            }
+
+            Coaches = await query.Select(x => x.user).ToListAsync();
 
             return Page();
         }

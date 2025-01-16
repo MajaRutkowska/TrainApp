@@ -12,6 +12,14 @@
 <body class="ur-body">
     <h2 class="title">Lista Zadań</h2>
 
+    <form method="get" class="mb-3">
+        <div class="form-floating mb-3">
+            <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj zadanie" />
+            <label for="searchQuery">Wyszukaj zadanie (po nazwie)</label>
+        </div>
+        <button type="submit" class="btn btn-secondary">Filtruj</button>
+    </form>
+
     <div class="task-table">
         <h3>Zadania dla Drużyn</h3>
         <table class="table">

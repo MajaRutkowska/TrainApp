@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using TrainApp.Data.Models;
 using TrainApp.Data;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrainApp.Areas.Admin.Pages
 {
@@ -36,7 +37,7 @@ namespace TrainApp.Areas.Admin.Pages
        
         public async Task <IActionResult> OnGetAsync(string teamId)
         {
-          Team = _context.Team.FirstOrDefault(t => t.TeamId == teamId);
+          Team = await _context.Team.FirstOrDefaultAsync(t => t.TeamId == teamId);
             return Page();
         }
 

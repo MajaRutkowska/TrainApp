@@ -360,7 +360,7 @@ a {
     font-weight: 100;
 }
 
-/*.table-container {
+.table-container {
     position: relative;
     margin: 20px auto;
     width: fit-content;
@@ -379,8 +379,8 @@ a {
 
 th,
 td {
-    padding: 16px 24px !important;*/ /* Wiêksze odstêpy w komórkach */
-    /*text-align: left;
+    padding: 16px 24px !important;
+    text-align: left;
     color: black;
     font-size: 1rem;
 }
@@ -425,20 +425,20 @@ td {
 .table th:last-child,
 .table td:last-child {
     width: 18rem;
-}*/
+}
 
 .role-container {
     display: flex;
-    justify-content: space-between; /* Tekst z lewej, ikona z prawej */
-    align-items: center; /* Wyrównanie pionowe */
-    width: 100%; /* Rozci¹ga kontener na ca³¹ szerokoœæ komórki */
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
 }
 
 .role-text {
     font-size: 1rem;
     color: black;
-    text-align: left; /* Tekst wyrównany do lewej */
-    flex-grow: 1; /* Pozwala tekstowi zajmowaæ ca³¹ lew¹ przestrzeñ */
+    text-align: left; 
+    flex-grow: 1; 
 }
 
 .edit-icon {
@@ -447,7 +447,7 @@ td {
     font-size: 1.2rem;
     margin-left: 10px;
     transition: color 0.2s ease-in-out;
-    text-align: right; /* Ikona wyrównana do prawej */
+    text-align: right;
 }
 
     .edit-icon:hover {
@@ -455,13 +455,13 @@ td {
     }
 
 .edit-role-form {
-    display: none; /* Formularz ukryty domyœlnie */
+    display: none;
 }
 
 .form-group {
-    display: flex; /* Ustawienie elementów w jednej linii */
-    align-items: center; /* Wyrównanie w pionie */
-    gap: 10px; /* Odstêp miêdzy select i przyciskiem */
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
 }
 
 select {
@@ -472,7 +472,7 @@ select {
     font-size: 0.9rem;
     color: #ffffff;
     transition: border-color 0.3s ease;
-    flex-grow: 1; /* Pozwala selectowi zajmowaæ dostêpn¹ przestrzeñ */
+    flex-grow: 1;
 }
 
     select:hover, select:focus {
@@ -504,7 +504,7 @@ select {
     padding: 15px;
     border-radius: 8px;
     margin-top: 20px;
-}}
+}
 
 .team-details {
     color: #ffffff; 
@@ -517,52 +517,21 @@ select {
     color:#fff;
 }
 .ur-body label {
-    color: #f1f1f1;  Jasny kolor 
-    font-size: 16px;  Wiêkszy rozmiar 
- 
-}
-.dashboard-tiles {
-    display: flex;  U¿ywamy flexbox do uk³adania kafelków obok siebie 
-    flex-wrap: wrap;  Pozwalamy na ³amanie kafelków do nowego wiersza 
-    gap: 20px;  Odstêp pomiêdzy kafelkami 
-
-    justify-content: center;  Wyrównanie kafelków do œrodka 
-    margin-top: 30px;
-     box-sizing: border-box;
-}
-
-.tile {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    padding: 40px;  Wiêksze kafelki 
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 350px;  Ograniczenie szerokoœci kafelka 
-    min-width: 300px;  Minimalna szerokoœæ 
-}
-
-
-.tile-link {
-    text-decoration: none;
-    color: inherit;
-}
-
-.tile h3 {
-    font-size: 1.5rem;
-    margin-top: 10px;
-    font-weight: bold;
+    color: #f1f1f1;
+    font-size: 16px;
 }
 
 .pending-players-list {
-    font-size: 20px;  Zwiêkszenie rozmiaru czcionki 
-    color: #f0f0f0;  Jasny tekst 
+    font-size: 20px; 
+    color: #f0f0f0;  
     padding: 10px;
 }
 
     .pending-players-list li {
-        margin: 5px 0;  Odstêpy miêdzy elementami listy 
+        margin: 5px 0;  
     }
+
+
 .calendar-container {
     max-width: 55%; /* Upewnia siê, ¿e kontener nie przekracza szerokoœci ekranu */
     overflow-x: auto; /* Dodaje przewijanie w poziomie, jeœli jest to konieczne */
