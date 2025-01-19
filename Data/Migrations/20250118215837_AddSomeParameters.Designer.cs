@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainApp.Data;
 
@@ -11,9 +12,11 @@ using TrainApp.Data;
 namespace TrainApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250118215837_AddSomeParameters")]
+    partial class AddSomeParameters
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,34 +306,6 @@ namespace TrainApp.Data.Migrations
                     b.ToTable("Material");
                 });
 
-            modelBuilder.Entity("TrainApp.Data.Models.Notes", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CoachId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PlayerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("Notes");
-                });
-
             modelBuilder.Entity("TrainApp.Data.Models.Parameters", b =>
                 {
                     b.Property<string>("Id")
@@ -546,17 +521,6 @@ namespace TrainApp.Data.Migrations
                     b.Navigation("Exercise");
                 });
 
-            modelBuilder.Entity("TrainApp.Data.Models.Notes", b =>
-                {
-                    b.HasOne("TrainApp.Data.Models.ApplicationUser", "User")
-                        .WithMany("Notes")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TrainApp.Data.Models.Parameters", b =>
                 {
                     b.HasOne("TrainApp.Data.Models.ApplicationUser", "ApplicationUser")
@@ -619,8 +583,6 @@ namespace TrainApp.Data.Migrations
 
             modelBuilder.Entity("TrainApp.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Notes");
-
                     b.Navigation("Parameters")
                         .IsRequired();
 

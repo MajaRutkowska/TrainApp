@@ -10,9 +10,9 @@
     <h2 class="title">Profil Zawodnika</h2>
 
     <div class="team-details">
-        <p><strong>Nazwa:</strong> @Model.Player.Name</p>
-        <p><strong>Adres:</strong> @Model.Player.Surname</p>
-        <p><strong>Rok powstania:</strong> @Model.Player.BirthDate.ToString("yyyy-MM-dd")</p>
+        <p><strong>Imię:</strong> @Model.Player.Name</p>
+        <p><strong>Nazwisko:</strong> @Model.Player.Surname</p>
+        <p><strong>Data urodzenia:</strong> @Model.Player.BirthDate.ToString("yyyy-MM-dd")</p>
 
         @if (Model.PlayerParameters == null)
         {
@@ -20,16 +20,58 @@
         }
         else
         {
-            <p><strong>Wzrost:</strong> @Model.PlayerParameters.Height</p>
-            <p><strong>Waga:</strong> @Model.PlayerParameters.Weight</p>
-            <p><strong>Czas na 100m:</strong> @Model.PlayerParameters.Speed</p>
+            <p title="Wzrost zawodnika w centymetrach"><strong>Wzrost:</strong> @Model.PlayerParameters.Height</p>
+            <p title="Waga zawodnika w kilogramach"><strong>Waga:</strong> @Model.PlayerParameters.Weight</p>
+            <p title="Czas biegu na 100 metrów"><strong>Szybkość:</strong> @Model.PlayerParameters.Speed</p>
+            <p title="Wynik BeepTest"><strong>Wytrzymałość:</strong> @Model.PlayerParameters.Endurance</p>
+            <p title="Skok dosiężny mierzony w centymetrach"><strong>Skoczność:</strong> @Model.PlayerParameters.HighJump</p>
+            <p title="Czas pokonania toru z pachołkami"><strong>Drybling:</strong> @Model.PlayerParameters.Dribble</p>
+            <p title="Liczba przysiadów wykonanych w minutę"><strong>Siła nóg:</strong> @Model.PlayerParameters.LegStrength</p>
+            <p title="Szybkość piłki mierzona po strzale"><strong>Siła strzału:</strong> @Model.PlayerParameters.ShotPower</p>
+            <p title="Skłon poniżej poziomu stóp mierzony w centymetrach"><strong>Elastyczność:</strong> @Model.PlayerParameters.Flexibility</p>
         }
     </div>
+    <div class="buttons">
+        <a href="/Coach/EditParameters?playerId=@Model.Player.Id" class="buttonR btn-warning">Edytuj Parametry</a>
+    </div>
+    <div class="notes-section">
+        <h3>Notatki</h3>
 
+        @if (Model.Notes == null || !Model.Notes.Any())
+        {
+            <p>Brak notatek dla tego zawodnika.</p>
+        }
+        else
+        {
+            <ul class="notes-list">
+                @foreach (var note in Model.Notes)
+                {
+                    <li class="note-item">
+                        <h4>Data: @note.CreationDate.ToString("yyyy-MM-dd HH:mm")</h4>
+                        <p>@note.Text</p>
+
+                        <div class="note-actions">
+                            <a href="/Coach/EditNote?noteId=@note.Id" class="btn btn-primary">
+                                <i class="fas fa-edit"></i> Edytuj
+                            </a>
+                            <form method="post" asp-page-handler="DeleteNote" asp-route-noteId="@note.Id" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt"></i> Usuń
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+     <div class="buttons">
+        <a href="/Coach/AddNote?playerId=@Model.Player.Id" class="buttonR btn-danger">Dodaj notatkę</a>
+    </div
     
 
     <div class="buttons">
-        <a href="/Coach/EditParameters?playerId=@Model.Player.Id" class="buttonR btn-warning">Edytuj Parametry</a>
         <a href="/Coach/TeamDetails?teamId=@Model.teamUser.TeamId" class="buttonR btn-danger">Powrót</a>
     </div>
 </body>

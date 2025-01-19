@@ -12,6 +12,22 @@
 <body class="ur-body">
     <h2 class="title">Moje Zadania</h2>
 
+    <form method="get" class="mb-3">
+        <div class="form-floating mb-3">
+            <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj zadanie" />
+            <label for="searchQuery">Wyszukaj zadanie (po nazwie)</label>
+        </div>
+        <div class="form-floating mb-3">
+            <select name="statusFilter" class="form-control">
+                <option value="">Wszystkie</option>
+                <option value="Wykonane" selected="@(Request.Query["statusFilter"] == "Wykonane" ? "selected" : null)">Wykonane</option>
+                <option value="Niewykonane" selected="@(Request.Query["statusFilter"] == "Niewykonane" ? "selected" : null)">Niewykonane</option>
+            </select>
+            <label for="statusFilter">Filtruj po statusie</label>
+        </div>
+        <button type="submit" class="btn btn-secondary">Filtruj</button>
+    </form>
+
 
     <div class="task-table">
         <h3>Zadania Drużynowe</h3>
@@ -22,6 +38,7 @@
                     <tr>
                         <th>Tytuł</th>
                         <th>Drużyna</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -31,6 +48,8 @@
                         <tr>
                             <td>@task.Title</td>
                             <td>@task.TeamName</td>
+                            <td>@(task.IsCompleted ? "Wykonane" : "Niewykonane")</td>
+
                             <td>
                                 <a href="@Url.Page("TaskDetails", new { exerciseId = task.ExerciseId })" class="btn btn-info">Zobacz szczegóły</a>
                             </td>
@@ -48,20 +67,22 @@
   
     <div class="task-table">
         <h3>Zadania Indywidualne</h3>
-        @if (Model.PlayerExercises.Count > 0)
+        @if (Model.PlayersExercises.Any())
         {
             <table class="table">
                 <thead>
                     <tr>
                         <th>Tytuł</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var entry in Model.PlayerExercises)
+                    @foreach (var entry in Model.PlayersExercises)
                     {
                         <tr>
                             <td>@entry.Title</td>
+                            <td>@(entry.IsCompleted ? "Wykonane" : "Niewykonane")</td>
                             <td>
                                 <a href="@Url.Page("TaskDetails", new { exerciseId = entry.ExerciseId })" class="btn btn-info">Zobacz szczegóły</a>
                             </td>
@@ -76,7 +97,7 @@
         }
     </div>
 
-    <!-- Przycisk powrotu -->
+
     <div class="buttons">
         <a href="/Index" class="buttonR-small btn-primary">Powrót</a>
     </div>

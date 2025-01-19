@@ -17,6 +17,16 @@
             <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj zadanie" />
             <label for="searchQuery">Wyszukaj zadanie (po nazwie)</label>
         </div>
+
+        <div class="form-floating mb-3">
+        <select name="statusFilter" class="form-control">
+            <option value="">Wszystkie</option>
+                <option value="Wykonane" selected="@(Request.Query["statusFilter"] == "Wykonane" ? "selected" : null)">Wykonane</option>
+                <option value="Niewykonane" selected="@(Request.Query["statusFilter"] == "Niewykonane" ? "selected" : null)">Niewykonane</option>
+            </select>
+        <label for="statusFilter">Filtruj po statusie</label>
+    </div>
+
         <button type="submit" class="btn btn-secondary">Filtruj</button>
     </form>
 
@@ -27,6 +37,7 @@
                 <tr>
                     <th>Tytuł</th>
                     <th>Drużyna</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,6 +47,7 @@
                     <tr>
                         <td>@task.Title</td>
                         <td>@task.TeamName</td>
+                        <td>@task.Status")</td>
                         <td>
                             <a href="@Url.Page("TaskDetails", new { exerciseId = task.ExerciseId })" class="btn btn-info">Zobacz szczegóły</a>
                         </td>
@@ -52,6 +64,7 @@
                 <tr>
                     <th>Tytuł</th>
                     <th>Zawodnik</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
@@ -61,6 +74,7 @@
                     <tr>
                         <td>@entry.Exercise.Title</td>
                         <td>@entry.Player.Name @entry.Player.Surname</td>
+                        <td>@entry.Status</td>
                         <td>
                             <a href="@Url.Page("TaskDetails", new { exerciseId = entry.ExerciseId })" class="btn btn-info">Zobacz szczegóły</a>
                         </td>

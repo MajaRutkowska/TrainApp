@@ -28,32 +28,62 @@ namespace TrainApp.Areas.Player.Pages
         }
 
         public IEnumerable<dynamic> TeamExercises { get; set; }
-        public List<Exercise> PlayerExercises { get; set; } = new List<Exercise>();
+        public IEnumerable<dynamic> PlayersExercises { get; set; }
 
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string searchQuery, string statusFilter)
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
 
-            TeamExercises = await (from userExercise in _context.UserExercise
-                                   join exercise in _context.Exercise on userExercise.ExerciseId equals exercise.ExerciseId
-                                   join team in _context.Team on exercise.TeamId equals team.TeamId
-                                   where userExercise.UserId == currentUser.Id && exercise.TeamId != null
-                                   select new
-                                   {
-                                       ExerciseId = exercise.ExerciseId,
-                                       Title = exercise.Title,
-                                       Description = exercise.Description,
-                                       TeamName = team.TeamName 
-                                   }).ToListAsync();
-
-
-            PlayerExercises = await (from userExercise in _context.UserExercise
+            var teamExercisesQuery = from userExercise in _context.UserExercise
                                      join exercise in _context.Exercise on userExercise.ExerciseId equals exercise.ExerciseId
-                                     where userExercise.UserId == currentUser.Id && exercise.TeamId == null
-                                     select exercise).ToListAsync();
+                                     join team in _context.Team on exercise.TeamId equals team.TeamId
+                                     where userExercise.UserId == currentUser.Id && exercise.TeamId != null
+                                     select new
+                                     {
+                                         ExerciseId = exercise.ExerciseId,
+                                         Title = exercise.Title,
+                                         TeamName = team.TeamName,
+                                         IsCompleted = userExercise.IsCompleted, 
+                                         Status = userExercise.IsCompleted ? "Wykonane" : "Niewykonane" 
+                                     };
 
+            var playersExercisesQuery = from userExercise in _context.UserExercise
+                                        join exercise in _context.Exercise on userExercise.ExerciseId equals exercise.ExerciseId
+                                        where userExercise.UserId == currentUser.Id && exercise.TeamId == null
+                                        select new
+                                        {
+                                            ExerciseId = exercise.ExerciseId,
+                                            Title = exercise.Title,
+                                            IsCompleted = userExercise.IsCompleted,
+                                            Status = userExercise.IsCompleted ? "Wykonane" : "Niewykonane"
+                                        };
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                searchQuery = searchQuery.ToLower();
+                teamExercisesQuery = teamExercisesQuery.Where(e => e.Title.ToLower().Contains(searchQuery));
+                playersExercisesQuery = playersExercisesQuery.Where(e => e.Title.ToLower().Contains(searchQuery));
+            }
+
+            if (!string.IsNullOrEmpty(statusFilter))
+            {
+                if (statusFilter == "Wykonane")
+                {
+                    teamExercisesQuery = teamExercisesQuery.Where(e => e.Status == "Wykonane");
+                    playersExercisesQuery = playersExercisesQuery.Where(e => e.Status == "Wykonane");
+                }
+                else if (statusFilter == "Niewykonane")
+                {
+                    teamExercisesQuery = teamExercisesQuery.Where(e => e.Status == "Niewykonane");
+                    playersExercisesQuery = playersExercisesQuery.Where(e => e.Status == "Niewykonane");
+                }
+            }
+
+            // Pobranie wyników z bazy danych
+            TeamExercises = await teamExercisesQuery.ToListAsync();
+            PlayersExercises = await playersExercisesQuery.ToListAsync();
             return Page();
 
         }

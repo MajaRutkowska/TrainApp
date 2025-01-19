@@ -20,9 +20,16 @@
         }
         else
         {
-            <p><strong>Wzrost:</strong> @Model.PlayerParameters.Height</p>
-            <p><strong>Waga:</strong> @Model.PlayerParameters.Weight</p>
-            <p><strong>Czas na 100m:</strong> @Model.PlayerParameters.Speed</p>
+            <p title="Wzrost zawodnika w centymetrach"><strong>Wzrost:</strong> @Model.PlayerParameters.Height</p>
+            <p title="Waga zawodnika w kilogramach"><strong>Waga:</strong> @Model.PlayerParameters.Weight</p>
+            <p title="Czas biegu na 100 metrów"><strong>Szybkość:</strong> @Model.PlayerParameters.Speed</p>
+            <p title="Wynik BeepTest"><strong>Wytrzymałość:</strong> @Model.PlayerParameters.Endurance</p>
+            <p title="Skok dosiężny mierzony w centymetrach"><strong>Skoczność:</strong> @Model.PlayerParameters.HighJump</p>
+            <p title="Czas pokonania toru z pachołkami"><strong>Drybling:</strong> @Model.PlayerParameters.Dribble</p>
+            <p title="Liczba przysiadów wykonanych w minutę"><strong>Siła nóg:</strong> @Model.PlayerParameters.LegStrength</p>
+            <p title="Szybkość piłki mierzona po strzale"><strong>Siła strzału:</strong> @Model.PlayerParameters.ShotPower</p>
+            <p title="Skłon poniżej poziomu stóp mierzony w centymetrach"><strong>Elastyczność:</strong> @Model.PlayerParameters.Flexibility</p>
+
         }
     </div>
 

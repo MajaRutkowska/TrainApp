@@ -36,7 +36,7 @@ namespace TrainApp.Areas.Coach.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string playerId, float height, float weight, float speed)
+        public async Task<IActionResult> OnPostAsync(string playerId, float height, float weight, float speed, int endurance, float highJump, float dribble, int legStrength, float shotPower, float flexibility)
         {
 
             var parameters = await _context.Parameters.FirstOrDefaultAsync(p => p.UserId == playerId);
@@ -49,7 +49,13 @@ namespace TrainApp.Areas.Coach.Pages
                     UserId = playerId,
                     Height = height,
                     Weight = weight,
-                    Speed = speed
+                    Speed = speed,
+                    Endurance = endurance,
+                    HighJump = highJump,
+                    Dribble = dribble,
+                    LegStrength = legStrength,
+                    ShotPower = shotPower,
+                    Flexibility = flexibility
                 };
                 _context.Parameters.Add(parameters);
             }
@@ -59,6 +65,12 @@ namespace TrainApp.Areas.Coach.Pages
                 parameters.Height = height;
                 parameters.Weight = weight;
                 parameters.Speed = speed;
+                parameters.Endurance = endurance;
+                parameters.HighJump = highJump;
+                parameters.Dribble = dribble;
+                parameters.LegStrength = legStrength;
+                parameters.ShotPower = shotPower;
+                parameters.Flexibility = flexibility;
                 _context.Parameters.Update(parameters);
             }
 

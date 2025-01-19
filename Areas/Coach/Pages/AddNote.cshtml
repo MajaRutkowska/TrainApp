@@ -1,0 +1,30 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model AddNoteModel;
+@{
+    ViewData["Title"] = "Add Note";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+
+
+    <h2 class="title">Dodaj nową notatkę</h2>
+    <form method="post">
+
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <div>
+                <label for="Text">Treść Notatki</label>
+                <textarea id="Text" name="NoteText" rows="4" required></textarea>
+            </div>
+            <input type="hidden" name="playerId" value="@Model.PlayerId" />
+            <button type="submit" class="btn btn-primary">Dodaj</button>
+            <a href="/Coach/PlayerDetails?playerId=@Model.PlayerId" class="buttonR-small btn-danger">Powrót</a>
+        </form>
+    </form>
+</body>
+}

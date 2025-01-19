@@ -1,0 +1,21 @@
+﻿@page
+@using TrainApp.Areas.Coach.Pages
+@model EditNoteModel
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+
+<body class="ur-body">
+    <h2 class="title">Edytuj notatkę</h2>
+
+    <form method="post">
+        <div>
+            <label for="Text">Treść Notatki</label>
+            <textarea id="Text" name="noteText" rows="4" required>@Model.Note.Text</textarea>
+        </div>
+        <input type="hidden" name="noteId" value="@Model.Note.Id" />
+        <button type="submit" class="btn btn-primary">Zapisz</button>
+        <a href="/Coach/PlayerDetails?playerId=@Model.PlayerId" class="buttonR-small btn-danger">Powrót</a>
+    </form>
+</body>

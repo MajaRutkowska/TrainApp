@@ -28,16 +28,22 @@ namespace TrainApp.Areas.Admin.Pages
         public async Task<IActionResult> OnGetAsync(string searchQuery)
         {
             var query = from team in _context.Team
-                        join teamUser in _context.TeamUsers on team.TeamId equals teamUser.TeamId
-                        join userRole in _context.UserRoles on teamUser.UserId equals userRole.UserId
-                        join role in _context.Roles on userRole.RoleId equals role.Id
-                        join coach in _context.Users on teamUser.UserId equals coach.Id
-                        where role.Name == "Coach"
+                        join teamUser in _context.TeamUsers on team.TeamId equals teamUser.TeamId into teamUserGroup
+                        from teamUser in teamUserGroup.DefaultIfEmpty() // LEFT JOIN z TeamUsers
+                        join userRole in _context.UserRoles on teamUser.UserId equals userRole.UserId into userRoleGroup
+                        from userRole in userRoleGroup.DefaultIfEmpty() // LEFT JOIN z UserRoles
+                        join role in _context.Roles on userRole.RoleId equals role.Id into roleGroup
+                        from role in roleGroup.DefaultIfEmpty() // LEFT JOIN z Roles
+                        join coach in _context.Users on teamUser.UserId equals coach.Id into coachGroup
+                        from coach in coachGroup.DefaultIfEmpty() // LEFT JOIN z Users
+                        where role == null || role.Name == "Coach" // Filtr na trenerów lub brak roli
                         group coach by team into teamGroup
                         select new
                         {
                             Team = teamGroup.Key,
-                            CoachName = string.Join(", ", teamGroup.Select(c => c.Name + " " + c.Surname))
+                            CoachName = teamGroup.Any(c => c != null)
+                                ? string.Join(", ", teamGroup.Select(c => c.Name + " " + c.Surname))
+                                : "Brak trenera"
                         };
 
             if (!string.IsNullOrEmpty(searchQuery))
@@ -47,7 +53,7 @@ namespace TrainApp.Areas.Admin.Pages
 
             Teams = await query.ToListAsync();
             return Page();
-            
+
         }
 
 

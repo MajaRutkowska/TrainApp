@@ -33,14 +33,31 @@ namespace TrainApp.Areas.Coach.Pages
         public Parameters PlayerParameters { get; set; }
         public Team Team { get; set; }
         public TeamUser teamUser { get; set; }
-
+        public List<Notes> Notes { get; set; }
         public async Task<IActionResult> OnGetAsync(string playerId)
         {
+  
             Player = await _context.Users.FirstOrDefaultAsync(t => t.Id == playerId);
             PlayerParameters = await _context.Parameters.FirstOrDefaultAsync(p => p.UserId == playerId);
             teamUser = await _context.TeamUsers.FirstOrDefaultAsync(u => u.UserId ==  playerId);
+            Notes = await (from note in _context.Notes
+                           where note.PlayerId == playerId
+                           select note).ToListAsync();
 
             return Page();
+        }
+        public async Task<IActionResult> OnPostDeleteNoteAsync(string noteId)
+        {
+            var note = await _context.Notes.FindAsync(noteId);
+            var playerId = note.PlayerId;
+
+            if (note != null)
+            {
+                _context.Notes.Remove(note);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("/PlayerDetails", new { playerId });
         }
 
     }

@@ -19,17 +19,46 @@
         <input type="hidden" name="PlayerId" value="@Model.Player.Id" />
 
         <div class="form-group">
-            <label for="Height">Wzrost:</label>
+            <label title="Wzrost zawodnika w centymetrach"  for="Height">Wzrost:</label>
             <input type="number" id="Height" name="Height" class="form-control" value="@Model.Parameters?.Height" required />
         </div>
 
         <div class="form-group">
-            <label for="Weight">Waga:</label>
+            <label title="Waga zawodnika w kilogramach" for="Weight">Waga:</label>
             <input type="number" id="Weight" name="Weight" class="form-control" value="@Model.Parameters?.Weight" required />
         </div>
         <div class="form-group">
-            <label for="Speed">Prędkość na 100m:</label>
+            <label title="Czas biegu na 100 metrów" for="Speed">Szybkość:</label>
             <input type="number" id="Speed" name="Speed" class="form-control" value="@Model.Parameters?.Speed" required />
+        </div>
+        <div class="form-group">
+            <label title="Wynik BeepTest" for="Endurance">Wytrzymałość:</label>
+            <input type="number" id="Endurance" name="Endurance" class="form-control" value="@Model.Parameters?.Endurance" required />
+        </div>
+
+        <div class="form-group">
+            <label title="Skok dosiężny mierzony w centymetrach"  for="HighJump">Skok wzwyż:</label>
+            <input type="number" step="0.01" id="HighJump" name="HighJump" class="form-control" value="@Model.Parameters?.HighJump" required />
+        </div>
+
+        <div class="form-group">
+            <label title="Czas pokonania toru z pachołkami" for="Dribble">Drybling:</label>
+            <input type="number" step="0.01" id="Dribble" name="Dribble" class="form-control" value="@Model.Parameters?.Dribble" required />
+        </div>
+
+        <div class="form-group">
+            <label title ="Liczba przysiadów wykonanych w minutę" for="LegStrength">Siła nóg:</label>
+            <input type="number" id="LegStrength" name="LegStrength" class="form-control" value="@Model.Parameters?.LegStrength" required />
+        </div>
+
+        <div class="form-group">
+            <label title="Szybkość piłki mierzona po strzale"  for="ShotPower">Siła strzału:</label>
+            <input type="number" step="0.01" id="ShotPower" name="ShotPower" class="form-control" value="@Model.Parameters?.ShotPower" required />
+        </div>
+
+        <div class="form-group">
+            <label title="Skłon poniżej poziomu stóp mierzony w centymetrach" for="Flexibility">Elastyczność:</label>
+            <input type="number" step="0.01" id="Flexibility" name="Flexibility" class="form-control" value="@Model.Parameters?.Flexibility" required />
         </div>
 
         <button type="submit" class="btn btn-primary">
