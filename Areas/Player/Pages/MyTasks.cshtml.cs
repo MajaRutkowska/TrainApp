@@ -46,6 +46,7 @@ namespace TrainApp.Areas.Player.Pages
                                          Title = exercise.Title,
                                          TeamName = team.TeamName,
                                          IsCompleted = userExercise.IsCompleted, 
+                                         EndDate = exercise.EndDate,
                                          Status = userExercise.IsCompleted ? "Wykonane" : "Niewykonane" 
                                      };
 
@@ -57,6 +58,7 @@ namespace TrainApp.Areas.Player.Pages
                                             ExerciseId = exercise.ExerciseId,
                                             Title = exercise.Title,
                                             IsCompleted = userExercise.IsCompleted,
+                                            EndDate = exercise.EndDate,
                                             Status = userExercise.IsCompleted ? "Wykonane" : "Niewykonane"
                                         };
 

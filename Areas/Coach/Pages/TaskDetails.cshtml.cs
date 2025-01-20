@@ -34,6 +34,7 @@ namespace TrainApp.Areas.Coach.Pages
         public string AssignedEntity { get; set; } 
         public string AssignedEntityName { get; set; } 
         public string CompletionStatus { get; set; }
+        public float CompletionPercentage { get; set; }
         public List<Material> Materials { get; set; }
         public string FileName { get; set; }
         public List<ApplicationUser>Players { get; set; }
@@ -63,6 +64,10 @@ namespace TrainApp.Areas.Coach.Pages
                 var completedCount = await _context.UserExercise
                     .Where(ue => ue.ExerciseId == exerciseId && ue.IsCompleted)
                     .CountAsync();
+
+
+                CompletionPercentage = teamMembers.Count() > 0
+                    ? (completedCount * 100) / teamMembers.Count : 0;
 
                 CompletionStatus = teamMembers.Count > 0
                     ? $"Wykonanie: {(completedCount * 100) / teamMembers.Count}%"

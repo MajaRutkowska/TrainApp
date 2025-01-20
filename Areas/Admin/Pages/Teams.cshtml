@@ -3,28 +3,43 @@
 @model TeamsModel
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
 </head>
 
 <body class="ur-body">
-    <h2 class="title">Drużyny</h2>
+    <div class="header-container d-flex align-items-center">
+        <a href="/Index" class="back-button">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Drużyny</h2>
+    </div>
 
-    <form method="get" class="mb-3">
-        <div class="form-floating">
-            <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj drużynę" />
-            <label for="searchQuery">Wyszukaj drużynę</label>
+    <form method="get" class="mb-3 d-flex align-items-center gap-2">
+        <div style="width: 30%">
+            <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]"
+                   class="form-control" placeholder="Wyszukaj drużynę" />
         </div>
-        <button type="submit" class="btn btn-secondary">Filtruj</button>
+        <button type="submit" class="btn btn-warning">
+            <i class="fas fa-search"></i> Filtruj
+        </button>
     </form>
 
     <div class="table-container">
         <table class="table">
+            <div style="display: flex; justify-content: flex-start;" class="mb-2">
+                <a href="/Admin/AddTeam" class="btn btn-warning">
+                    <i class="fas fa-plus"></i>
+                    Dodaj nową drużnę
+                </a>
+            </div>
             <thead>
                 <tr>
-                    <th>Nazwa</th>
-                    <th>Adres</th>
-                    <th>Rok powstania</th>
-                    <th>Trener</th>
+                    <th style="width: 22%">Nazwa</th>
+                    <th style="width: 22%">Adres</th>
+                    <th style="width: 15%">Rok powstania</th>
+                    <th style="width: 22%">Trener</th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,20 +51,20 @@
                         <td>@team.Team.Address</td>
                         <td>@team.Team.CreationYear</td>
                         <td>@team.CoachName</td>
-                        <td>
-                            <form method="post">
+                        <td style="display: flex; gap: 16px; justify-content: flex-end; align-items: center;">
+                            <form method="post" style="margin: 0;">
                                 @Html.AntiForgeryToken()
-                                <input type="hidden" name="teamId" value="@team.Team.TeamId" /> 
-                                <button type="submit" class="buttonR-small btn-primary">Zarządzaj drużyną</button>
+                                <input type="hidden" name="teamId" value="@team.Team.TeamId" />
+                                <button type="submit" class="btn btn-warning">Zarządzaj drużyną</button>
                             </form>
+                            <a href="/Admin/DeleteTeam?teamid=@team.Team.TeamId" class="btn btn-danger" title="Usuń drużynę">
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <a href="/Admin/AddTeam" class="buttonR-small btn-primary">Dodaj nową drużnę</a>
-        <a href="/Index" class="buttonR-small btn-primary">Powrót</a>
-
     </div>
 </body>
 

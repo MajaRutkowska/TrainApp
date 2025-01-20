@@ -27,6 +27,10 @@ namespace TrainApp.Pages
 
         public List<Training> Trainings { get; set; }
         public List<Team> Teams { get; set; }
+        public string NearestEventTitle { get; set; }
+        public DateTime? NearestEventTime { get; set; }
+
+
         public async Task<IActionResult> OnGetAsync()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -50,13 +54,24 @@ namespace TrainApp.Pages
                                    {
                                        id = training.TrainingId,
                                        title = training.Title,
-                                       start = training.Date.ToString("yyyy-MM-ddTHH:mm:ss"),  
+                                       start = training.Date,  
                                        end = training.Date.AddHours(1).ToString("yyyy-MM-ddTHH:mm:ss"),
                                        description = training.Title,
                                        color = training.Color
                                    }).ToListAsync();
 
             ViewData["Trainings"] = trainings;
+
+            var nearestTraining = trainings
+        .Where(t => t.start > DateTime.Now)
+        .OrderBy(t => t.start)
+        .FirstOrDefault();
+
+            if (nearestTraining != null)
+            {
+                NearestEventTitle = nearestTraining.title;
+                NearestEventTime = nearestTraining.start;
+            }
 
             return Page();
         }
@@ -102,7 +117,7 @@ namespace TrainApp.Pages
             }
             catch (Exception ex)
             {
-                Console.WriteLine("B³¹d: " + ex.Message);  // Logowanie b³êdu
+                Console.WriteLine("B³¹d: " + ex.Message);  
                 return new JsonResult(new { success = false, message = ex.Message });
             }
         }

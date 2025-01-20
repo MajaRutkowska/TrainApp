@@ -2,41 +2,80 @@
 @using TrainApp.Areas.Player.Pages
 @model MyProfileModel
 
+@{
+    ViewData["Title"] = "Player profile";
+}
+
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8" />
 </head>
 
 <body class="ur-body">
-    <h2 class="title">Profil Zawodnika</h2>
-
-    <div class="team-details">
-        <p><strong>Nazwa:</strong> @Model.Player.Name</p>
-        <p><strong>Adres:</strong> @Model.Player.Surname</p>
-        <p><strong>Rok powstania:</strong> @Model.Player.BirthDate.ToString("yyyy-MM-dd")</p>
-
-        @if (Model.PlayerParameters == null)
-        {
-            <p>Brak zapisanych parametrów.</p>
-        }
-        else
-        {
-            <p title="Wzrost zawodnika w centymetrach"><strong>Wzrost:</strong> @Model.PlayerParameters.Height</p>
-            <p title="Waga zawodnika w kilogramach"><strong>Waga:</strong> @Model.PlayerParameters.Weight</p>
-            <p title="Czas biegu na 100 metrów"><strong>Szybkość:</strong> @Model.PlayerParameters.Speed</p>
-            <p title="Wynik BeepTest"><strong>Wytrzymałość:</strong> @Model.PlayerParameters.Endurance</p>
-            <p title="Skok dosiężny mierzony w centymetrach"><strong>Skoczność:</strong> @Model.PlayerParameters.HighJump</p>
-            <p title="Czas pokonania toru z pachołkami"><strong>Drybling:</strong> @Model.PlayerParameters.Dribble</p>
-            <p title="Liczba przysiadów wykonanych w minutę"><strong>Siła nóg:</strong> @Model.PlayerParameters.LegStrength</p>
-            <p title="Szybkość piłki mierzona po strzale"><strong>Siła strzału:</strong> @Model.PlayerParameters.ShotPower</p>
-            <p title="Skłon poniżej poziomu stóp mierzony w centymetrach"><strong>Elastyczność:</strong> @Model.PlayerParameters.Flexibility</p>
-
-        }
+    <div class="header-container d-flex align-items-center">
+        <a href="/Index">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Profil zawodnika</h2>
     </div>
 
-    
+    <div class="card-container">
+        <div class="card" style="border: 3px solid #ffca2c">
+            <div class="card-header card-title">
+                @Model.Player.Name @Model.Player.Surname
+            </div>
+            <div class="card-body">
+                <!-- Obliczanie wieku -->
+                @{
+                    DateTime birthDate = Model.Player.BirthDate;
+                    int age = DateTime.Now.Year - birthDate.Year;
+                    if (DateTime.Now.Date < birthDate.AddYears(age)) age--;
+                }
 
-    <div class="buttons">
+                <p><strong>Data urodzenia :</strong> @Model.Player.BirthDate.ToString("dd-MM-yyyy")</p>
 
-        <a href="/Index" class="buttonR btn-danger">Powrót</a>
+                @if (Model.PlayerParameters == null)
+                {
+                    <p class="text-center">Brak zapisanych parametrów.</p>
+                }
+                else
+                {
+                    <div class="d-flex flex-wrap">
+                        <div class="col-4">
+                            <p title="Wiek"><strong>Wiek:</strong> @age</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Wzrost zawodnika w centymetrach"><strong>Wzrost:</strong> @Model.PlayerParameters.Height</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Waga zawodnika w kilogramach"><strong>Waga:</strong> @Model.PlayerParameters.Weight</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Czas biegu na 100 metrów"><strong>Szybkość:</strong> @Model.PlayerParameters.Speed</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Wynik BeepTest"><strong>Wytrzymałość:</strong> @Model.PlayerParameters.Endurance</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Skok dosiężny mierzony w centymetrach"><strong>Skoczność:</strong> @Model.PlayerParameters.HighJump</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Czas pokonania toru z pachołkami"><strong>Drybling:</strong> @Model.PlayerParameters.Dribble</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Liczba przysiadów wykonanych w minutę"><strong>Siła nóg:</strong> @Model.PlayerParameters.LegStrength</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Szybkość piłki mierzona po strzale"><strong>Siła strzału:</strong> @Model.PlayerParameters.ShotPower</p>
+                        </div>
+                        <div class="col-4">
+                            <p title="Skłon poniżej poziomu stóp mierzony w centymetrach"><strong>Elastyczność:</strong> @Model.PlayerParameters.Flexibility</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </body>

@@ -6,58 +6,67 @@
 }
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
 </head>
 
 <body class="ur-body">
-  
-
-    <h2 class="title">Przypisz trenera drużynie</h2>
-    <div class="table-container">
-            <form method="get">
-             <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
-            <div class="form-floating mb-3">
-            <input type="text" name="SearchQuery" value="@Request.Query["SearchQuery"]" class="form-control" placeholder="Wyszukaj trenera" />
-            <label for="SearchQuery">Wyszukaj trenera</label>
+    <div class="header-container d-flex align-items-center">
+        <a href="/Admin/ManageTeam?teamid=@Model.Team.TeamId">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Przypisz trenera drużynie</h2>
     </div>
-    <button type="submit" class="btn btn-secondary">Filtruj</button>
-            </form>
+    <div class="table-container">
+        <form method="get" class="mb-3 d-flex align-items-center gap-2">
+            <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
+            <div style="width: 30%">
+                <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]"
+                       class="form-control" placeholder="Wyszukaj trenera" />
+            </div>
+            <button type="submit" class="btn btn-warning">
+                <i class="fas fa-search"></i> Filtruj
+            </button>
+        </form>
 
-        <table class="table">
-            <thead>
-                <tr>Imię Nazwisko</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Coaches != null && Model.Coaches.Any())
-                {
-                    foreach (var coach in Model.Coaches)
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Imię i nazwisko</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Coaches != null && Model.Coaches.Any())
+                    {
+                        foreach (var coach in Model.Coaches)
+                        {
+                            <tr>
+                                <td>@coach.Name @coach.Surname</td>
+                                <td>
+                                    <form method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
+                                        <input type="hidden" name="CoachId" value="@coach.Id" />
+                                        <button type="submit" class="btn btn-warning">Przypisz</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td>@coach.Name @coach.Surname</td>
-                            <td>
-                                <form method="post">
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
-                                    <input type="hidden" name="CoachId" value="@coach.Id" />
-                                    <button type="submit" class="btn btn-primary">Przypisz</button>
-                                </form>
-                            </td>
+                            <td colspan="2">Brak wyników pasujących do wyszukiwania.</td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="2">Brak wyników pasujących do wyszukiwania.</td>
-                    </tr>
-                }
-                
-            </tbody>
-        </table>
-        <a href="/Admin/ManageTeam?teamid=@Model.Team.TeamId" class="btn btn-warning">Powrót</a>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 @if (TempData["ErrorMessage"] != null)

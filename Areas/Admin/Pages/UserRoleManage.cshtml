@@ -13,20 +13,22 @@
 
 
 <body class="ur-body">
-    <h2 class="title">Zarządzaj użytkownikami</h2>
+    <div class="header-container d-flex align-items-center">
+        <a href="/Index" class="back-button">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Zarządzaj użytkownikami</h2>
+    </div>
 
-    <form method="get" class="mb-3">
-        <div class="input-group">
-            <div class="form-outline" data-mdb-input-init>
-            <input id="search-focus form1" type="search"  name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj użytkownika" />
-            </div>
+    <form method="get" class="mb-3 d-flex align-items-center gap-2">
+        <div class="form-outline" data-mdb-input-init>
+            <input id="search-focus" type="search" name="searchQuery" value="@Request.Query["searchQuery"]"
+                   class="form-control" placeholder="Wyszukaj użytkownika" />
         </div>
 
-         <div class="input-group">
-            <div class="form-outline" data-mdb-input-init>
-        <select name="selectedRole" class="form-control">
-
-            <option value="">Wszystkie role</option>
+        <div class="form-outline" data-mdb-input-init>
+            <select name="selectedRole" class="form-control">
+                <option value="" style="color: #212529">Wybierz role</option>
                 @foreach (var role in Model.Roles)
                 {
                     if (Request.Query["selectedRole"] == role.Name)
@@ -38,24 +40,21 @@
                         <option value="@role.Name">@role.Name</option>
                     }
                 }
-        </select>
+            </select>
         </div>
-    </div>
 
         <button type="submit" class="btn btn-warning">
             <i class="fas fa-search"></i> Filtruj
         </button>
     </form>
 
-
-
     <div class="table-container">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Użytkownik</th>
-                    <th>Email</th>
-                    <th>Obecna Rola</th>
+                    <th style="width: 30%">Użytkownik</th>
+                    <th style="width: 30%">Email</th>
+                    <th style="width: 25%">Obecna Rola</th>
                     <th></th>
                 </tr>
             </thead>
@@ -88,7 +87,7 @@
                                 <input type="hidden" name="userId" value="@user.Id" />
                             </form>
                         </td>
-                        <td>
+                        <td class="remove-column">
                             <a href="/Admin/DeleteUser?userId=@user.Id" class="btn btn-danger" title="Usuń użytkownika">
                                 <i class="fas fa-trash"></i>
                             </a>
@@ -97,7 +96,6 @@
                 }
             </tbody>
         </table>
-        <a href="/Index" class="btn btn-warning">Powrót</a>
     </div>
 
     <script>

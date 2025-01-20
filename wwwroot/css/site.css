@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+ï»¿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 html {
     font-size: 14px;
@@ -13,7 +13,6 @@ html {
     --beige: #A9AA96;
     --dark-green: #0A1A16;
     --yellow: #DAC061;
-  
 }
 
 
@@ -100,17 +99,17 @@ a {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%); /* Ustawienie nag³ówka na œrodku */
+    transform: translateX(-50%); /* Ustawienie nagï¿½ï¿½wka na ï¿½rodku */
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--light-gray);
-    height: 60px; /* Sta³a wysokoœæ nag³ówka */
+    height: 60px; /* Staï¿½a wysokoï¿½ï¿½ nagï¿½ï¿½wka */
     border-radius: 0 0 20px 20px;
-    padding: 0 10px; /* Dodajemy trochê przestrzeni na bokach */
+    padding: 0 10px; /* Dodajemy trochï¿½ przestrzeni na bokach */
     box-sizing: border-box;
-    width: auto; /* Umo¿liwia rozci¹ganie nag³ówka w poziomie */
-    min-width: 200px; /* Minimalna szerokoœæ nag³ówka, ¿eby nie by³ za ma³y */
+    width: auto; /* Umoï¿½liwia rozciï¿½ganie nagï¿½ï¿½wka w poziomie */
+    min-width: 200px; /* Minimalna szerokoï¿½ï¿½ nagï¿½ï¿½wka, ï¿½eby nie byï¿½ za maï¿½y */
 }
 
     .login-header span {
@@ -122,7 +121,7 @@ a {
 
 .login-box {
     position: relative;
-    max-width: 100%; /* Formularz teraz mo¿e siê rozci¹gaæ */
+    max-width: 100%; /* Formularz teraz moï¿½e siï¿½ rozciï¿½gaï¿½ */
     width: auto; /* Pozwalamy na dynamiczne rozszerzanie */
     min-width: 80%;
     backdrop-filter: blur(25px);
@@ -139,14 +138,14 @@ a {
 }
 
     .login-box form {
-        width: 100%; /* Formularz bêdzie siê rozci¹ga³ w poziomie */
-        max-width: 600px; /* Mo¿emy ustawiæ maksymaln¹ szerokoœæ, jeœli to potrzebne */
+        width: 100%; /* Formularz bï¿½dzie siï¿½ rozciï¿½gaï¿½ w poziomie */
+        max-width: 600px; /* Moï¿½emy ustawiï¿½ maksymalnï¿½ szerokoï¿½ï¿½, jeï¿½li to potrzebne */
     }
 
 .input-box {
     position: relative;
     margin-bottom: 20px;
-    width: 100%; /* Wysokoœæ elementów wejœciowych dostosowuje siê do szerokoœci formularza */
+    width: 100%; /* Wysokoï¿½ï¿½ elementï¿½w wejï¿½ciowych dostosowuje siï¿½ do szerokoï¿½ci formularza */
 }
 
 .input-field {
@@ -164,7 +163,7 @@ a {
     padding: 15px 20px;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%; /* Przyciski bêd¹ mia³y szerokoœæ formularza */
+    width: 100%; /* Przyciski bï¿½dï¿½ miaï¿½y szerokoï¿½ï¿½ formularza */
 }
 
 /*.input-box {
@@ -360,6 +359,27 @@ a {
     font-weight: 100;
 }
 
+.card-container {
+    position: relative;
+    margin: 20px auto;
+    width: fit-content;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 90rem;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.card-title {
+    font-weight: 600;
+    justify-content: center;
+    display: flex;
+    border-bottom: 2px solid #ffca2c;
+    background-color: #ffca2c;
+    font-size: 20px;
+}
+
 .table-container {
     position: relative;
     margin: 20px auto;
@@ -369,6 +389,7 @@ a {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+
 
 .table {
     width: 90rem;
@@ -429,16 +450,16 @@ td {
 
 .role-container {
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    width: 100%; 
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .role-text {
     font-size: 1rem;
     color: black;
-    text-align: left; 
-    flex-grow: 1; 
+    text-align: left;
+    flex-grow: 1;
 }
 
 .edit-icon {
@@ -451,7 +472,7 @@ td {
 }
 
     .edit-icon:hover {
-        color: #0056b3;
+        color: #ffca2c;
     }
 
 .edit-role-form {
@@ -459,8 +480,8 @@ td {
 }
 
 .form-group {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     gap: 10px;
 }
 
@@ -500,44 +521,129 @@ select {
     text-align: center;
     font-size: 2rem;
     font-weight: 600;
-    color: #b69e44;
+    color: #ffca2c;
     padding: 15px;
     border-radius: 8px;
     margin-top: 20px;
 }
 
 .team-details {
-    color: #ffffff; 
-    font-size: 1.5em; 
-    padding: 15px; 
-    border-radius: 5px; 
-    margin-bottom: 20px; 
+    color: #ffffff;
+    font-size: 1.5em;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
-.subtitle{
-    color:#fff;
+
+.subtitle {
+    color: #fff;
 }
+
 .ur-body label {
     color: #f1f1f1;
     font-size: 16px;
 }
 
 .pending-players-list {
-    font-size: 20px; 
-    color: #f0f0f0;  
+    font-size: 20px;
+    color: #f0f0f0;
     padding: 10px;
 }
 
     .pending-players-list li {
-        margin: 5px 0;  
+        margin: 5px 0;
     }
 
 
 .calendar-container {
-    max-width: 55%; /* Upewnia siê, ¿e kontener nie przekracza szerokoœci ekranu */
-    overflow-x: auto; /* Dodaje przewijanie w poziomie, jeœli jest to konieczne */
+    max-width: 55%; /* Upewnia siï¿½, ï¿½e kontener nie przekracza szerokoï¿½ci ekranu */
+    overflow-x: auto; /* Dodaje przewijanie w poziomie, jeï¿½li jest to konieczne */
     margin: 0 auto; /* Centruje kontener na stronie */
 }
 
 #calendar {
-    width: 100%; /* Gwarantuje, ¿e kalendarz dopasuje siê do kontenera */
+    width: 100%; /* Gwarantuje, ï¿½e kalendarz dopasuje siï¿½ do kontenera */
+}
+
+.remove-column {
+    justify-content: center;
+    display: flex;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.back-button {
+    margin-right: auto; /* Wypycha strzaï¿½kï¿½ do lewej strony */
+}
+
+.title {
+    margin: 0 auto; /* Wyï¿½rodkowuje tytuï¿½ */
+    text-align: center;
+}
+
+.back-icon {
+    font-size: 24px;
+    color: #ffca2c;
+}
+
+select.form-control {
+    appearance: auto; /* Przywraca domyï¿½lny wyglï¿½d */
+    -webkit-appearance: auto; /* Dla przeglï¿½darek WebKit */
+    -moz-appearance: auto; /* Dla Firefoksa */
+}
+
+select:hover {
+    border-color: #ffca2c
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #ffca2c;
+    border-color: #fff59e;
+}
+
+.nav-tabs .nav-link.active {
+    color: black;
+    background-color: #ffca2c;
+    border-color: #ffca2c;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #ffca2c;
+    margin-bottom: 5px;
+}
+
+.nav-link:hover {
+    color: white;
+}
+
+.nav-link {
+    color: #ffca2c;
+    font-size: 16px
+}
+
+.tab-content {
+    background-color: white;
+    border: 1px solid #ffca2c;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.task-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    font-size: 16px;
 }

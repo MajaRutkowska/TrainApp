@@ -2,63 +2,82 @@
 @using TrainApp.Areas.Coach.Pages
 @model AddTaskModel;
 @{
-    ViewData["Title"] = "Assign Coach";
+    ViewData["Title"] = "Add Task";
 }
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
 </head>
 
+
+
 <body class="ur-body">
+    <div class="header-container d-flex align-items-center">
+        <a href="/Coach/TaskList" class="back-button">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Dodaj zadanie</h2>
+    </div>
 
+    <form method="post" id="addTaskForm" style="width: 55rem; margin: auto;">
 
-    <h2 class="title">Dodaj zdanie</h2>
-    <form method="post" id="addTaskForm">
-
-        <div class="form-group">
-            <label><strong>Dodaj zadanie dla:</strong></label><br />
-            <input type="radio" id="forTeam" name="taskType" value="Team" onclick="toggleSelection()" />
-            <label for="forTeam">Drużyny</label>
-            <br />
-            <input type="radio" id="forPlayer" name="taskType" value="Player" onclick="toggleSelection()" />
-            <label for="forPlayer">Zawodnika</label>
+        <div class="mb-3 d-flex align-items-center">
+            <label for="taskType" style="width: 25%"><strong>Zadanie dla:</strong></label>
+            <div class="d-flex">
+                <div class="d-flex align-items-center me-4">
+                    <input type="radio" id="forTeam" name="taskType" value="Team" onclick="toggleSelection()" />
+                    <label for="forTeam" class="ms-2">Drużyny</label>
+                </div>
+                <div class="d-flex align-items-center">
+                    <input type="radio" id="forPlayer" name="taskType" value="Player" onclick="toggleSelection()" />
+                    <label for="forPlayer" class="ms-2">Zawodnika</label>
+                </div>
+            </div>
         </div>
 
-
-        <div class="form-group" id="teamSelection" style="display: none;">
-            <label for="teamId">Wybierz drużynę:</label>
+        <div id="teamSelection" class=" mb-3 align-items-center justify-content-between" style="display: none; gap: 10px;">
+            <label for="teamId" style="width: 30%">Wybierz drużynę:</label>
             <select id="teamId" name="SelectedTeamId" class="form-control">
                 <option value="">-- Wybierz drużynę --</option>
                 @foreach (var team in Model.Teams)
                 {
-                <option value="@team.TeamId">@team.TeamName</option>
+                    <option value="@team.TeamId">@team.TeamName</option>
                 }
             </select>
         </div>
 
-
-        <div class="form-group" id="playerSelection" style="display: none;">
-            <label for="playerId">Wybierz zawodnika:</label>
+        <div class=" mb-3 align-items-center justify-content-between" id="playerSelection" style="display: none; gap: 10px;">
+            <label for="playerId" style="width: 30%">Wybierz zawodnika:</label>
             <select id="playerId" name="SelectedPlayerId" class="form-control">
                 <option value="">-- Wybierz zawodnika --</option>
                 @foreach (var player in Model.Players)
                 {
-                <option value="@player.Id">@player.Name @player.Surname</option>
+                    <option value="@player.Id">@player.Name @player.Surname</option>
                 }
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="taskTitle">Tytuł zadania:</label>
-            <textarea id="tasktitlen" name="taskTitle" class="form-control" rows="1"></textarea>
+        <div class="form-group mb-3 d-flex align-items-center justify-content-between">
+            <label for="taskTitle" style="width: 30%">Tytuł zadania:</label>
+            <textarea id="taskTitle" name="taskTitle" class="form-control"></textarea>
         </div>
-        <div class="form-group">
-            <label for="taskDescription">Opis zadania:</label>
-            <textarea id="taskDescription" name="taskDescription" class="form-control" rows="4"></textarea>
+        <div class="form-group mb-3 d-flex align-items-center justify-content-between">
+            <label for="taskDescription" style="width: 30%">Opis zadania:</label>
+            <textarea id="taskDescription" name="taskDescription" class="form-control"></textarea>
+        </div>
+        <div class="form-group mb-3 d-flex align-items-center justify-content-between">
+            <label for="taskEndDate" style="width: 30%">Data wykonania:</label>
+            <input type="date" id="taskEndDate" name="taskEndDate" class="form-control"></input>
         </div>
 
-
-        <button type="submit" class="btn btn-primary">Dodaj zadanie</button>
+        <div style="display: flex; justify-content: center;">
+            <button type="submit" class="btn btn-warning">
+                <i class="fas fa-plus"></i>
+                Dodaj zadanie
+            </button>
+        </div>
     </form>
 
     <script>
@@ -66,17 +85,56 @@
             const forTeam = document.getElementById("forTeam").checked;
             const forPlayer = document.getElementById("forPlayer").checked;
 
-            document.getElementById("teamSelection").style.display = forTeam ? "block" : "none";
-            document.getElementById("playerSelection").style.display = forPlayer ? "block" : "none";
+            document.getElementById("teamSelection").style.display = forTeam ? "flex" : "none";
+            document.getElementById("playerSelection").style.display = forPlayer ? "flex" : "none";
         }
     </script>
-    <a href="/Coach/TaskList" class="buttonR-small btn-primary">Powrót</a>
-    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+            var errorMessage = '@Html.Raw(TempData["ErrorMessage"]?.ToString())';
+            alert(errorMessage);
+        </script>
+    }
 </body>
-@if (TempData["ErrorMessage"] != null)
-{
-<script>
-        var errorMessage = '@Html.Raw(TempData["ErrorMessage"]?.ToString())';
-        alert(errorMessage);
-</script>
-}
+
+<style>
+    input[type="radio"] {
+        accent-color: #ffca2c; 
+    }
+
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    label {
+        text-align: left; 
+        white-space: nowrap; 
+    }
+
+    .form-control,
+    textarea {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+
+    .d-flex {
+        display: flex;
+        align-items: center;
+    }
+
+    .ms-2 {
+        margin-left: 0.5rem;
+    }
+
+    .me-4 {
+        margin-right: 1rem;
+    }
+</style>
+

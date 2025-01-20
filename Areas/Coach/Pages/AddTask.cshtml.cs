@@ -32,6 +32,8 @@ namespace TrainApp.Areas.Coach.Pages
 
         [BindProperty]
         public string TaskDescription { get; set; }
+        [BindProperty]
+        public DateTime TaskEndDate{ get; set; }
 
         [BindProperty]
         public string SelectedTeamId { get; set; }
@@ -76,6 +78,7 @@ namespace TrainApp.Areas.Coach.Pages
             {
                 Title = TaskTitle,
                 Description = TaskDescription,
+                EndDate = TaskEndDate,
                 TeamId = TaskType == "Team" ? SelectedTeamId : null, 
                 CreatedBy = currentUser.Id
             };

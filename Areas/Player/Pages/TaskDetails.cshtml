@@ -3,50 +3,64 @@
 @model TaskDetailsModel
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8" />
 </head>
 
 <body class="ur-body">
-    <h2 class="title">Szczegóły zadania</h2>
-
-    <div class="team-details">
-        <p><strong>Tytuł:</strong> @Model.Exercise.Title</p>
-        <p><strong>Opis:</strong> @Model.Exercise.Description</p>
-        <p><strong>Przypisane przez:</strong> @Model.CreatedBy</p>
-
-        <form method="post" >
-            @Html.AntiForgeryToken()
-            <div class="form-group">
-                <label>
-                    <input type="hidden" value="@Model.Exercise.ExerciseId" name="exerciseId"/>
-                    <input type="checkbox" name="isCompleted" value="true" @(Model.IsCompleted ? "checked" : "")
-                           onchange="this.form.submit()" />
-                    Oznacz jako wykonane
-                </label>
-            </div>
-        </form>
+    <div class="header-container d-flex align-items-center">
+        <a href="/Player/MyTasks">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Szczegóły zadania</h2>
     </div>
-    <div class="materials-section">
-        <h3>Materiały do zadania</h3>
-        @if (Model.Materials != null && Model.Materials.Count > 0)
-        {
-            <ul>
-                @foreach (var material in Model.Materials)
+
+    <div class="card-container">
+        <div class="card" style="border: 3px solid #ffca2c">
+            <div class="card-header card-title">
+                @if (Model.Exercise.EndDate <= DateTime.Now.AddDays(2)) // Sprawdzenie, czy termin jest krótszy niż 2 dni
                 {
-                    <li>
-                        <a href="@Url.Page("./TaskDetails", "Download", new { materialId = material.MaterialId })">
-                            @material.FileName
-                        </a>
-                    </li>
+                    <i class="fas fa-exclamation-circle text-danger" title="Zadanie do wykonania wkrótce" style="margin-right: 10px; margin-top:5px;"></i>
                 }
-            </ul>
-        }
-        else
-        {
-            <p>Brak materiałów do tego zadania.</p>
-        }
-    </div>
-    <div class="buttons">
-        <a href="/Player/MyTasks" class="buttonR btn-warning">Powrót</a>
-    </div>
+                @Model.Exercise.Title
+            </div>
+            <div class="card-body">
+                <p><strong>Opis:</strong> @Model.Exercise.Description</p>
+                <p><strong>Przypisane przez:</strong> @Model.CreatedBy</p>
+                <p><strong>Data wykonania:</strong> @Model.Exercise.EndDate</p>
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label>
+                            <input type="hidden" value="@Model.Exercise.ExerciseId" name="exerciseId" />
+                            <input type="checkbox" name="isCompleted" value="true" @(Model.IsCompleted ? "checked" : "")
+                                   onchange="this.form.submit()" />
+                            Oznacz jako wykonane
+                        </label>
+                    </div>
+                </form>
+                <div class="materials-section">
+                    <h3>Materiały do zadania</h3>
+                    @if (Model.Materials != null && Model.Materials.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var material in Model.Materials)
+                            {
+                                <li>
+                                    <a href="@Url.Page("./TaskDetails", "Download", new { materialId = material.MaterialId })">
+                                        @material.FileName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Brak materiałów do tego zadania.</p>
+                    }
+                </div>
+            </div>
+        </div>
 </body>

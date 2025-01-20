@@ -59,6 +59,25 @@
             }
         </div>
     </div>
+
+    @if(User.IsInRole("Coach") || User.IsInRole("Player"))
+    {
+        @if (Model.NearestEventTime.HasValue)
+        {
+            <div class="countdown-container">
+                <h3>Nadchodzące wydarzenie:</h3>
+                <p><strong>@Model.NearestEventTitle</strong></p>
+                <p>Czas do wydarzenia: <span id="countdown"></span></p>
+            </div>
+        }
+        else
+        {
+            <div class="countdown-container">
+                <h3>Brak nadchodzących wydarzeń.</h3>
+            </div>
+        }
+    }
+
     @if (User.IsInRole("Coach"))
     {
         <div class="calendar-container">
@@ -88,7 +107,7 @@
                             title: training.title,
                             start: training.start,
                             end: training.end,
-                            color: training.color // Przekazujemy kolor z backendu
+                            color: training.color 
                         })),
                         eventClick: function (info) {
 
@@ -183,7 +202,7 @@
                             title: training.title,
                             start: training.start,
                             end: training.end,
-                            color: training.color // Przekazujemy kolor z backendu
+                            color: training.color 
                         }))
                     });
                     calendar.render();
@@ -194,3 +213,28 @@
         </div>
     }
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var nearestEventTime = new Date("@Model.NearestEventTime?.ToString("yyyy-MM-ddTHH:mm:ss")");
+
+        function updateCountdown() {
+            var now = new Date();
+            var timeDifference = nearestEventTime - now;
+
+            if (timeDifference > 0) {
+                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                document.getElementById('countdown').innerText =
+                    `${days} dni ${hours} godz. ${minutes} min. ${seconds} sek.`;
+            } else {
+                document.getElementById('countdown').innerText = "Wydarzenie już trwa lub minęło!";
+            }
+        }
+
+        setInterval(updateCountdown, 1000); // Aktualizuj co sekundę
+        updateCountdown(); // Uruchom od razu
+    });
+</script>
