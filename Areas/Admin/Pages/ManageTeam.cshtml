@@ -16,8 +16,14 @@
         <h2 class="title text-center flex-grow-1">Zarządzaj drużyną</h2>
     </div>
     <div class="card mb-3" style="border: 3px solid #ffca2c">
-        <div class="card-header" style="font-weight: 600; justify-content: center; display: flex; border-bottom: 2px solid #ffca2c; background-color: #ffca2c">
-            @Model.Team.TeamName
+        <div class="card-header" style="font-size: 16px; font-weight: 600; justify-content: center; display: flex; border-bottom: 2px solid #ffca2c; background-color: #ffca2c">
+            <div class="d-flex align-items-center">
+                @Model.Team.TeamName
+            </div>
+            <a href="/Admin/EditTeam?teamid=@Model.Team.TeamId" style="border: 1px solid black; border-radius: 8px; justify-content: center;
+                        align-items: center; display: flex; padding: 5px; margin-left: 10px;">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
         </div>
         <div class="card-body">
             <p><strong>Miejsce treningów:</strong> @Model.Team.Address</p>
@@ -25,7 +31,14 @@
         </div>
     </div>
 
-    <h3 class="subtitle">Trenerzy</h3>
+    <div style="display: flex; flex-direction: row;">
+
+        <h3 class="subtitle" style="margin-bottom: 0px;">Trenerzy</h3>
+        <a href="/Admin/AssignCoach?teamid=@Model.Team.TeamId" style="border: 1px solid white; border-radius: 8px; justify-content: center;
+                        align-items: center; display: flex; padding: 3px 8px; margin-left: 10px;">
+            <i class="fas fa-plus" style="color: white;"></i>
+        </a>
+    </div>
     <div class="table-container">
         <table class="table">
             <thead>
@@ -43,10 +56,16 @@
                         <td>@coach.Name</td>
                         <td>@coach.Surname</td>
                         <td>@coach.BirthDate.ToString("yyyy-MM-dd")</td>
-                        <td class="remove-column">
-                                <a href="/Admin/RemoveCoach?coachId=@coach.Id&teamId=@Model.Team.TeamId" class="btn btn-danger" title="Usuń trenera">
-                                <i class="fas fa-trash"></i>
-                                    </a>
+                        <td>
+                            <form method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="coachId" value="@coach.Id" />
+                                <input type="hidden" name="teamId" value="@Model.Team.TeamId" />
+                                <a href="/Admin/RemoveCoach?coachId=@coach.Id&teamId=@Model.Team.TeamId" class="btn btn-danger">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    Usuń trenera
+                                </a>
+                            </form>
                         </td>
                     </tr>
                 }
@@ -55,7 +74,8 @@
     </div>
 
     <div class="buttons">
-        <a href="/Admin/EditTeam?teamid=@Model.Team.TeamId" class="buttonR btn-warning">Edytuj dane</a>
-        <a href="/Admin/AssignCoach?teamid=@Model.Team.TeamId" class="buttonR btn-success">Dodaj trenera</a>
+        @* <a href="/Admin/EditTeam?teamid=@Model.Team.TeamId" class="buttonR btn-warning">Edytuj dane</a> *@
+        @* <a href="/Admin/DeleteTeam?teamid=@Model.Team.TeamId" class="buttonR btn-danger">Usuń drużynę</a> *@
+        @* <a href="/Admin/AssignCoach?teamid=@Model.Team.TeamId" class="buttonR btn-success">Dodaj trenera</a> *@
     </div>
 </body>

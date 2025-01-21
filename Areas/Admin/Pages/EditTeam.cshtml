@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="/css/site.css" />
 </head>
 
-<body class="login-page">
+<body class="ur-body">
     <div class="wrapper">
-        <div class="login-box">
-            <div class="login-header">
-                <span>Edytuj drużynę</span>
+        <div class="login-box" style="border-color: #ffca2c !important;">
+            <div class="login-header" style="background-color: #ffca2c">
+                <span style="font-weight:600;">Edytuj drużynę</span>
             </div>
 
             <form method="post">
@@ -19,24 +19,24 @@
                 <input type="hidden" name="Team.TeamId" value="@Model.Team.TeamId" />
                 <div class="input-box">
                     <input name="TeamToEdit.TeamName" id="TeamName" class="input-field" value="@Model.Team.TeamName" />
-                    <label asp-for="Team.TeamName" class="label">Nazwa drużyny</label>
+                    <label asp-for="Team.TeamName" class="label" style="background-color: #ffca2c; font-weight: 500;">Nazwa drużyny</label>
                     <span asp-validation-for="Team.TeamName" class="text-danger"></span>
                 </div>
                 <div class="input-box">
                     <input type="text" id="Street" name="Street" class="input-field" value="@Model.Street" />
-                    <label for="Street" class="label">Ulica</label>
+                    <label for="Street" class="label" style="background-color: #ffca2c; font-weight: 500;">Ulica</label>
                 </div>
                 <div class="input-box">
                     <input type="text" id="City" name="City" class="input-field" value="@Model.City" />
-                    <label for="City" class="label">Miasto</label>
+                    <label for="City" class="label" style="background-color: #ffca2c; font-weight: 500;">Miasto</label>
                 </div>
                 <div class="input-box">
                     <input type="text" id="PostalCode" name="PostalCode" class="input-field" value="@Model.PostalCode" />
-                    <label for="PostalCode" class="label">Kod pocztowy</label>
+                    <label for="PostalCode" class="label" style="background-color: #ffca2c; font-weight: 500;">Kod pocztowy</label>
                 </div>
                 <div class="input-box">
                     <input name="TeamToEdit.PlayersBirthYear" id="PlayersBirthYear" class="input-field" value="@Model.Team.PlayersBirthYear" />
-                    <label asp-for="Team.PlayersBirthYear" class="label">Rocznik zawodników</label>
+                    <label asp-for="Team.PlayersBirthYear" class="label" style="background-color: #ffca2c; font-weight: 500;">Rocznik zawodników</label>
                     <span asp-validation-for="Team.PlayersBirthYear" class="text-danger"></span>
                 </div>
                 <div class="input-box" style="display: flex; justify-items: center; flex-direction: column;">
