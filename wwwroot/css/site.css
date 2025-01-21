@@ -25,10 +25,16 @@ html {
     min-height: 100%;
 }
 
+nav {
+    font-weight: 500;
+}
+
 body {
     margin-bottom: 60px;
     font-family: 'Poppins';
+    font-weight: 500;
 }
+
 
 .login-page {
     background-image: url("/images/login2.jpg");
@@ -69,19 +75,7 @@ a {
     margin: 20vh auto 45vh auto;
     padding-bottom: 20px;
 }
-/*
-.login-box {
-    position: relative;
-    max-width: 550px;
-    width: 90%;
-    backdrop-filter: blur(25px);
-    border: 4px solid var(--light-gray);
-    border-radius: 15px;
-    margin-bottom: 15vh;
-    padding: 7.5em 2.5em 4em 2.5em;
-    color: var(--dark-green);
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
-}*/
+
 .register-box {
     position: relative;
     max-width: 550px;
@@ -166,25 +160,6 @@ a {
     width: 100%; /* Przyciski b�d� mia�y szeroko�� formularza */
 }
 
-/*.input-box {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-}
-
-.input-field {
-    width: 100%;
-    height: 55px;
-    font-size: 16px;
-    background: #f9fafb47;
-    color: var(--dark-green);
-    padding-inline: 20px 50px;
-    border: 2px solid var(--light-gray);
-    border-radius: 30px;
-    outline: none;
-}*/
-
 #user {
     margin-bottom: 10px;
 }
@@ -226,22 +201,6 @@ a {
     font-size: 15px;
 }
 
-/*.input-submit {
-    width: 100%;
-    height: 50px;
-    background: #ececec;
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-    .input-submit:hover {
-        background: transparent;
-    }*/
-
 .register {
     color: var(--yellow);
     text-align: center;
@@ -271,9 +230,7 @@ a {
         padding: 7.5em 1.5em 4em 1.5em;
     }
 }
-/*footer{
-    margin-top: 50px;
-}*/
+
 .container-m {
     margin-top: 50px;
 }
@@ -356,7 +313,7 @@ a {
 .ur-body {
     margin: 0;
     background: linear-gradient(45deg, #0f643f, #112C25 80%);
-    font-weight: 100;
+    /*font-weight: 100;*/
 }
 
 .card-container {
@@ -396,56 +353,32 @@ a {
     border-collapse: collapse;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-weight: 400;
 }
+
+    .table td {
+        padding: 16px 24px !important;
+        vertical-align: middle;
+    }
+
+    .table th {
+        padding: 16px 24px !important;
+    }
 
 th,
 td {
-    padding: 16px 24px !important;
     text-align: left;
     color: black;
     font-size: 1rem;
 }
 
-tr {
-    font-weight: 400;
-}
-
 th {
-    background-color: #2a2e37;
+    background-color: #ffca2c;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: black;
     border-bottom: 2px solid #3b3f49;
-}
-
-thead th {
-    background-color: #a78b24;
-}
-
-tbody tr:hover {
-    background-color: #B3BCBB;
-}
-
-td {
-    position: relative;
-    vertical-align: middle;
-}
-
-    td:hover::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: -9999px;
-        bottom: -9999px;
-        background-color: rgba(255, 255, 255, 0.2);
-        z-index: -1;
-    }
-
-.table th:last-child,
-.table td:last-child {
-    width: 18rem;
 }
 
 .role-container {
@@ -562,7 +495,7 @@ select {
 }
 
 #calendar {
-    width: 100%; /* Gwarantuje, �e kalendarz dopasuje si� do kontenera */
+    /*width: 100%;*/ /* Gwarantuje, �e kalendarz dopasuje si� do kontenera */
 }
 
 .remove-column {
@@ -608,9 +541,9 @@ select:hover {
     border-color: #fff59e;
 }
 
-.nav-tabs .nav-link.active {
+.nav-pills .nav-link.active {
     color: black;
-    background-color: #ffca2c;
+    background-color: #ffca2c !important;
     border-color: #ffca2c;
     font-weight: 600;
     font-size: 16px;
@@ -646,4 +579,11 @@ select:hover {
 
 p {
     font-size: 16px;
+}
+
+.note-container {
+    position: relative;
+    margin: 20px auto;
+    width: 50rem;
+    overflow: hidden;
 }

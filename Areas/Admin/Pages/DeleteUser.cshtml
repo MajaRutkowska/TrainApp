@@ -3,7 +3,10 @@
 @model DeleteUserModel
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8" />
 </head>
 
 <body class="login-page">
@@ -19,15 +22,17 @@
                 <p><strong>Nazwisko:</strong> @Model.User.Surname</p>
                 <p><strong>Email:</strong> @Model.User.Email</p>
             </div>
+            <div>
 
-            <form method="post">
-                <input type="hidden" name="Team.TeamId" value="@Model.User.Id" />
-                <input type="submit" value="Usuń" class="input-submit" />
-            </form>
+                <form method="post">
+                    <input type="hidden" name="Team.TeamId" value="@Model.User.Id" />
+                    <input type="submit" value="Usuń użytkownika" class="btn btn-danger" style="margin-bottom: 10px;" />
+                </form>
+            </div>
 
-        <div>
+            <div>
                 <a href="/Admin/UserRoleManage" class="btn btn-warning">Powrót</a>
-        </div>
+            </div>
         </div>
 </body>
 

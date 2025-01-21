@@ -76,19 +76,8 @@ namespace TrainApp.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string title, DateTime date, string teamId, string color)
+        public async Task<IActionResult> OnPostAsync()
         {
-            var training = new Training
-            {
-                Title = title,
-                Date = date,
-                TeamId = teamId, 
-                Color = color
-            };
-
-            _context.Training.Add(training);
-            await _context.SaveChangesAsync();
-
             return RedirectToPage();
         }
 

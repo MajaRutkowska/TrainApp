@@ -7,21 +7,21 @@
 </head>
 
 <body class="login-page">
-<div class="wrapper">
-    <div class="login-box">
-        <div class="login-header">
-            <span>Dodaj nową drużynę</span>
-        </div>
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <span>Dodaj nową drużynę</span>
+            </div>
 
-        <form method="post">
+            <form method="post">
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="input-box">
-                <input name="NewTeam.TeamName" id="TeamName" class="input-field"/>
-                <label asp-for="NewTeam.TeamName" class="label">Nazwa drużyny</label>
-                <span asp-validation-for="NewTeam.TeamName" class="text-danger"></span>
-            </div>
+                <div class="input-box">
+                    <input name="NewTeam.TeamName" id="TeamName" class="input-field" />
+                    <label asp-for="NewTeam.TeamName" class="label">Nazwa drużyny</label>
+                    <span asp-validation-for="NewTeam.TeamName" class="text-danger"></span>
+                </div>
                 <div class="input-box">
                     <input type="text" id="Street" name="Street" class="input-field" />
                     <label for="Street" class="label">Ulica</label>
@@ -34,18 +34,18 @@
                     <input type="text" id="PostalCode" name="PostalCode" class="input-field" />
                     <label for="PostalCode" class="label">Kod pocztowy</label>
                 </div>
-            <div class="input-box">
-                <input name="NewTeam.CreationYear" id="CreationYear" class="input-field" />
-                <label asp-for="NewTeam.CreationYear" class="label">Rok powstania</label>
-                <span asp-validation-for="NewTeam.CreationYear" class="text-danger"></span>
-            </div>
-            <div class="input-box">
+                <div class="input-box">
+                    <input name="NewTeam.PlayersBirthYear" id="PlayersBirthYear" class="input-field" />
+                    <label asp-for="NewTeam.PlayersBirthYear" class="label">Rocznik zawodników</label>
+                    <span asp-validation-for="NewTeam.PlayersBirthYear" class="text-danger"></span>
+                </div>
+                <div class="input-box" style="display: flex; justify-items: center; flex-direction: column;">
                     <input type="submit" class="input-submit" value="Dodaj drużynę" />
-            </div>
-        </form>
+                    <a href="/Admin/Teams" class="btn btn-warning mt-2">Powrót</a>
+                </div>
+            </form>
+        </div>
     </div>
-        <a href="/Admin/Teams" class="btn btn-warning">Powrót</a>
-</div>
 </body>
 
 

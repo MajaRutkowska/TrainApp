@@ -3,19 +3,32 @@
 @model EditNoteModel
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8" />
 </head>
 
 <body class="ur-body">
-    <h2 class="title">Edytuj notatkę</h2>
-
-    <form method="post">
-        <div>
-            <label for="Text">Treść Notatki</label>
-            <textarea id="Text" name="noteText" rows="4" required>@Model.Note.Text</textarea>
-        </div>
-        <input type="hidden" name="noteId" value="@Model.Note.Id" />
-        <button type="submit" class="btn btn-primary">Zapisz</button>
-        <a href="/Coach/PlayerDetails?playerId=@Model.PlayerId" class="buttonR-small btn-danger">Powrót</a>
-    </form>
+    <div class="header-container d-flex align-items-center">
+        <a href="/Coach/PlayerDetails?playerId=@Model.PlayerId">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Edytuj notatkę</h2>
+    </div>
+    <div class="note-container">
+        <form method="post">
+            <div class="d-flex flex-column justify-content-center">
+                <label for="Text" style="font-weight: 500;">Treść Notatki</label>
+                <textarea id="Text" name="NoteText" rows="4" required style="border-radius: 8px;">@Model.Note.Text</textarea>
+                <input type="hidden" name="noteId" value="@Model.Note.Id" />
+                <div style="display: flex; justify-items: center; margin: auto;">
+                    <button type="submit" class="btn btn-warning mt-2" style="width: 150px;">
+                        <i class="fas fa-plus" style="margin-right: 5px;"></i>
+                        Zapisz
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>

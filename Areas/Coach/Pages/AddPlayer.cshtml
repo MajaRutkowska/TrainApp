@@ -6,51 +6,88 @@
 }
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
     <meta charset="utf-8" />
 </head>
+<style>
+
+    .list-container {
+        position: relative;
+        margin: 20px auto;
+        width: fit-content;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        width: 90rem;
+        border-collapse: collapse;
+        overflow: hidden;
+        padding: 15px;
+    }
+
+    .player-card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px; /* Odstępy między kartami */
+        justify-content: flex-start; /* Wyrównanie kart do lewej */
+    }
+
+    .player-card {
+        flex: 0 1 calc(25% - 16px); /* 4 karty w rzędzie, uwzględniając odstępy */
+        max-width: calc(25% - 16px);
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        background-color: #fff;
+    }
+
+    .player-card-body {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+</style>
 
 <body class="ur-body">
-
-   
-
-    <h2 class="title">Dodaj zawodnika</h2>
-    <div class="table-container">
-        <form method="get" class="mb-3">
+    <div class="header-container d-flex align-items-center">
+        <a href="/Coach/MyTeams">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Dodaj zawodnika</h2>
+    </div>
+    <div class="list-container">
+        <form method="get" class="mb-3 d-flex align-items-center gap-2">
             <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
-            <div class="form-floating mb-3">
-                <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]" class="form-control" placeholder="Wyszukaj zawodnika" />
-                <label for="searchQuery">Wyszukaj zawodnika (Imię lub Nazwisko)</label>
+            <div style="width: 30%">
+                <input type="text" name="searchQuery" value="@Request.Query["searchQuery"]"
+                       class="form-control" placeholder="Wyszukaj zawodnika" />
             </div>
-            <button type="submit" class="btn btn-secondary">Filtruj</button>
+            <button type="submit" class="btn btn-warning">
+                <i class="fas fa-search"></i> Filtruj
+            </button>
         </form>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    Imię Nazwisko</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var player in Model.Players)
-                {
-                    <tr>
-                        <td>@player.Name @player.Surname</td>
-                        <td>
-                            <form method="post">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
-                                <input type="hidden" name="PlayerId" value="@player.Id" />
-                                <button type="submit" class="btn btn-primary">Dodaj</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-        <a href="/Coach/MyTeams" class="btn btn-warning">Powrót</a>
+        <div class="player-card-container">
+            @foreach (var player in Model.Players)
+            {
+                <div class="player-card">
+                    <div class="player-card-body">
+                        <p>@player.Name @player.Surname</p>
+                        <form method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="TeamId" value="@Model.Team.TeamId" />
+                            <input type="hidden" name="PlayerId" value="@player.Id" />
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-plus" style="margin-right: 5px;"></i>
+                                Dodaj
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </body>
 @if (TempData["ErrorMessage"] != null)

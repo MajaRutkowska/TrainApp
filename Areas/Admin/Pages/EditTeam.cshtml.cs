@@ -65,7 +65,7 @@ namespace TrainApp.Areas.Admin.Pages
 
             Team.TeamName = TeamToEdit.TeamName;
             Team.Address = $"{Street}, {City}, {PostalCode}";
-            Team.CreationYear = TeamToEdit.CreationYear;
+            Team.PlayersBirthYear = TeamToEdit.PlayersBirthYear;
 
             _context.Attach(Team).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();

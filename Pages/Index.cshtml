@@ -4,10 +4,77 @@
     ViewData["Title"] = "Home page";
 }
 
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<style>
+    /* Tło całego kontenera kalendarza */
+    .start-page .calendar-container {
+        background-color: #f8f9fa; /* Jasne tło */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Pasek narzędzi u góry kalendarza */
+    .start-page .fc-toolbar {
+        background-color: #ffca2c;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+        /* Przyciski nawigacji */
+        .start-page .fc-toolbar button {
+            background-color: #3b3f49;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+    /* Stylowanie dni w siatce */
+    .start-page .fc-daygrid-day {
+        background-color: white;
+        border: 1px solid #ddd;
+    }
+
+    /* Stylowanie wydarzeń */
+    .start-page .fc-event {
+        background-color: #ffca2c;
+        color: black;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 5px;
+        text-align: center;
+    }
+
+    /* Tytuły dni tygodnia */
+    .start-page .fc-col-header-cell {
+        background-color: #ffca2c;
+        color: white;
+        text-transform: uppercase;
+        padding: 10px 0;
+        font-weight: bold;
+    }
+
+    /* Zaznaczenie bieżącego dnia */
+    .start-page .fc-day-today {
+        background-color: #ffedd5;
+        border: 2px solid #ffca2c;
+    }
+
+</style>
+
 <body class="start-page">
     <div class="main">
         <div class="content @((User.Identity.IsAuthenticated) ? "authenticated" : "unauthenticated")">
-            
+
             @if (User.IsInRole("Admin"))
             {
                 <div class="text">
@@ -25,7 +92,7 @@
                 <div class="text">
                     <h2>Witaj w centrum zarządzania drużyną!</h2>
                     <p>
-                      Planowanie treningów i monitorowanie postępów zawodników <br /> w jednym miejscu. 
+                        Planowanie treningów i monitorowanie postępów zawodników <br /> w jednym miejscu.
                     </p>
                 </div>
                 <div class="picture-div">
@@ -59,25 +126,6 @@
             }
         </div>
     </div>
-
-    @if(User.IsInRole("Coach") || User.IsInRole("Player"))
-    {
-        @if (Model.NearestEventTime.HasValue)
-        {
-            <div class="countdown-container">
-                <h3>Nadchodzące wydarzenie:</h3>
-                <p><strong>@Model.NearestEventTitle</strong></p>
-                <p>Czas do wydarzenia: <span id="countdown"></span></p>
-            </div>
-        }
-        else
-        {
-            <div class="countdown-container">
-                <h3>Brak nadchodzących wydarzeń.</h3>
-            </div>
-        }
-    }
-
     @if (User.IsInRole("Coach"))
     {
         <div class="calendar-container">
@@ -98,16 +146,16 @@
                             right: 'dayGridMonth,timeGridWeek,timeGridDay'
                         },
                         buttonText: {
-                        today: 'Dziś',
-                        month: 'Miesiąc',
-                        week: 'Tydzień',
-                        day: 'Dzień'
-                    },
+                            today: 'Dziś',
+                            month: 'Miesiąc',
+                            week: 'Tydzień',
+                            day: 'Dzień'
+                        },
                         events: trainings.map(training => ({
                             title: training.title,
                             start: training.start,
                             end: training.end,
-                            color: training.color 
+                            color: training.color // Przekazujemy kolor z backendu
                         })),
                         eventClick: function (info) {
 
@@ -127,7 +175,7 @@
                                     .then(data => {
                                         if (data.success) {
                                             alert('Trening został usunięty');
-                                            info.event.remove(); 
+                                            info.event.remove();
                                         } else {
                                             alert('Wystąpił błąd: ' + data.message);
                                         }
@@ -143,36 +191,16 @@
             </script>
 
             <div id="calendar"></div>
-        </div>
-        
-            <div class="main">
-            <h3>Dodaj nowe wydarzenie</h3>
-            <form method="post">
-                <div class="form-group">
-                    <label for="title">Tytuł treningu:</label>
-                    <input type="text" name="Title" id="title" class="form-control" required />
-                </div>
-                <div class="form-group">
-                    <label for="date">Data treningu:</label>
-                    <input type="datetime-local" name="Date" id="date" class="form-control" required />
-                </div>
-                <div class="form-group">
-                    <label for="teamId">Wybierz drużynę:</label>
-                    <select name="TeamId" id="teamId" class="form-control" required>
-                        @foreach (var team in Model.Teams)
-                        {
-                            <option value="@team.TeamId">@team.TeamName</option>
-                        }
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="color">Wybierz kolor wydarzenia:</label>
-                    <input type="color" name="Color" id="color" class="form-control" />
-                </div>
-                <button type="submit" class="btn btn-primary">Dodaj trening</button>
-            </form>
+            <div style="margin-top: 10px; display: flex; justify-content: center;">
+                <a href="/Coach/AddTraining" class="btn btn-warning">
+                    <i class="fas fa-plus"></i>
+                    Dodaj wydarzenie
+                </a>
             </div>
-            }
+        </div>
+
+        
+    }
     else if (User.IsInRole("Player"))
     {
         <div class="calendar-container">
@@ -192,12 +220,12 @@
                             center: 'title',
                             right: 'dayGridMonth,timeGridWeek,timeGridDay'
                         },
-                        buttonText:{
-                        today: 'Dziś',
-                        month: 'Miesiąc',
-                        week: 'Tydzień',
-                        day: 'Dzień'
-                    },
+                        buttonText: {
+                            today: 'Dziś',
+                            month: 'Miesiąc',
+                            week: 'Tydzień',
+                            day: 'Dzień'
+                        },
                         events: trainings.map(training => ({
                             title: training.title,
                             start: training.start,
@@ -213,28 +241,3 @@
         </div>
     }
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var nearestEventTime = new Date("@Model.NearestEventTime?.ToString("yyyy-MM-ddTHH:mm:ss")");
-
-        function updateCountdown() {
-            var now = new Date();
-            var timeDifference = nearestEventTime - now;
-
-            if (timeDifference > 0) {
-                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-                document.getElementById('countdown').innerText =
-                    `${days} dni ${hours} godz. ${minutes} min. ${seconds} sek.`;
-            } else {
-                document.getElementById('countdown').innerText = "Wydarzenie już trwa lub minęło!";
-            }
-        }
-
-        setInterval(updateCountdown, 1000); // Aktualizuj co sekundę
-        updateCountdown(); // Uruchom od razu
-    });
-</script>

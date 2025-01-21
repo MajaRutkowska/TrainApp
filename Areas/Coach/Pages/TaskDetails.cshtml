@@ -40,7 +40,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         const progressBar = document.querySelector(".progress-bar");
         const progressLabel = document.querySelector(".progress-label");
-        const progressValue = 80; 
+        const progressValue = parseInt('@Model.CompletionPercentage');
 
         progressBar.style.width = progressValue + "%";
         progressLabel.textContent = progressValue + "%";
@@ -55,7 +55,7 @@
         <h2 class="title text-center flex-grow-1">Szczegóły zadania</h2>
     </div>
 
-    <div class="card-container">
+    <div class="card-container" style="margin-bottom: 15px;">
         <div class="card" style="border: 3px solid #ffca2c">
             <div class="card-header card-title">
                 @Model.Exercise.Title
@@ -63,14 +63,12 @@
             <div class="card-body">
                 <p><strong>Opis:</strong> @Model.Exercise.Description</p>
                 <p><strong>Przypisane do:</strong> @Model.AssignedEntityName</p>
-                <p><strong>Data wykonania:</strong> @Model.Exercise.EndDate.ToString("dd.MM.yyyy")</p>
                 @if (Model.AssignedEntity == "Player")
                 {
                     <p><strong>Status:</strong> @Model.CompletionStatus</p>
                 }
                 else
                 {
-                    <p>@Model.CompletionPercentage</p>
                     <div class="d-flex flex-row gap-2 align-items-center">
                         <div>
                             <label style="font-weight: 400; color: black;">Wykonanie: </label>
@@ -79,20 +77,19 @@
                             <div class="progress-bar"></div>
                             <span class="progress-label"></span>
                         </div>
-                    </div>
-                    <div class="buttons mt-2">
-                        <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#undonePlayers" aria-expanded="false" aria-controls="undonePlayers">
-                            <i class="fa fa-exclamation" aria-hidden="true" style="margin-right: 5px;"></i>
-                            Zobacz, którzy zawodnicy nie wykonali zadania
-                        </button>
+                        <div>
+                            <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#undonePlayers" aria-expanded="false" aria-controls="undonePlayers">
+                                <i class="fa fa-exclamation" aria-hidden="true" style="margin-right: 5px;"></i>
+                                Zobacz, którzy zawodnicy nie wykonali zadania
+                            </button>
+                        </div>
                     </div>
                     <div class="collapse mt-3" id="undonePlayers">
                         <div class="card card-body">
-                            <h4>Nie wykonali zadania</h4>
-                            <ul class="pending-players-list">
+                            <ul>
                                 @foreach (var player in Model.Players)
                                 {
-                                    <li>@player.Name @player.Surname</li>
+                                    <li style="color: red; font-weight:400; font-size: 16px; ">@player.Name @player.Surname</li>
                                 }
                             </ul>
                         </div>
@@ -101,27 +98,36 @@
                 </<div>
                 </div>
             </div>
-
-            <div class="team-details">
+            </<div>
             </div>
-            <div class="materials-section">
-                <h3>Materiały do zadania</h3>
-                <ul>
-                    @foreach (var material in Model.Materials)
-                    {
-                        <li>
-                            <a href="@Url.Page("TaskDetails", "DownloadMaterial", new { materialId = material.MaterialId })" target="_blank">
-                                @material.FileName
-                            </a>
-                        </li>
-                    }
-                </ul>
 
-                <h4>Dodaj nowe materiały</h4>
-                <form method="post" enctype="multipart/form-data" asp-route-exerciseId="@Model.Exercise.ExerciseId">
-                    @Html.AntiForgeryToken()
-                    <input type="file" name="UploadedFiles" multiple />
-                    <button type="submit" class="btn btn-primary">Prześlij</button>
-                </form>
-            </div>
+            <div class="card-container">
+                <div class="card" style="border: 3px solid #ffca2c">
+                    <div class="card-header card-title">
+                        Materiały do zadania
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            @foreach (var material in Model.Materials)
+                            {
+                                <li>
+                                    <a href="@Url.Page("TaskDetails", "DownloadMaterial", new { materialId = material.MaterialId })" target="_blank">
+                                        @material.FileName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+
+                        <form method="post" enctype="multipart/form-data" asp-route-exerciseId="@Model.Exercise.ExerciseId">
+                            @Html.AntiForgeryToken()
+                            <input type="file" name="UploadedFiles" multiple style="width: 100%; margin-bottom: 10px; border: 2px solid lightgray;
+                    border-style: dashed; height: 80px; align-content: center; padding: 10px;" />
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-plus" style="margin-right: 5px;"> </i>
+                                Dodaj nowe materiały
+                            </button>
+                        </form>
+                    </div>
+                    </<div>
+                    </div>
 </body>

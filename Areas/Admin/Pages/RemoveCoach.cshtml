@@ -3,7 +3,10 @@
 @model RemoveCoachModel
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8" />
 </head>
 
 <body class="login-page">
@@ -19,15 +22,15 @@
                 <p><strong>Nazwisko:</strong> @Model.Coach.Surname</p>
                 <p><strong>Data urodzenia:</strong> @Model.Coach.BirthDate.ToString("yyyy-MM-dd")</p>
             </div>
-
-            <form method="post">
-                <input type="hidden" name="Coach.Id" value="@Model.Coach.Id" />
-                <input type="submit" value="Usuń trenera" class="input-submit" />
-            </form>
-
-        <div>
+            <div>
+                <form method="post">
+                    <input type="hidden" name="Coach.Id" value="@Model.Coach.Id" />
+                    <input type="submit" value="Usuń trenera" class="btn btn-danger" style="margin-bottom: 10px;" />
+                </form>
+            </div>
+            <div>
                 <a href="/Admin/ManageTeam?teamid=@Model.Team.TeamId" class="btn btn-warning">Powrót</a>
-        </div>
+            </div>
         </div>
 </body>
 

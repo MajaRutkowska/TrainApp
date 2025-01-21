@@ -36,10 +36,10 @@
             </div>
             <thead>
                 <tr>
-                    <th style="width: 22%">Nazwa</th>
-                    <th style="width: 22%">Adres</th>
-                    <th style="width: 15%">Rok powstania</th>
-                    <th style="width: 22%">Trener</th>
+                    <th style="width: 20%">Nazwa</th>
+                    <th style="width: 22%">Miejsce treningów</th>
+                    <th style="width: 15%">Rocznik zawodników</th>
+                    <th style="width: 20%">Trener</th>
                     <th></th>
                 </tr>
             </thead>
@@ -49,17 +49,17 @@
                     <tr>
                         <td>@team.Team.TeamName</td>
                         <td>@team.Team.Address</td>
-                        <td>@team.Team.CreationYear</td>
+                        <td>@team.Team.PlayersBirthYear</td>
                         <td>@team.CoachName</td>
-                        <td style="display: flex; gap: 16px; justify-content: flex-end; align-items: center;">
-                            <form method="post" style="margin: 0;">
+                        <td style="display: flex; justify-content: flex-end;">
+                            <form method="post">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="teamId" value="@team.Team.TeamId" />
                                 <button type="submit" class="btn btn-warning">Zarządzaj drużyną</button>
+                                <a href="/Admin/DeleteTeam?teamid=@team.Team.TeamId" class="btn btn-danger">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
                             </form>
-                            <a href="/Admin/DeleteTeam?teamid=@team.Team.TeamId" class="btn btn-danger" title="Usuń drużynę">
-                                <i class="fas fa-trash"></i>
-                            </a>
                         </td>
                     </tr>
                 }

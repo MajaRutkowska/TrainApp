@@ -11,8 +11,9 @@ namespace TrainApp.Data.Models
         public string TeamName { get; set; }
         [Required]
         public string Address { get; set; }
+
         [Required]
-        public int CreationYear { get; set; }
+        public int PlayersBirthYear { get; set; }
 
         public virtual ICollection<TeamUser> TeamUser { get; set; } = new List<TeamUser>();
         public virtual ICollection<Training> Training { get; set; } = new List<Training>();

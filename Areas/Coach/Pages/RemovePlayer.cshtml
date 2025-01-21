@@ -3,7 +3,10 @@
 @model RemovePlayerModel
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8" />
 </head>
 
 <body class="login-page">
@@ -20,15 +23,17 @@
                 <p><strong>Data urodzenia:</strong> @Model.Player.BirthDate.ToString("yyyy-MM-dd")</p>
             </div>
 
-            <form method="post">
-                <input type="hidden" name="Player.Id" value="@Model.Player.Id" />
-                <input type="hidden" name="Team.TeamId" value="@Model.Team.TeamId" />
-                <input type="submit" value="Usuń zawodnika" class="input-submit" />
-            </form>
+            <div>
+                <form method="post">
+                    <input type="hidden" name="Player.Id" value="@Model.Player.Id" />
+                    <input type="hidden" name="Team.TeamId" value="@Model.Team.TeamId" />
+                    <input type="submit" value="Usuń zawodnika" class="btn btn-danger" style="margin-bottom: 10px;" />
+                </form>
+            </div>
 
-        <div>
+            <div>
                 <a href="/Coach/TeamDetails?teamid=@Model.Team.TeamId" class="btn btn-warning">Powrót</a>
-        </div>
+            </div>
         </div>
 </body>
 

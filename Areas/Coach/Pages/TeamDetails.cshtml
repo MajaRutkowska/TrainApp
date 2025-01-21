@@ -3,27 +3,57 @@
 @model TeamDetailsModel
 
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/site.css" />
+    <meta charset="utf-8" />
 </head>
 
 <body class="ur-body">
-    <h2 class="title">Zarządzaj Drużyną</h2>
-
-    <div class="team-details">
-        <p><strong>Nazwa:</strong> @Model.Team.TeamName</p>
-        <p><strong>Adres:</strong> @Model.Team.Address</p>
-        <p><strong>Rok powstania:</strong> @Model.Team.CreationYear</p>
+    <div class="header-container d-flex align-items-center">
+        <a href="/Coach/MyTeams">
+            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
+        </a>
+        <h2 class="title text-center flex-grow-1">Zarządzaj drużyną</h2>
     </div>
 
-    <h3 class="subtitle">Zawodnicy</h3>
+    <div class="card-container">
+        <div class="card" style="border: 3px solid #ffca2c">
+            <div class="card-header card-title">
+                @Model.Team.TeamName
+            </div>
+            <div class="card-body">
+                <p><strong>Miejsce treningów:</strong> @Model.Team.Address</p>
+                <p><strong>Rocznik zawodników:</strong> @Model.Team.PlayersBirthYear</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: flex; flex-direction: row; gap: 10px; align-items: center;">
+        <div>
+            <h3 class="subtitle" style="color: #ffca2c; margin-bottom: 0px;">Zawodnicy</h3>
+        </div>
+        <div>
+            <a href="/Coach/AddPlayer?teamid=@Model.Team.TeamId" class="btn btn-warning">
+                <i class="fas fa-plus" style="margin-right: 5px;"></i>
+                Dodaj Zawodnika
+            </a>
+        </div>
+        <div>
+            <a href="/Coach/TeamDetails?teamId=@Model.Team.TeamId&exportPdf=true" class="btn btn-warning">
+                <i class="fa fa-file" aria-hidden="true" style="margin-right: 5px;"></i>
+                Generuj PDF
+            </a>
+        </div>
+    </div>
     <div class="table-container">
-        <table class="table">
+        <table class="table" style="width: 87rem">
             <thead>
                 <tr>
                     <th>Imię</th>
                     <th>Nazwisko</th>
                     <th>Data urodzenia</th>
-                    <th>   </th>
+                    <th style="width: 23%;">   </th>
                 </tr>
             </thead>
             <tbody>
@@ -34,24 +64,23 @@
                         <td>@player.Surname</td>
                         <td>@player.BirthDate.ToString("yyyy-MM-dd")</td>
                         <td>
-                        <form method="post">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="playerId" value="@player.Id" />
-                            <input type="hidden" name="teamId" value="@Model.Team.TeamId" />
-                            <a href="/Coach/RemovePlayer?playerId=@player.Id&teamId=@Model.Team.TeamId" class="buttonR-small btn-danger">Usuń zawodnika</a>
-                               <a href="/Coach/PlayerDetails?playerId=@player.Id&teamId=@Model.Team.TeamId" class="buttonR-small btn-danger">Profil zawodnika</a>
-                        </form>
+                            <form method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="playerId" value="@player.Id" />
+                                <input type="hidden" name="teamId" value="@Model.Team.TeamId" />
+                                <a href="/Coach/PlayerDetails?playerId=@player.Id&teamId=@Model.Team.TeamId" class="btn btn-warning">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    Profil zawodnika
+                                </a>
+                                <a href="/Coach/RemovePlayer?playerId=@player.Id&teamId=@Model.Team.TeamId" class="btn btn-danger">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    Usuń
+                                </a>
+                            </form>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
-
-    <div class="buttons">
-        <a href="/Coach/MyTeams" class="buttonR btn-warning">Powrót</a>
-        <a href="/Coach/AddTask" class="buttonR btn-danger">Dodaj Zadanie</a>
-        <a href="/Coach/AddPlayer?teamid=@Model.Team.TeamId" class="buttonR btn-success">Dodaj Zawodnika</a>
-        <a href="/Coach/TeamDetails?teamId=@Model.Team.TeamId&exportPdf=true" class="buttonR btn-primary">Generuj PDF</a>
     </div>
 </body>
