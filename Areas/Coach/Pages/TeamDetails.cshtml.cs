@@ -18,8 +18,7 @@ using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using iText.Layout;
 using iText.Kernel.Font;
-using Org.BouncyCastle.Crypto;
-using iText.Bouncycastleconnector;
+
 
 namespace TrainApp.Areas.Coach.Pages
 {
@@ -94,7 +93,7 @@ namespace TrainApp.Areas.Coach.Pages
 
             foreach (var player in Players)
             {
-                document.Add(new Paragraph($"{player.Name} {player.Surname}, Data urodzenia: {player.BirthDate:yyyy-MM-dd}"));
+                document.Add(new Paragraph($"{player.Name} {player.Surname}"));
             }
 
             document.Close();

@@ -10,22 +10,22 @@
 </head>
 
 <style>
-    /* Tło całego kontenera kalendarza */
+    
     .start-page .calendar-container {
-        background-color: #f8f9fa; /* Jasne tło */
+        background-color: #f8f9fa;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
-    /* Pasek narzędzi u góry kalendarza */
+  
     .start-page .fc-toolbar {
         background-color: #ffca2c;
         border-radius: 8px;
         padding: 10px;
     }
 
-        /* Przyciski nawigacji */
+  
         .start-page .fc-toolbar button {
             background-color: #3b3f49;
             color: white;
@@ -38,13 +38,11 @@
             font-weight: bold;
         }
 
-    /* Stylowanie dni w siatce */
+   
     .start-page .fc-daygrid-day {
         background-color: white;
         border: 1px solid #ddd;
     }
-
-    /* Stylowanie wydarzeń */
     .start-page .fc-event {
         background-color: #ffca2c;
         color: black;
@@ -54,7 +52,7 @@
         text-align: center;
     }
 
-    /* Tytuły dni tygodnia */
+
     .start-page .fc-col-header-cell {
         background-color: #ffca2c;
         color: white;
@@ -63,7 +61,6 @@
         font-weight: bold;
     }
 
-    /* Zaznaczenie bieżącego dnia */
     .start-page .fc-day-today {
         background-color: #ffedd5;
         border: 2px solid #ffca2c;
@@ -80,7 +77,7 @@
                 <div class="text">
                     <h2>Witaj w panelu zarządzania szkółką</h2>
                     <p>
-                        Twórz drużyny, przypisuj trenerów, zarządzaj kalendarzem i kontroluj wszystkie działania w szkółce. Zorganizuj pracę na najwyższym poziomie!
+                        Twórz drużyny, przypisuj trenerów i kontroluj wszystkie działania w szkółce. Zorganizuj pracę na najwyższym poziomie!
                     </p>
                 </div>
                 <div class="picture-div">
@@ -116,7 +113,7 @@
                 <div class="text">
                     <h2>Zarządzaj swoją szkółką  łatwo <br /> i efektywnie</h2>
                     <p>
-                        Twórz druzyny, planuj treningi, przypisuj zadania i monitoruj ich wykonanie. Trenerzy z łatwością mogą organizować treningi, a zawodnicy mają dostęp do kalendarza z nadchodzącymi wydarzeniami oraz listy zadań do wykonania. Wszysto co potrzebne do usprawnienia funkcjonowania swojej szkółki w jednym miejscu
+                        Twórz drużyny, planuj treningi, przypisuj zadania i monitoruj ich wykonanie. Trenerzy z łatwością mogą organizować zajęcia, a zawodnicy mają dostęp do kalendarza z nadchodzącymi wydarzeniami oraz listy zadań do wykonania. Wszysto co potrzebne do usprawnienia funkcjonowania szkółki w jednym miejscu
                     </p>
                     <a href="Identity/Account/Register" class="buttonR">Zarejestruj się teraz</a>
                 </div>
@@ -126,6 +123,24 @@
             }
         </div>
     </div>
+    @if (User.IsInRole("Coach") || User.IsInRole("Player"))
+    {
+        @if (Model.NearestEventTime.HasValue)
+        {
+            <div class="countdown-container">
+                <h3>Nadchodzące wydarzenie:</h3>
+                <p><strong>@Model.NearestEventTitle</strong></p>
+                <p>Czas do wydarzenia: <span id="countdown"></span></p>
+            </div>
+        }
+        else
+        {
+            <div class="countdown-container">
+                <h3>Brak nadchodzących wydarzeń.</h3>
+            </div>
+        }
+    }
+
     @if (User.IsInRole("Coach"))
     {
         <div class="calendar-container">
@@ -241,3 +256,58 @@
         </div>
     }
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var nearestEventTime = new Date("@Model.NearestEventTime?.ToString("yyyy-MM-ddTHH:mm:ss")");
+        function updateCountdown() {
+            var now = new Date();
+            var timeDifference = nearestEventTime - now;
+            if (timeDifference > 0) {
+                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                document.getElementById('countdown').innerText =
+                    `${days} dni ${hours} godz. ${minutes} min. ${seconds} sek.`;
+            } else {
+                document.getElementById('countdown').innerText = "Wydarzenie już trwa lub minęło!";
+            }
+        }
+        setInterval(updateCountdown, 1000); // Aktualizuj co sekundę
+        updateCountdown(); // Uruchom od razu
+    });
+</script>
+<style>
+    .countdown-container {
+        text-align: center;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 350px;
+        margin: 20px auto;
+        transition: all 0.3s ease;
+    }
+
+    .countdown-container h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .countdown-container p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #ffca2c;
+    }
+
+    .countdown-container span {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #e53e3e;
+        animation: pulse 1.5s infinite;
+    }
+
+   
+    }
+</style>

@@ -9,29 +9,28 @@
     <meta charset="utf-8" />
 </head>
 
-<body class="login-page">
+<body class="ur-body">
 
     <div class="wrapper">
-        <div class="login-box">
-            <div class="login-header">
-                <span>Usuń trenera</span>
+        <<div class="login-box" style="border-color: #ffca2c !important;">
+            <div class="login-header" style="background-color: #ffca2c">
+                <span style="font-weight:600;">Usuń trenera</span>
             </div>
-            <p>Czy jesteś pewnien, że chcesz usunąć tego trenera z drużyny?</p>
+            <p style="color: white">Czy jesteś pewnien, że chcesz usunąć tego trenera z drużyny?</p>
             <div>
-                <p><strong>Imię:</strong>@Model.Coach.Name</p>
-                <p><strong>Nazwisko:</strong> @Model.Coach.Surname</p>
-                <p><strong>Data urodzenia:</strong> @Model.Coach.BirthDate.ToString("yyyy-MM-dd")</p>
+                <p style="color: white"><strong>Imię:</strong>@Model.Coach.Name</p>
+                <p style="color: white"><strong>Nazwisko:</strong> @Model.Coach.Surname</p>
+                <p style="color: white"><strong>Data urodzenia:</strong> @Model.Coach.BirthDate.ToString("yyyy-MM-dd")</p>
             </div>
-            <div>
-                <form method="post">
+            <form method="post">
+                <div style="display: flex; justify-items: center; flex-direction: column;">
                     <input type="hidden" name="Coach.Id" value="@Model.Coach.Id" />
                     <input type="submit" value="Usuń trenera" class="btn btn-danger" style="margin-bottom: 10px;" />
-                </form>
-            </div>
-            <div>
-                <a href="/Admin/ManageTeam?teamid=@Model.Team.TeamId" class="btn btn-warning">Powrót</a>
-            </div>
+                    <a href="/Admin/ManageTeam?teamid=@Model.Team.TeamId" class="btn btn-warning mt-2">Powrót</a>
+                </div>
+            </form>
         </div>
+    </div>
 </body>
 
 

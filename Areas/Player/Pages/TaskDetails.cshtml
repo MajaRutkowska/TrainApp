@@ -20,7 +20,7 @@
     <div class="card-container">
         <div class="card" style="border: 3px solid #ffca2c">
             <div class="card-header card-title">
-                @if (Model.Exercise.EndDate <= DateTime.Now.AddDays(2)) // Sprawdzenie, czy termin jest krótszy niż 2 dni
+                @if (Model.Exercise.EndDate <= DateTime.Now.AddDays(2)) 
                 {
                     <i class="fas fa-exclamation-circle text-danger" title="Zadanie do wykonania wkrótce" style="margin-right: 10px; margin-top:5px;"></i>
                 }
@@ -33,10 +33,10 @@
                 <form method="post">
                     @Html.AntiForgeryToken()
                     <div class="form-group">
-                        <label>
+                        <label style="color:#212529;">
                             <input type="hidden" value="@Model.Exercise.ExerciseId" name="exerciseId" />
                             <input type="checkbox" name="isCompleted" value="true" @(Model.IsCompleted ? "checked" : "")
-                                   onchange="this.form.submit()" />
+                                   onchange="this.form.submit()"  />
                             Oznacz jako wykonane
                         </label>
                     </div>

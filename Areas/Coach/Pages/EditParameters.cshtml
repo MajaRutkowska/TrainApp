@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/site.css" />
     <meta charset="utf-8" />
 </head>
-<style>
+@* <style>
     form#addTaskForm {
         display: grid;
         grid-template-columns: 150px auto; /* Label 150px szerokości, input zajmuje resztę */
@@ -34,84 +34,97 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-</style>
+</style> *@
 
 <body class="ur-body">
-
-
-    <div class="header-container d-flex align-items-center">
-        <a href="/Coach/PlayerDetails?playerId=@Model.Player.Id">
-            <i class="fa fa-arrow-left back-icon" aria-hidden="true"></i>
-        </a>
-        <h2 class="title text-center flex-grow-1">Edytuj parametry</h2>
-    </div>
-
-    <div style="max-width: 600px; margin: auto;">
-        <form method="post" id="addTaskForm">
-
-            @Html.AntiForgeryToken()
-            <input type="hidden" name="PlayerId" value="@Model.Player.Id" />
-
-            <div class="form-group">
-                <label for="Height" title="Wzrost zawodnika w centymetrach">Wzrost:</label>
-                <input type="number" id="Height" name="Height" class="form-control" value="@Model.Parameters?.Height" required />
-            </div>
-
-            <div class="form-group">
-                <label for="Weight" title="Waga zawodnika w kilogramach">Waga:</label>
-                <input type="number" id="Weight" name="Weight" class="form-control" value="@Model.Parameters?.Weight" required />
-            </div>
-
-            <div class="form-group">
-                <label for="Speed" title="Czas biegu na 100 metrów">Szybkość:</label>
-                <input type="number" id="Speed" name="Speed" class="form-control" value="@Model.Parameters?.Speed" required />
-            </div>
-
-            <div class="form-group">
-                <label for="Endurance" title="Wynik BeepTest">Wytrzymałość:</label>
-                <input type="number" id="Endurance" name="Endurance" class="form-control" value="@Model.Parameters?.Endurance" required />
-            </div>
-
-            <div class="form-group">
-                <label for="HighJump" title="Skok dosiężny mierzony w centymetrach">Skok wzwyż:</label>
-                <input type="number" step="0.01" id="HighJump" name="HighJump" class="form-control" value="@Model.Parameters?.HighJump" required />
-            </div>
-
-            <div class="form-group">
-                <label for="Dribble" title="Czas pokonania toru z pachołkami">Drybling:</label>
-                <input type="number" step="0.01" id="Dribble" name="Dribble" class="form-control" value="@Model.Parameters?.Dribble" required />
-            </div>
-
-            <div class="form-group">
-                <label for="LegStrength" title="Liczba przysiadów wykonanych w minutę">Siła nóg:</label>
-                <input type="number" id="LegStrength" name="LegStrength" class="form-control" value="@Model.Parameters?.LegStrength" required />
-            </div>
-
-            <div class="form-group">
-                <label for="ShotPower" title="Szybkość piłki mierzona po strzale">Siła strzału:</label>
-                <input type="number" step="0.01" id="ShotPower" name="ShotPower" class="form-control" value="@Model.Parameters?.ShotPower" required />
-            </div>
-
-            <div class="form-group">
-                <label for="Flexibility" title="Skłon poniżej poziomu stóp mierzony w centymetrach">Elastyczność:</label>
-                <input type="number" step="0.01" id="Flexibility" name="Flexibility" class="form-control" value="@Model.Parameters?.Flexibility" required />
-            </div>
-
-            <div style="display: flex; justify-items: center; margin: auto; grid-column: span 2;">
-                <button type="submit" class="btn btn-warning">
+    <div style="min-width: 30rem;">
+        <div class="login-box" style="border-color: #ffca2c !important;">
+            <div class="login-header" style="background-color: #ffca2c">
+                <span style="font-weight:600;">
                     @if (Model.Parameters == null)
                     {
                         <text>Dodaj parametry</text>
                     }
                     else
                     {
-                        <text>Zapisz zmiany</text>
+                        <text>Edytuj parametry</text>
                     }
-                </button>
+                </span>
             </div>
-        </form>
+            <form method="post" id="addTaskForm">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="PlayerId" value="@Model.Player.Id" />
+
+                <div class="input-box">
+                    <input name="Height" id="Height" class="input-field" value="@Model.Parameters?.Height" required />
+                    <label asp-for="Parameters.Height" class="label" style="background-color: #ffca2c; font-weight: 500;">Wzrost</label>
+                    <span asp-validation-for="Parameters.Height" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input name="Weight" id="Weight" class="input-field" value="@Model.Parameters?.Weight" required />
+                    <label asp-for="Parameters.Weight" class="label" style="background-color: #ffca2c; font-weight: 500;">Waga</label>
+                    <span asp-validation-for="Parameters.Weight" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input name="Speed" id="Speed" class="input-field" value="@Model.Parameters?.Speed" required />
+                    <label asp-for="Parameters.Speed" class="label" style="background-color: #ffca2c; font-weight: 500;">Szybkość</label>
+                    <span asp-validation-for="Parameters.Speed" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input name="Endurance" id="Endurance" class="input-field" value="@Model.Parameters?.Endurance" required />
+                    <label asp-for="Parameters.Endurance" class="label" style="background-color: #ffca2c; font-weight: 500;">Wytrzymałość</label>
+                    <span asp-validation-for="Parameters.Endurance" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input name="HighJump" id="HighJump" class="input-field" value="@Model.Parameters?.HighJump" required />
+                    <label asp-for="Parameters.HighJump" class="label" style="background-color: #ffca2c; font-weight: 500;">Skok wzwyż</label>
+                    <span asp-validation-for="Parameters.HighJump" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input name="Dribble" id="Dribble" class="input-field" value="@Model.Parameters?.Dribble" required />
+                    <label asp-for="Parameters.Dribble" class="label" style="background-color: #ffca2c; font-weight: 500;">Drybling</label>
+                    <span asp-validation-for="Parameters.Dribble" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input name="LegStrength" id="LegStrength" class="input-field" value="@Model.Parameters?.LegStrength" required />
+                    <label asp-for="Parameters.LegStrength" class="label" style="background-color: #ffca2c; font-weight: 500;">Siła nóg</label>
+                    <span asp-validation-for="Parameters.LegStrength" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input name="ShotPower" id="ShotPower" class="input-field" value="@Model.Parameters?.ShotPower" required />
+                    <label asp-for="Parameters.ShotPower" class="label" style="background-color: #ffca2c; font-weight: 500;">Siła strzału</label>
+                    <span asp-validation-for="Parameters.ShotPower" class="text-danger"></span>
+                </div>
+
+                <div class="input-box">
+                    <input name="Flexibility" id="Flexibility" class="input-field" value="@Model.Parameters?.Flexibility" required />
+                    <label asp-for="Parameters.Flexibility" class="label" style="background-color: #ffca2c; font-weight: 500;">Elastyczność</label>
+                    <span asp-validation-for="Parameters.Flexibility" class="text-danger"></span>
+                </div>
+
+
+                <div style="display: flex; justify-items: center; flex-direction: column;">
+                    <button type="submit" class="btn btn-warning">
+                        @if (Model.Parameters == null)
+                        {
+                            <text>Dodaj parametry</text>
+                        }
+                        else
+                        {
+                            <text>Zapisz zmiany</text>
+                        }
+                    </button>
+                    <a href="/Coach/PlayerDetails?playerId=@Model.Player.Id" style="background-color: #0A1A16; color: white;" class="btn mt-2">Powrót</a>
+                </div>
+            </form>
+        </div>
     </div>
-
 </body>
-
-}
